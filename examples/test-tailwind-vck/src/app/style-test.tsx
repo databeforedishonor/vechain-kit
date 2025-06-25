@@ -55,11 +55,11 @@ export default function StyleTest() {
                         if (
                             ruleText.includes('body {') &&
                             ruleText.includes('font-family') &&
-                            ruleText.includes('var(--chakra') &&
+                            ruleText.includes('var(--') &&
                             !ruleText.includes('@layer')
                         ) {
                             analysis.push(
-                                '⚠️ Found Chakra body styles outside layer system',
+                                '⚠️ Found UI library body styles outside layer system',
                             );
                             conflictStatus = 'warning';
                         }
@@ -99,8 +99,8 @@ export default function StyleTest() {
                 fontFamily.includes('system-ui')
             ) {
                 analysis.push('✅ Host app font family preserved');
-            } else if (fontFamily.includes('var(--chakra')) {
-                analysis.push('❌ Chakra font variables overriding host app');
+            } else if (fontFamily.includes('var(--')) {
+                analysis.push('❌ UI library font variables overriding host app');
                 conflictStatus = 'error';
             }
             // Test 4: Image borders should work correctly
@@ -269,7 +269,7 @@ fill='%23e5e7eb'/%3E%3C/svg%3E"
                             The VeChain Kit wallet button should render properly
                         </li>
                         <li>
-                            Font family should be Arial or system-ui (not Chakra
+                            Font family should be Arial or system-ui (not UI library
                             fonts)
                         </li>
                         <li>

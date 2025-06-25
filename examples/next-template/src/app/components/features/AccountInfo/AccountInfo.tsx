@@ -1,6 +1,5 @@
 'use client';
 
-import { Box, Heading, Text, Spinner } from '@chakra-ui/react';
 import { useWallet, useGetB3trBalance } from '@vechain/vechain-kit';
 
 export function AccountInfo() {
@@ -9,36 +8,36 @@ export function AccountInfo() {
         useGetB3trBalance(smartAccount.address ?? undefined);
 
     return (
-        <>
+        <div className="space-y-6">
             {smartAccount.address && (
-                <Box>
-                    <Heading size={'md'}>
+                <div className="bg-white rounded-lg p-6 shadow-md">
+                    <h3 className="text-lg font-semibold mb-4">
                         <b>Smart Account</b>
-                    </Heading>
-                    <Text data-testid="smart-account-address">
+                    </h3>
+                    <p className="text-sm text-gray-700 mb-2" data-testid="smart-account-address">
                         Smart Account: {smartAccount.address}
-                    </Text>
-                    <Text data-testid="is-sa-deployed">
+                    </p>
+                    <p className="text-sm text-gray-700 mb-2" data-testid="is-sa-deployed">
                         Deployed: {smartAccount.isDeployed.toString()}
-                    </Text>
+                    </p>
                     {b3trBalanceLoading ? (
-                        <Spinner />
+                        <div className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
                     ) : (
-                        <Text data-testid="b3tr-balance">
+                        <p className="text-sm text-gray-700" data-testid="b3tr-balance">
                             B3TR Balance: {b3trBalance?.formatted}
-                        </Text>
+                        </p>
                     )}
-                </Box>
+                </div>
             )}
 
-            <Box>
-                <Heading size={'md'}>
+            <div className="bg-white rounded-lg p-6 shadow-md">
+                <h3 className="text-lg font-semibold mb-4">
                     <b>Wallet</b>
-                </Heading>
-                <Text data-testid="connected-wallet-address">
+                </h3>
+                <p className="text-sm text-gray-700" data-testid="connected-wallet-address">
                     Address: {connectedWallet?.address}
-                </Text>
-            </Box>
-        </>
+                </p>
+            </div>
+        </div>
     );
 }

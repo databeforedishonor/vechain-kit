@@ -30,7 +30,7 @@ export class DashboardPage extends BasePage {
     super(page, context, vwmock)
 
     this.connectWalletButton = this.page.getByTestId("connect-wallet")
-    this.pageBodyElem = this.page.locator("//body[contains(@class, 'chakra-ui')]")
+    this.pageBodyElem = this.page.locator("body")
     this.languageDropdown = this.page.getByTestId("select-language")
     this.accountModalButton = this.page.getByTestId("account-modal-button")
     this.walletButton = this.page.getByTestId("wallet-button")
@@ -51,7 +51,14 @@ export class DashboardPage extends BasePage {
 
   async currentTheme(): Promise<string> {
     const classVal = await this.pageBodyElem.getAttribute("class")
-    return classVal!.slice('chakra-ui-'.length)
+    // Check for dark/light mode classes in body element
+    if (classVal?.includes('dark')) return 'dark'
+    if (classVal?.includes('light')) return 'light'
+    // Fallback to chakra detection for backwards compatibility
+    if (classVal?.includes('chakra-ui-')) {
+      return classVal!.slice('chakra-ui-'.length)
+    }
+    return 'light' // default theme
   }
 
   async changeTheme(theme: Theme): Promise<void> {

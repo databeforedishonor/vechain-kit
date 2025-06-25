@@ -49,7 +49,7 @@ export class AccountModal extends BasePage {
         this.notifications = new AccountModalNotifications(page);
 
         this.modalBody = this.page.locator(
-            "//*[contains(@class, 'chakra-modal__content-container')]",
+            "[data-testid='modal-content'], .modal-content, //*[contains(@class, 'chakra-modal__content-container')]",
         );
         this.closeButton = this.modalBody.locator(
             "//button[@aria-label='Close']",
@@ -58,7 +58,7 @@ export class AccountModal extends BasePage {
             "//button[@aria-label='Back']",
         );
         this.modalTitle = this.modalBody.locator(
-            "//*[contains(@id, 'chakra-modal--header')]",
+            "[data-testid='modal-title'], .modal-title, //*[contains(@id, 'chakra-modal--header')]",
         );
         this.doneButton = this.modalBody.locator("//button[text()='Done']");
         this.continueButton = this.page.getByTestId('continue-button');

@@ -1,9 +1,7 @@
 'use client';
 
-import { ChakraProvider } from '@chakra-ui/react';
 import './globals.css';
 import dynamic from 'next/dynamic';
-import { darkTheme } from './theme';
 
 const VechainKitProviderWrapper = dynamic(
     async () =>
@@ -27,14 +25,10 @@ export default function RootLayout({
                     content="width=device-width, initial-scale=1"
                 />
             </head>
-            <body>
-                {/* Chakra UI Provider */}
-                <ChakraProvider theme={darkTheme}>
-                    {/* VechainKit Provider */}
-                    <VechainKitProviderWrapper>
-                        {children}
-                    </VechainKitProviderWrapper>
-                </ChakraProvider>
+            <body className="bg-gray-900 text-white">
+                <VechainKitProviderWrapper>
+                    {children}
+                </VechainKitProviderWrapper>
             </body>
         </html>
     );

@@ -69,11 +69,11 @@ function StyleTestContent() {
                         if (
                             ruleText.includes('body {') &&
                             ruleText.includes('font-family') &&
-                            ruleText.includes('var(--chakra') &&
+                            ruleText.includes('var(--') &&
                             !ruleText.includes('@layer')
                         ) {
                             analysis.push(
-                                '⚠️ Found Chakra body styles outside layer system',
+                                '⚠️ Found UI library body styles outside layer system',
                             );
                             conflictStatus = 'warning';
                         }
@@ -129,8 +129,8 @@ function StyleTestContent() {
                 fontFamily.includes('system-ui')
             ) {
                 analysis.push('✅ Host app font family preserved');
-            } else if (fontFamily.includes('var(--chakra')) {
-                analysis.push('❌ Chakra font variables overriding host app');
+            } else if (fontFamily.includes('var(--')) {
+                analysis.push('❌ UI library font variables overriding host app');
                 conflictStatus = 'error';
             }
 
@@ -302,7 +302,7 @@ function StyleTestContent() {
                             The vechain-kit wallet button should render properly
                         </li>
                         <li>
-                            Font family should be Arial or system-ui (not Chakra
+                            Font family should be Arial or system-ui (not UI library
                             fonts)
                         </li>
                         <li>
