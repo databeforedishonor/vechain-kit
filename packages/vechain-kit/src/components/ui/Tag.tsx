@@ -1,12 +1,13 @@
 import React from 'react';
 import { cn } from '@/utils/tailwind';
 
-export interface TagProps {
+export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   size?: 'sm' | 'md' | 'lg';
   variant?: 'solid' | 'subtle' | 'outline';
   colorScheme?: 'blue' | 'green' | 'red' | 'gray' | 'yellow' | 'purple';
   className?: string;
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
 const tagSizes = {
@@ -35,7 +36,7 @@ const getTagClasses = (variant: string, colorScheme: string) => {
     gray: {
       solid: 'bg-gray-500 text-white',
       subtle: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300',
-      outline: 'border border-gray-400 text-gray-600 dark:text-gray-400 bg-transparent',
+      outline: 'border border-gray-500 text-gray-500 bg-transparent',
     },
     yellow: {
       solid: 'bg-yellow-500 text-white',
@@ -49,28 +50,34 @@ const getTagClasses = (variant: string, colorScheme: string) => {
     },
   };
 
-  return colorMap[colorScheme as keyof typeof colorMap]?.[variant as keyof typeof colorMap['blue']] || '';
+  return colorMap[colorScheme as keyof typeof colorMap]?.[variant as keyof typeof colorMap.blue] || colorMap.gray.subtle;
 };
 
 export const Tag: React.FC<TagProps> = ({
-  size = 'md',
+  size = 'sm',
   variant = 'subtle',
   colorScheme = 'gray',
   className,
   children,
+  onClick,
+  ...props
 }) => {
-  const variantClasses = getTagClasses(variant, colorScheme);
-
+  const Component = onClick ? 'button' : 'span';
+  
   return (
-    <span
+    <Component
       className={cn(
-        'inline-flex items-center rounded-md font-medium',
+        'inline-flex items-center justify-center font-medium rounded-md transition-colors duration-200',
+        'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
         tagSizes[size],
-        variantClasses,
+        getTagClasses(variant, colorScheme),
+        onClick && 'cursor-pointer hover:opacity-80',
         className
       )}
+      onClick={onClick}
+      {...props}
     >
       {children}
-    </span>
+    </Component>
   );
 };

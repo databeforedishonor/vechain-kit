@@ -1,4 +1,5 @@
-import { Box, Tag, Text, Wrap, WrapItem } from '@chakra-ui/react';
+import React from 'react';
+import { Box, Tag, Text, Wrap, WrapItem } from '@/components/ui';
 import { useTranslation } from 'react-i18next';
 import { CategoryLabel, AllowedCategories } from './CategoryLabel';
 
@@ -20,20 +21,17 @@ export const CategoryFilterSection = ({
     const { t } = useTranslation();
 
     return (
-        <Box width="full" mb={4}>
-            <Text fontSize="sm" fontWeight="500" mb={2}>
+        <Box className="w-full mb-4">
+            <Text className="text-sm font-medium mb-2">
                 {t('Filter by category')}
             </Text>
             <Wrap spacing={2}>
                 <WrapItem>
                     <Tag
                         size="md"
-                        borderRadius="full"
-                        variant={
-                            selectedCategory === null ? 'solid' : 'outline'
-                        }
-                        colorScheme={darkMode ? 'gray' : 'blackAlpha'}
-                        cursor="pointer"
+                        variant={selectedCategory === null ? 'solid' : 'outline'}
+                        colorScheme={darkMode ? 'gray' : 'gray'}
+                        className="rounded-full cursor-pointer"
                         onClick={() => onCategoryChange(null)}
                     >
                         {t('All')}
@@ -45,12 +43,8 @@ export const CategoryFilterSection = ({
                         <CategoryLabel
                             category={category}
                             size="md"
-                            variant={
-                                selectedCategory === category
-                                    ? 'solid'
-                                    : 'outline'
-                            }
-                            cursor="pointer"
+                            variant={selectedCategory === category ? 'solid' : 'outline'}
+                            className="cursor-pointer"
                             onClick={() => onCategoryChange(category)}
                         />
                     </WrapItem>

@@ -1,30 +1,39 @@
-import { useVeChainKitConfig } from '@/providers';
+import React from 'react';
+import { Checkbox, HStack, Input, Link, Text } from '@/components/ui';
 import { EnrichedLegalDocument } from '@/types';
-import { Checkbox, HStack, Icon, Input, Link, Text } from '@chakra-ui/react';
 import { UseFormRegister } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FaExternalLinkAlt } from 'react-icons/fa';
-import { FiExternalLink } from 'react-icons/fi';
 
-type Props = {
-    document: EnrichedLegalDocument;
-    register: UseFormRegister<any>;
-    isText?: boolean;
+// New interface
+export interface LegalDocumentItemProps {
+  title: string;
+  url: string;
+  isAccepted: boolean;
+  onChange: (isAccepted: boolean) => void;
+  isRequired: boolean;
+  index: number;
+}
+
+// Legacy interface for backward compatibility
+interface LegacyLegalDocumentItemProps {
+  document: EnrichedLegalDocument;
+  register: UseFormRegister<any>;
+  isText?: boolean;
+}
+
+type CombinedProps = LegalDocumentItemProps | LegacyLegalDocumentItemProps;
+
+const isLegacyProps = (props: CombinedProps): props is LegacyLegalDocumentItemProps => {
+  return 'document' in props;
 };
 
-export const LegalDocumentItem = ({
-    document,
-    register,
-    isText = false,
-}: Props) => {
-    const { t } = useTranslation();
-    const { darkMode: isDark } = useVeChainKitConfig();
+export const LegalDocumentItem: React.FC<CombinedProps> = (props) => {
+  const { t } = useTranslation();
+
+  if (isLegacyProps(props)) {
+    const { document, register, isText = false } = props;
     const documentName = document.displayName ?? t('Policy');
-
-    const borderColor = isDark ? 'whiteAlpha.400' : 'blackAlpha.400';
-
-    const linkColor = isDark ? 'blue.300' : 'blue.500';
-    const linkHoverColor = isDark ? 'blue.200' : 'blue.700';
 
     // Get document type display text
     const getDocumentTypeDisplay = (): string => {
@@ -50,73 +59,69 @@ export const LegalDocumentItem = ({
                 key={document.id}
                 href={document.url}
                 isExternal
-                color={'blue.500'}
-                textDecoration="underline"
-                _hover={{
-                    color: 'blue.300',
-                    textDecoration: 'underline',
-                }}
-                fontWeight="medium"
-                display="contents"
-                alignItems="center"
+                className="text-blue-500 underline hover:text-blue-300 font-medium inline-flex items-center"
             >
                 <Input
                     {...register(document.id, {
                         required: document.required,
                     })}
                     type="checkbox"
-                    hidden
+                    className="hidden"
                 />
                 {displayName}
-                <Icon as={FaExternalLinkAlt} ml={1} boxSize={3} />
+                <FaExternalLinkAlt className="ml-1 w-3 h-3" />
             </Link>
         );
     }
 
     return (
-        <HStack
-            width="full"
-            borderRadius="md"
-            transition="all 0.2s"
-            key={document.id}
-        >
-            <HStack align="flex-start" spacing={3} width="full">
-                <Checkbox
-                    mt="2px"
-                    size="md"
-                    colorScheme="blue"
-                    borderColor={borderColor}
-                    {...register(document.id, {
-                        required: document.required,
-                    })}
-                    data-testid="tnc-checkbox"
-                />
-
-                <Text fontSize="xs">
-                    {t('I have read and agree to ')}
+        <HStack spacing={3} className="w-full">
+            <Checkbox
+                {...register(document.id, {
+                    required: document.required,
+                })}
+                colorScheme="blue"
+                data-testid="tnc-checkbox"
+            >
+                <Text className="text-xs">
+                    {t('I have read and agree to ')}{' '}
                     <Link
                         href={document.url}
                         isExternal
-                        color={linkColor}
-                        textDecoration="underline"
-                        _hover={{
-                            color: linkHoverColor,
-                            textDecoration: 'underline',
-                        }}
-                        fontWeight="medium"
-                        display="contents"
-                        alignItems="center"
+                        className="text-blue-500 underline hover:text-blue-300 font-medium inline-flex items-center"
                     >
                         {displayName}
-                        <Icon as={FiExternalLink} ml={1} />
+                        <FaExternalLinkAlt className="ml-1 w-3 h-3" />
                     </Link>
                     {document.required && (
-                        <Text as="span" color="red.500" fontWeight="bold">
+                        <Text as="span" className="text-red-500 font-bold">
                             *
                         </Text>
                     )}
                 </Text>
-            </HStack>
+            </Checkbox>
         </HStack>
     );
+  }
+
+  // New interface usage
+  const { title, url, isAccepted, onChange, isRequired } = props;
+  
+  return (
+    <HStack spacing={3} className="w-full">
+      <Checkbox
+        checked={isAccepted}
+        onChange={(e) => onChange(e.target.checked)}
+        colorScheme="blue"
+      >
+        <Text className="text-sm">
+          {isRequired ? 'I accept ' : 'I agree to '}
+          <Link href={url} isExternal className="underline">
+            {title}
+          </Link>
+          {isRequired && ' (Required)'}
+        </Text>
+      </Checkbox>
+    </HStack>
+  );
 };

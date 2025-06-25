@@ -35,3 +35,7 @@ export {
   type CardBodyProps, 
   type CardFooterProps 
 } from './Card';
+export { Checkbox, type CheckboxProps } from './Checkbox';
+export { Alert, AlertIcon, AlertTitle, AlertDescription, type AlertProps, type AlertIconProps, type AlertTitleProps, type AlertDescriptionProps } from './Alert';
+export { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, type AccordionProps, type AccordionItemProps, type AccordionButtonProps, type AccordionPanelProps, type AccordionIconProps } from './Accordion';
+export { Wrap, WrapItem, type WrapProps, type WrapItemProps } from './Wrap';

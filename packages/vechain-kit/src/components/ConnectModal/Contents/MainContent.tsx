@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { ConnectionOptionsStack } from '../Components/ConnectionOptionsStack';
 import { Analytics } from '@/utils/mixpanelClientInstance';
 import { EcosystemButton } from '../Components/EcosystemButton';
+import { BsQuestionCircle } from 'react-icons/bs';
 
 type Props = {
     setCurrentContent: React.Dispatch<
@@ -52,7 +53,11 @@ export const MainContent = ({ setCurrentContent, onClose }: Props) => {
     return (
         <>
             <StickyHeaderContainer>
-                <ModalFAQButton onClick={handleFAQClick} />
+                <ModalFAQButton 
+                    onClick={handleFAQClick} 
+                    icon={<BsQuestionCircle fontSize={'17px'} />}
+                    aria-label="FAQ"
+                />
                 <ModalHeader>{t('Log in or sign up')}</ModalHeader>
                 <ModalCloseButton />
             </StickyHeaderContainer>

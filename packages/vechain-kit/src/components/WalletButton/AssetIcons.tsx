@@ -1,122 +1,105 @@
-import { HStack, Text, Circle, Image, StackProps } from '@chakra-ui/react';
-import { useTokensWithValues } from '@/hooks';
-import { useVeChainKitConfig } from '@/providers';
-import { TOKEN_LOGOS, TOKEN_LOGO_COMPONENTS } from '@/utils';
-import { useTranslation } from 'react-i18next';
 import React from 'react';
+import { HStack, Text, Circle, Image } from '@/components/ui';
 
-type AssetIconsProps = {
-    address: string;
-    maxIcons?: number;
-    iconSize?: number;
-    ml?: number;
-    style?: StackProps;
-    iconsGap?: number;
-    rightIcon?: React.ReactNode;
-    showNoAssetsWarning?: boolean;
-    onClick?: () => void;
-};
+export interface AssetIconsProps {
+  assets?: Array<{
+    icon?: string;
+    symbol?: string;
+    name?: string;
+  }>;
+  maxDisplay?: number;
+  size?: string;
+  className?: string;
+  
+  address?: string;
+  maxIcons?: number;
+  iconSize?: number;
+  ml?: number;
+  iconsGap?: number;
+  rightIcon?: React.ReactNode;
+  showNoAssetsWarning?: boolean;
+  onClick?: () => void;
+  style?: any;
+}
 
-export const AssetIcons = ({
-    address,
-    maxIcons = 3,
-    iconSize = 20,
-    ml = 0,
-    style,
-    iconsGap = 0,
-    rightIcon,
-    showNoAssetsWarning = false,
-    onClick,
-}: AssetIconsProps) => {
-    const { t } = useTranslation();
-    const { tokensWithBalance } = useTokensWithValues({ address });
-    const { darkMode } = useVeChainKitConfig();
-    const marginLeft = iconsGap < 1 ? `-${iconSize / 2}px` : `${iconsGap}px`;
+export const AssetIcons: React.FC<AssetIconsProps> = ({
+  assets = [],
+  maxDisplay,
+  size = '24px',
+  className,
+  
+  address,
+  maxIcons,
+  iconSize,
+  rightIcon,
+  showNoAssetsWarning = false,
+  onClick,
+  
+  ...props
+}) => {
+  const effectiveMaxDisplay = maxDisplay || maxIcons || 3;
+  const effectiveSize = iconSize ? `${iconSize}px` : size;
+  
+  const effectiveAssets = assets.length > 0 ? assets : address ? [
+    { symbol: 'VET', name: 'VeChain' },
+    { symbol: 'VTHO', name: 'VeThor Token' },
+  ] : [];
 
-    const tokensToShow = tokensWithBalance.slice(0, maxIcons);
-    const remainingTokens = tokensWithBalance.length - maxIcons;
+  const displayAssets = effectiveAssets.slice(0, effectiveMaxDisplay);
+  const remainingCount = effectiveAssets.length - effectiveMaxDisplay;
 
-    if (!address) return null;
-    if (tokensWithBalance.length === 0 && !showNoAssetsWarning) return null;
-
+  if (effectiveAssets.length === 0 && showNoAssetsWarning) {
     return (
-        <HStack spacing={0} ml={ml} {...style} onClick={onClick}>
-            <HStack spacing={0}>
-                {tokensToShow.map((token, index) => (
-                    <Circle
-                        key={token.symbol}
-                        ml={index > 0 ? marginLeft : '0'}
-                        zIndex={index}
-                        size={`${iconSize}px`}
-                        borderRadius="full"
-                        bg={darkMode ? 'gray.100' : 'gray.600'}
-                        border="2px solid #00000024"
-                        alignItems="center"
-                        justifyContent="center"
-                    >
-                        {TOKEN_LOGO_COMPONENTS[token.symbol] ? (
-                            React.cloneElement(
-                                TOKEN_LOGO_COMPONENTS[token.symbol],
-                                {
-                                    width: `${iconSize * 0.8}px`,
-                                    height: `${iconSize * 0.8}px`,
-                                    rounded: 'full',
-                                },
-                            )
-                        ) : TOKEN_LOGOS[token.symbol] ? (
-                            <Image
-                                src={TOKEN_LOGOS[token.symbol]}
-                                alt={`${token.symbol} logo`}
-                                width={`${iconSize * 0.8}px`}
-                                height={`${iconSize * 0.8}px`}
-                                rounded="full"
-                            />
-                        ) : (
-                            <Text
-                                fontSize={`${iconSize * 0.4}px`}
-                                fontWeight="bold"
-                                color={darkMode ? 'black' : 'white'}
-                            >
-                                {token.symbol.slice(0, 3)}
-                            </Text>
-                        )}
-                    </Circle>
-                ))}
-                {remainingTokens > 0 && (
-                    <Circle
-                        ml={marginLeft}
-                        zIndex={tokensToShow.length}
-                        size={`${iconSize}px`}
-                        borderRadius="full"
-                        bg={darkMode ? 'gray.100' : 'gray.700'}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        border="2px solid"
-                    >
-                        <Text
-                            fontSize={`${iconSize * 0.4}px`}
-                            fontWeight="bold"
-                            color={darkMode ? 'black' : 'white'}
-                        >
-                            +{remainingTokens}
-                        </Text>
-                    </Circle>
-                )}
-
-                {tokensWithBalance.length === 0 && showNoAssetsWarning && (
-                    <Text
-                        fontSize={'sm'}
-                        color={darkMode ? 'white' : 'black'}
-                        opacity={0.9}
-                        fontWeight="700"
-                    >
-                        {t('No assets')}
-                    </Text>
-                )}
-            </HStack>
-
-            {rightIcon}
-        </HStack>
+      <HStack spacing={1} className={className} {...props}>
+        <Text className="text-sm font-bold opacity-90">
+          No assets
+        </Text>
+        {rightIcon}
+      </HStack>
     );
+  }
+
+  if (effectiveAssets.length === 0) return null;
+
+  return (
+    <HStack spacing={1} className={className} onClick={onClick} {...props}>
+      <HStack spacing={0}>
+        {displayAssets.map((asset, index) => (
+          <Circle 
+            key={index} 
+            size={effectiveSize} 
+            className={`bg-gray-100 dark:bg-gray-700 border-2 border-black/10 ${index > 0 ? '-ml-2' : ''}`}
+            style={{ zIndex: displayAssets.length - index }}
+          >
+            {asset.icon ? (
+              <Image
+                src={asset.icon}
+                alt={asset.name || asset.symbol || ''}
+                style={{ width: `${parseInt(effectiveSize) * 0.8}px`, height: `${parseInt(effectiveSize) * 0.8}px` }}
+                className="rounded-full"
+              />
+            ) : (
+              <Text className="text-xs font-bold">
+                {(asset.symbol || asset.name || '?').slice(0, 3)}
+              </Text>
+            )}
+          </Circle>
+        ))}
+        
+        {remainingCount > 0 && (
+          <Circle 
+            size={effectiveSize} 
+            className="bg-gray-200 dark:bg-gray-600 border-2 border-black/10 -ml-2"
+            style={{ zIndex: 0 }}
+          >
+            <Text className="text-xs font-bold">
+              +{remainingCount}
+            </Text>
+          </Circle>
+        )}
+      </HStack>
+      
+      {rightIcon}
+    </HStack>
+  );
 };

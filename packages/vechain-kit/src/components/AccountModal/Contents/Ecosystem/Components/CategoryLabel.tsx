@@ -1,4 +1,5 @@
-import { Tag, TagProps } from '@chakra-ui/react';
+import React from 'react';
+import { Tag, type TagProps } from '@/components/ui';
 import { useTranslation } from 'react-i18next';
 
 export type AllowedCategories =
@@ -11,9 +12,9 @@ export type AllowedCategories =
 
 type CategoryProps = {
     category: AllowedCategories;
-} & Omit<TagProps, 'category'>;
+} & Omit<TagProps, 'children'>;
 
-const getCategoryColor = (category: AllowedCategories): string => {
+const getCategoryColor = (category: AllowedCategories): 'blue' | 'green' | 'red' | 'gray' | 'yellow' | 'purple' => {
     switch (category) {
         case 'defi':
             return 'blue';
@@ -22,15 +23,17 @@ const getCategoryColor = (category: AllowedCategories): string => {
         case 'collectibles':
             return 'purple';
         case 'marketplaces':
-            return 'orange';
+            return 'yellow';
         case 'utilities':
-            return 'cyan';
+            return 'gray';
+        case 'vebetter':
+            return 'green';
         default:
             return 'gray';
     }
 };
 
-export const CategoryLabel = ({ category, ...props }: CategoryProps) => {
+export const CategoryLabel: React.FC<CategoryProps> = ({ category, className, ...props }) => {
     const { t } = useTranslation();
 
     const categoryKey = category.toLowerCase() as AllowedCategories;
@@ -40,8 +43,7 @@ export const CategoryLabel = ({ category, ...props }: CategoryProps) => {
         <Tag
             size="sm"
             colorScheme={color}
-            borderRadius="full"
-            px={2}
+            className={`rounded-full px-2 ${className || ''}`}
             {...props}
         >
             {t(categoryKey)}

@@ -7,6 +7,7 @@ export interface CircleProps {
   className?: string;
   bg?: string;
   color?: string;
+  style?: React.CSSProperties;
 }
 
 export const Circle: React.FC<CircleProps> = ({
@@ -15,6 +16,7 @@ export const Circle: React.FC<CircleProps> = ({
   className,
   bg = 'bg-gray-200 dark:bg-gray-700',
   color = 'text-gray-700 dark:text-gray-300',
+  style,
   ...props
 }) => {
   const sizeValue = typeof size === 'number' ? `${size}px` : size;
@@ -30,6 +32,7 @@ export const Circle: React.FC<CircleProps> = ({
       style={{
         width: sizeValue,
         height: sizeValue,
+        ...style,
       }}
       {...props}
     >

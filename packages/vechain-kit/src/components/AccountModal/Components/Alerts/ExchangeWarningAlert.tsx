@@ -1,21 +1,25 @@
-import { Alert, AlertIcon, Text, VStack, HStack } from '@chakra-ui/react';
-import { useTranslation } from 'react-i18next';
+import React from 'react';
+import { Alert, AlertIcon, Text, VStack, HStack } from '@/components/ui';
 
-export const ExchangeWarningAlert = () => {
-    const { t } = useTranslation();
+export interface ExchangeWarningAlertProps {
+  message?: string;
+  className?: string;
+}
 
-    return (
-        <Alert status="warning" fontSize={'xs'} borderRadius={'xl'} p={2}>
-            <VStack spacing={1} align="stretch" w="full">
-                <HStack spacing={2} align="flex-start">
-                    <AlertIcon boxSize={4} mt={'10px'} />
-                    <Text w="full">
-                        {t(
-                            'Sending to OceanX or other exchanges may result in loss of funds.',
-                        )}
-                    </Text>
-                </HStack>
-            </VStack>
-        </Alert>
-    );
+export const ExchangeWarningAlert: React.FC<ExchangeWarningAlertProps> = ({
+  message = "This wallet address may be associated with an exchange. Please ensure you control this address.",
+  className,
+  ...props
+}) => {
+  return (
+    <Alert status="warning" variant="left-accent" className={className} {...props}>
+      <HStack spacing={3} className="w-full">
+        <AlertIcon />
+        <VStack spacing={1} className="flex-1">
+          <Text className="text-sm font-medium">Exchange Warning</Text>
+          <Text className="text-xs">{message}</Text>
+        </VStack>
+      </HStack>
+    </Alert>
+  );
 };

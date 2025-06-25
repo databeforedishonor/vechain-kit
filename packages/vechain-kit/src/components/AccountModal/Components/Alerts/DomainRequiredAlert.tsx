@@ -1,21 +1,25 @@
-import { Alert, AlertIcon, Text, VStack, HStack } from '@chakra-ui/react';
-import { useTranslation } from 'react-i18next';
+import React from 'react';
+import { Alert, AlertIcon, Text, VStack, HStack } from '@/components/ui';
 
-export const DomainRequiredAlert = () => {
-    const { t } = useTranslation();
+export interface DomainRequiredAlertProps {
+  message?: string;
+  className?: string;
+}
 
-    return (
-        <Alert status="warning" fontSize={'xs'} borderRadius={'xl'} p={2}>
-            <VStack spacing={1} align="stretch" w="full">
-                <HStack spacing={2} align="flex-start">
-                    <AlertIcon boxSize={4} mt={'10px'} />
-                    <Text w="full">
-                        {t(
-                            'A .vet domain is required to customize your profile. Choose an account name to get started.',
-                        )}
-                    </Text>
-                </HStack>
-            </VStack>
-        </Alert>
-    );
+export const DomainRequiredAlert: React.FC<DomainRequiredAlertProps> = ({
+  message = "A domain is required to continue. Please set up your domain first.",
+  className,
+  ...props
+}) => {
+  return (
+    <Alert status="info" variant="left-accent" className={className} {...props}>
+      <HStack spacing={3} className="w-full">
+        <AlertIcon />
+        <VStack spacing={1} className="flex-1">
+          <Text className="text-sm font-medium">Domain Required</Text>
+          <Text className="text-xs">{message}</Text>
+        </VStack>
+      </HStack>
+    </Alert>
+  );
 };
