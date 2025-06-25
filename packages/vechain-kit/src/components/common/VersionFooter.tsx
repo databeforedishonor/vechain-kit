@@ -1,18 +1,18 @@
-import { HStack, Link, StackProps } from '@chakra-ui/react';
+import { HStack, Link } from '@/components/ui';
 import { VechainLogo } from '../../assets';
 import packageJson from '../../../package.json';
 import { useVeChainKitConfig } from '@/providers';
 
-type Props = {} & Omit<StackProps, 'dangerouslySetInnerHTML'>;
+interface VersionFooterProps {
+    className?: string;
+}
 
-export const VersionFooter = ({ ...props }: Props) => {
+export const VersionFooter = ({ className, ...props }: VersionFooterProps) => {
     const { darkMode: isDark } = useVeChainKitConfig();
 
     return (
         <HStack
-            w={'full'}
-            justifyContent={'center'}
-            alignItems={'center'}
+            className={`w-full justify-center items-center ${className || ''}`}
             spacing={0}
             {...props}
         >
@@ -25,13 +25,9 @@ export const VersionFooter = ({ ...props }: Props) => {
                 ml={'-16px'}
             />
             <Link
-                fontSize={'11px'}
-                fontWeight={'500'}
-                opacity={0.4}
-                textAlign={'left'}
                 href={`https://github.com/vechain/vechain-kit/releases/tag/${packageJson.version}`}
                 isExternal
-                pt={'1px'}
+                className="text-xs font-medium opacity-40 text-left pt-px"
             >
                 v{packageJson.version}
             </Link>

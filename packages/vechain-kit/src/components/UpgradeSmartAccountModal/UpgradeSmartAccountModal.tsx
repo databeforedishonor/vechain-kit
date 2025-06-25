@@ -7,11 +7,10 @@ import {
     SuccessfulOperationContentProps,
 } from './Contents/SuccessfulOperationContent';
 import { UpgradeSmartAccountContent } from './Contents/UpgradeSmartAccountContent';
-import { ThemeTypings } from '@chakra-ui/react';
 
 export type UpgradeSmartAccountModalStyle = {
     accentColor?: string;
-    modalSize?: ThemeTypings['components']['Modal']['sizes'];
+    modalSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full';
 };
 
 type Props = {

@@ -1,11 +1,20 @@
 import { Wallet } from '@/types';
-import { Image, ImageProps, Skeleton } from '@chakra-ui/react';
+import { Image, Skeleton } from '@/components/ui';
 import { useRef, useEffect } from 'react';
 
-type AccountAvatarProps = {
+interface AccountAvatarProps {
     wallet?: Wallet;
-    props?: ImageProps;
-};
+    props?: {
+        src?: string;
+        alt?: string;
+        width?: string | number;
+        height?: string | number;
+        minWidth?: string | number;
+        className?: string;
+        boxShadow?: string;
+        [key: string]: any; // Allow additional properties
+    };
+}
 
 export const AccountAvatar = ({ wallet, props }: AccountAvatarProps) => {
     // Store the previous image URL to maintain during loading
@@ -24,20 +33,28 @@ export const AccountAvatar = ({ wallet, props }: AccountAvatarProps) => {
     ) {
         return (
             <Skeleton
-                rounded="full"
+                borderRadius="9999px"
                 width={props?.width}
                 height={props?.height}
+                className={props?.className}
             />
         );
     }
+
+    const { src, alt, width, height, minWidth, className, boxShadow, ...otherProps } = props || {};
+
     return (
         <Image
-            src={props?.src || wallet?.image || previousImageRef.current}
-            alt={props?.alt || wallet?.domain}
-            objectFit="cover"
-            rounded="full"
-            // fallbackSrc={getPicassoImage(wallet?.address ?? '')}
-            {...props}
+            src={src || wallet?.image || previousImageRef.current}
+            alt={alt || wallet?.domain}
+            className={`object-cover rounded-full ${className || ''}`}
+            style={{
+                width,
+                height,
+                minWidth,
+                boxShadow,
+                ...otherProps,
+            }}
         />
     );
 };

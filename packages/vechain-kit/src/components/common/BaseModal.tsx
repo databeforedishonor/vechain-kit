@@ -1,11 +1,5 @@
 import { VechainKitThemeProvider } from '@/providers';
-import {
-    Modal,
-    ModalContent,
-    ModalContentProps,
-    ModalOverlay,
-    useMediaQuery,
-} from '@chakra-ui/react';
+import { Modal } from '@/components/ui';
 import { ReactNode } from 'react';
 import { useVeChainKitConfig } from '@/providers';
 
@@ -13,15 +7,15 @@ type BaseModalProps = {
     isOpen: boolean;
     onClose: () => void;
     children: ReactNode;
-    size?: string;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full';
     isCentered?: boolean;
-    motionPreset?: 'slideInBottom' | 'none';
-    trapFocus?: boolean;
+    motionPreset?: 'slideInBottom' | 'none'; // Keep for compatibility but not used
+    trapFocus?: boolean; // Keep for compatibility but not used
     closeOnOverlayClick?: boolean;
     blockScrollOnMount?: boolean;
-    autoFocus?: boolean;
-    initialFocusRef?: React.RefObject<HTMLElement>;
-    allowExternalFocus?: boolean;
+    autoFocus?: boolean; // Keep for compatibility but not used
+    initialFocusRef?: React.RefObject<HTMLElement>; // Keep for compatibility but not used
+    allowExternalFocus?: boolean; // Keep for compatibility but not used
     backdropFilter?: string;
     isCloseable?: boolean;
 };
@@ -32,54 +26,36 @@ export const BaseModal = ({
     children,
     size = 'sm',
     isCentered = true,
-    motionPreset = 'slideInBottom',
     closeOnOverlayClick = true,
-    blockScrollOnMount = false,
-    allowExternalFocus = false,
+    blockScrollOnMount = true,
     backdropFilter,
     isCloseable = true,
 }: BaseModalProps) => {
-    const [isDesktop] = useMediaQuery('(min-width: 768px)');
     const { darkMode } = useVeChainKitConfig();
 
-    const modalContentProps: ModalContentProps = isDesktop
-        ? {}
-        : {
-              position: 'fixed',
-              bottom: '0',
-              mb: '0',
-              maxW: '2xl',
-              borderRadius: '24px 24px 0px 0px !important',
-              overflowY: 'auto',
-              overflowX: 'hidden',
-              scrollBehavior: 'smooth',
-          };
+    const handleClose = () => {
+        if (isCloseable) {
+            onClose();
+        }
+    };
 
     return (
         <VechainKitThemeProvider darkMode={darkMode}>
             <Modal
-                motionPreset={motionPreset}
                 isOpen={isOpen}
-                onClose={onClose}
-                isCentered={isCentered}
+                onClose={handleClose}
                 size={size}
-                // scrollBehavior="inside"
-                returnFocusOnClose={false}
-                blockScrollOnMount={blockScrollOnMount}
+                isCentered={isCentered}
                 closeOnOverlayClick={closeOnOverlayClick && isCloseable}
-                preserveScrollBarGap={true}
-                portalProps={{ containerRef: undefined }}
-                trapFocus={!allowExternalFocus}
-                autoFocus={!allowExternalFocus}
+                preventScrolling={blockScrollOnMount}
+                className="z-50"
             >
-                <ModalOverlay backdropFilter={backdropFilter} />
-                <ModalContent
-                    role="dialog"
-                    aria-modal={!allowExternalFocus}
-                    {...modalContentProps}
+                <div
+                    className="w-full max-h-[calc(100vh-2rem)] overflow-y-auto overflow-x-hidden"
+                    style={{ backdropFilter }}
                 >
                     {children}
-                </ModalContent>
+                </div>
             </Modal>
         </VechainKitThemeProvider>
     );

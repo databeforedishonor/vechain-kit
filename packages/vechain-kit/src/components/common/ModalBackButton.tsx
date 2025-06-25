@@ -1,23 +1,22 @@
-import { IconButton, IconButtonProps } from '@chakra-ui/react';
+import { IconButton } from '@/components/ui';
 import { IoChevronBack } from 'react-icons/io5';
 
-type BackButtonProps = {
+interface BackButtonProps {
     onClick: () => void;
-} & Partial<IconButtonProps>;
+    className?: string;
+    isDisabled?: boolean;
+}
 
-export const ModalBackButton = ({ onClick, ...props }: BackButtonProps) => {
+export const ModalBackButton = ({ onClick, className, isDisabled, ...props }: BackButtonProps) => {
     return (
         <IconButton
             aria-label="Back"
-            icon={<IoChevronBack fontSize={'20px'} />}
+            icon={<IoChevronBack size={20} />}
             size="sm"
             variant="ghost"
-            _hover={{ bg: 'blackAlpha.100' }}
-            _dark={{ _hover: { bg: 'whiteAlpha.100' } }}
-            position="absolute"
-            borderRadius={'50%'}
-            left="10px"
-            top="10px"
+            isRound={true}
+            isDisabled={isDisabled}
+            className={`absolute left-2.5 top-2.5 hover:bg-black/10 dark:hover:bg-white/10 ${className || ''}`}
             onClick={onClick}
             {...props}
         />

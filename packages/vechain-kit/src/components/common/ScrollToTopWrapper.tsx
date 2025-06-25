@@ -1,8 +1,14 @@
-import { VStack, StackProps } from '@chakra-ui/react';
+import { VStack } from '@/components/ui';
 import { useScrollToTop } from '@/hooks/utils/useScrollToTop';
 
-export const ScrollToTopWrapper = ({ children, ...props }: StackProps) => {
+interface ScrollToTopWrapperProps {
+    children: React.ReactNode;
+    className?: string;
+    spacing?: number;
+}
+
+export const ScrollToTopWrapper = ({ children, className, spacing, ...props }: ScrollToTopWrapperProps) => {
     useScrollToTop();
 
-    return <VStack {...props}>{children}</VStack>;
+    return <VStack className={className} spacing={spacing} {...props}>{children}</VStack>;
 };

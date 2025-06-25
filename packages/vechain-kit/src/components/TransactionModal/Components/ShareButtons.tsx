@@ -1,4 +1,4 @@
-import { Box, HStack, Link } from '@chakra-ui/react';
+import { Box, HStack, Link } from '@/components/ui';
 import { motion } from 'framer-motion';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { FaWhatsapp } from 'react-icons/fa6';
@@ -32,26 +32,27 @@ const BouncingAnimation = ({ children }: { children: React.ReactNode }) => (
     </motion.div>
 );
 
-type Props = {
+interface ShareButtonsProps {
     descriptionEncoded: string;
     url?: string;
     facebookHashtag?: string;
-};
+}
 
-export const ShareButtons = ({ descriptionEncoded }: Props) => {
+export const ShareButtons = ({ descriptionEncoded }: ShareButtonsProps) => {
     const { darkMode: isDark } = useVeChainKitConfig();
 
     return (
-        <HStack gap={2}>
+        <HStack spacing={2}>
             <BouncingAnimation>
                 <Link
                     href={`${TWITTER_INJECT}${descriptionEncoded}`}
                     isExternal
                 >
                     <Box
-                        bg={isDark ? 'blackAlpha.700' : 'lightgrey'}
-                        p={2}
-                        borderRadius={'full'}
+                        className={`
+                            ${isDark ? 'bg-black/70' : 'bg-gray-300'} 
+                            p-2 rounded-full
+                        `}
                     >
                         <RiTwitterXFill size={22} />
                     </Box>
@@ -62,7 +63,7 @@ export const ShareButtons = ({ descriptionEncoded }: Props) => {
                     href={`${TELEGRAM_INJECT}${descriptionEncoded}`}
                     isExternal
                 >
-                    <Box bg={'#30abec'} p={2} borderRadius={'full'}>
+                    <Box className="bg-[#30abec] p-2 rounded-full">
                         <FaTelegramPlane color="white" size={22} />
                     </Box>
                 </Link>
@@ -72,7 +73,7 @@ export const ShareButtons = ({ descriptionEncoded }: Props) => {
                     href={`${WHATSAPP_INJECT}${descriptionEncoded}`}
                     isExternal
                 >
-                    <Box bg={'#01cb37'} p={2} borderRadius={'full'}>
+                    <Box className="bg-[#01cb37] p-2 rounded-full">
                         <FaWhatsapp size={22} color="white" />
                     </Box>
                 </Link>

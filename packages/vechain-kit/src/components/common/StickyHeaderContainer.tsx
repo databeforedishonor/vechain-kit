@@ -1,6 +1,6 @@
 import { useVeChainKitConfig } from '@/providers';
-import { Box } from '@chakra-ui/react';
 import { useEffect, useState, useRef } from 'react';
+import { cn } from '../../utils/tailwind';
 
 type Props = {
     children: React.ReactNode;
@@ -10,6 +10,7 @@ export const StickyHeaderContainer = ({ children }: Props) => {
     const [hasContentBelow, setHasContentBelow] = useState(false);
     const observerRef = useRef<HTMLDivElement>(null);
     const { darkMode: isDark } = useVeChainKitConfig();
+    
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -27,28 +28,19 @@ export const StickyHeaderContainer = ({ children }: Props) => {
 
     return (
         <>
-            <Box
-                position={'sticky'}
-                top={'0'}
-                left={'0'}
-                w={'full'}
-                borderRadius={'24px 24px 0px 0px'}
-                bg={isDark ? 'rgb(31 31 30 / 90%)' : 'rgb(255 255 255 / 69%)'}
-                backdropFilter={'blur(12px)'}
+            <div
+                className={cn(
+                    'sticky top-0 left-0 w-full rounded-t-3xl backdrop-blur-3xl z-[1000] transition-shadow duration-200 ease-in-out',
+                    isDark ? 'bg-neutral-800/90' : 'bg-white/70',
+                    hasContentBelow ? 'shadow-md' : 'shadow-none'
+                )}
                 style={{ WebkitBackdropFilter: 'blur(12px)' }}
-                zIndex={1000}
-                boxShadow={
-                    hasContentBelow
-                        ? '0px 2px 4px 1px rgb(0 0 0 / 10%)'
-                        : 'none'
-                }
-                transition="box-shadow 0.2s ease-in-out"
             >
                 {children}
-            </Box>
+            </div>
             <div
                 ref={observerRef}
-                style={{ position: 'absolute', top: '25px' }}
+                className="absolute top-[25px]"
             />
         </>
     );

@@ -1,6 +1,6 @@
-import { VStack, Icon, Text } from '@chakra-ui/react';
 import { useVeChainKitConfig } from '@/providers';
 import { ElementType } from 'react';
+import { cn } from '../../utils/tailwind';
 
 type Props = {
     title: string;
@@ -8,25 +8,27 @@ type Props = {
     icon: ElementType;
 };
 
-export const EmptyContent = ({ title, description, icon }: Props) => {
+export const EmptyContent = ({ title, description, icon: IconComponent }: Props) => {
     const { darkMode: isDark } = useVeChainKitConfig();
 
     return (
-        <VStack spacing={6} align="center" py={8}>
-            <Icon
-                as={icon}
-                boxSize={16}
-                opacity={0.5}
-                color={isDark ? 'whiteAlpha.800' : 'gray.600'}
+        <div className="flex flex-col items-center space-y-6 py-8">
+            <IconComponent
+                className={cn(
+                    'w-16 h-16 opacity-50',
+                    isDark ? 'text-white/80' : 'text-gray-600'
+                )}
             />
-            <VStack spacing={2}>
-                <Text fontSize="lg" fontWeight="500" textAlign="center">
+            <div className="flex flex-col items-center space-y-2">
+                <p className="text-lg font-medium text-center">
                     {title}
-                </Text>
-                <Text fontSize="md" opacity={0.7} textAlign="center" px={4}>
-                    {description}
-                </Text>
-            </VStack>
-        </VStack>
+                </p>
+                {description && (
+                    <p className="text-base opacity-70 text-center px-4">
+                        {description}
+                    </p>
+                )}
+            </div>
+        </div>
     );
 };

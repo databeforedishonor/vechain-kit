@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box } from '@/components/ui';
 import { TransactionStatus, TransactionStatusErrorType } from '@/types';
 import { useVeChainKitConfig, VechainKitThemeProvider } from '@/providers';
 import { TransactionToastContent } from './TransactionToastContent';
@@ -30,16 +30,12 @@ export const TransactionToast = ({
     return (
         <VechainKitThemeProvider darkMode={isDark}>
             <Box
-                position="fixed"
-                bottom="5"
-                left="5"
-                zIndex="11111"
-                bg={isDark ? '#1f1f1e' : 'white'}
-                borderRadius={'md'}
-                p={5}
-                boxShadow="lg"
-                maxW="sm"
-                minW="300px"
+                className={`
+                    fixed bottom-5 left-5 z-[11111] 
+                    ${isDark ? 'bg-[#1f1f1e]' : 'bg-white'} 
+                    rounded-md p-5 shadow-lg 
+                    max-w-sm min-w-[300px]
+                `}
             >
                 <TransactionToastContent
                     status={status}
