@@ -1,5 +1,5 @@
 import { useWallet } from '@/hooks';
-import { Button, HStack, useMediaQuery } from '@chakra-ui/react';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 import { AccountAvatar } from '../common';
 import { WalletButtonProps } from './WalletButton';
@@ -16,18 +16,16 @@ export const ConnectedWallet = ({
     buttonStyle = {},
 }: ConnectedWalletProps) => {
     const { account } = useWallet();
-    const [isDesktop] = useMediaQuery('(min-width: 768px)');
+    const isDesktop = useMediaQuery('(min-width: 768px)');
 
     return (
-        <Button
-            {...buttonStyle}
+        <button
             onClick={onOpen}
-            w="full"
-            minH={'45px'}
-            maxW="fit-content"
+            className="w-full min-h-[45px] max-w-fit-content inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
             data-testid='wallet-button'
+            style={buttonStyle}
         >
-            <HStack w="full" minW="fit-content">
+            <div className="flex items-center w-full min-w-fit-content space-x-2">
                 <AccountAvatar
                     wallet={account}
                     props={{
@@ -41,7 +39,7 @@ export const ConnectedWallet = ({
                 <WalletDisplay
                     variant={isDesktop ? desktopVariant : mobileVariant}
                 />
-            </HStack>
-        </Button>
+            </div>
+        </button>
     );
 };

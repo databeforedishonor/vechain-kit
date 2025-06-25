@@ -1,5 +1,5 @@
 import { useVeChainKitConfig } from '@/providers';
-import { Box } from '@chakra-ui/react';
+import { Box } from '../ui';
 import { useEffect, useState, useRef } from 'react';
 
 type Props = {
@@ -28,21 +28,16 @@ export const StickyHeaderContainer = ({ children }: Props) => {
     return (
         <>
             <Box
-                position={'sticky'}
-                top={'0'}
-                left={'0'}
-                w={'full'}
-                borderRadius={'24px 24px 0px 0px'}
-                bg={isDark ? 'rgb(31 31 30 / 90%)' : 'rgb(255 255 255 / 69%)'}
-                backdropFilter={'blur(12px)'}
-                style={{ WebkitBackdropFilter: 'blur(12px)' }}
-                zIndex={1000}
-                boxShadow={
-                    hasContentBelow
+                className={`sticky top-0 left-0 w-full rounded-t-[24px] z-[1000] transition-shadow duration-200 ease-in-out ${
+                    isDark ? 'bg-[rgb(31_31_30_/_90%)]' : 'bg-[rgb(255_255_255_/_69%)]'
+                }`}
+                style={{ 
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    boxShadow: hasContentBelow
                         ? '0px 2px 4px 1px rgb(0 0 0 / 10%)'
                         : 'none'
-                }
-                transition="box-shadow 0.2s ease-in-out"
+                }}
             >
                 {children}
             </Box>

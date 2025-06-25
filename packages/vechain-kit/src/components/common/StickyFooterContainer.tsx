@@ -1,5 +1,5 @@
 import { useVeChainKitConfig } from '@/providers';
-import { Box } from '@chakra-ui/react';
+import { Box } from '../ui';
 
 type Props = {
     children: React.ReactNode;
@@ -10,15 +10,12 @@ export const StickyFooterContainer = ({ children }: Props) => {
 
     return (
         <Box
-            position="sticky"
-            bottom="0"
-            left="0"
-            right="0"
-            bg={isDark ? '#1f1f1e' : 'white'}
-            zIndex="1000"
-            p={4}
-            boxShadow={'0px -1px 6px -3px rgb(0 0 0 / 56%)'}
-            transition="box-shadow 0.2s ease-in-out"
+            className={`sticky bottom-0 left-0 right-0 z-[1000] p-4 transition-shadow duration-200 ease-in-out ${
+                isDark ? 'bg-[#1f1f1e]' : 'bg-white'
+            }`}
+            style={{ 
+                boxShadow: '0px -1px 6px -3px rgb(0 0 0 / 56%)'
+            }}
         >
             {children}
         </Box>
