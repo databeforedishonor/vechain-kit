@@ -1,6 +1,7 @@
 'use client';
 
-import { VStack, Text } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { useWallet } from '@vechain/vechain-kit';
 import { RiShieldUserLine } from 'react-icons/ri';
 import { CollapsibleCard } from '../../ui/CollapsibleCard';
@@ -23,21 +24,21 @@ export function ConnectionInfo() {
 
     return (
         <CollapsibleCard title="Your Connection Source" icon={RiShieldUserLine}>
-            <VStack spacing={4} p={6} borderRadius="md" bg="whiteAlpha.50">
-                <Text>
-                    <Text as="span" fontWeight="bold">
+            <div className="flex flex-col space-y-4"  p={6} borderRadius="md" bg="whiteAlpha.50">
+                <p>
+                    <p as="span" className="font-bold">
                         Type:{' '}
-                    </Text>
+                    </p>
                     {connection.source.type}
-                </Text>
-                <Text>
-                    <Text as="span" fontWeight="bold">
+                </p>
+                <p>
+                    <p as="span" className="font-bold">
                         Network:{' '}
-                    </Text>
+                    </p>
                     {connection.network}
-                </Text>
-                <Text textAlign="center">{getConnectionDescription()}</Text>
-            </VStack>
+                </p>
+                <p className="text-center">{getConnectionDescription()}</p>
+            </div>
         </CollapsibleCard>
     );
 }

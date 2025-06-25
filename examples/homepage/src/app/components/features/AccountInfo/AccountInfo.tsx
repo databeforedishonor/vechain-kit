@@ -1,16 +1,7 @@
 'use client';
 
-import {
-    Box,
-    Heading,
-    Text,
-    VStack,
-    Icon,
-    Alert,
-    AlertIcon,
-    AlertDescription,
-    SimpleGrid,
-} from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { useWallet } from '@vechain/vechain-kit';
 import { RiWalletLine } from 'react-icons/ri';
 import { MdAccountBalanceWallet } from 'react-icons/md';
@@ -19,64 +10,64 @@ export function AccountInfo() {
     const { smartAccount, connectedWallet, connection } = useWallet();
 
     return (
-        <Box
+        <div
             p={8}
             borderRadius="lg"
             boxShadow="xl"
             bg="whiteAlpha.100"
             backdropFilter="blur(10px)"
         >
-            <VStack spacing={6} align="stretch">
-                <Heading size="lg" textAlign="left">
+            <div className="flex flex-col space-y-6"  align="stretch">
+                <h2 size="lg" textAlign="left">
                     Your Account Details
-                </Heading>
+                </h2>
 
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
                     {smartAccount.address && (
-                        <VStack
-                            spacing={4}
+                        <div className="flex flex-col space-y-4"
+                            
                             p={6}
                             borderRadius="md"
                             bg="whiteAlpha.50"
                         >
                             <Icon as={MdAccountBalanceWallet} boxSize={8} />
-                            <Text fontWeight="bold">Smart Account</Text>
-                            <VStack spacing={3} align="start">
-                                <Text>
-                                    <Text as="span" fontWeight="bold">
+                            <p className="font-bold">Smart Account</p>
+                            <div className="flex flex-col space-y-3"  align="start">
+                                <p>
+                                    <p as="span" className="font-bold">
                                         Address:{' '}
-                                    </Text>
+                                    </p>
                                     {smartAccount.address}
-                                </Text>
-                                <Text>
-                                    <Text as="span" fontWeight="bold">
+                                </p>
+                                <p>
+                                    <p as="span" className="font-bold">
                                         Deployed:{' '}
-                                    </Text>
+                                    </p>
                                     {smartAccount.isDeployed.toString()}
-                                </Text>
-                            </VStack>
-                        </VStack>
+                                </p>
+                            </div>
+                        </div>
                     )}
 
-                    <VStack
-                        spacing={4}
+                    <div className="flex flex-col space-y-4"
+                        
                         p={6}
                         borderRadius="md"
                         bg="whiteAlpha.50"
                     >
                         <Icon as={RiWalletLine} boxSize={8} />
-                        <Text fontWeight="bold">
+                        <p className="font-bold">
                             {connection.isConnectedWithPrivy
                                 ? 'Embedded Wallet'
                                 : 'Wallet'}
-                        </Text>
-                        <Text>
-                            <Text as="span" fontWeight="bold">
+                        </p>
+                        <p>
+                            <p as="span" className="font-bold">
                                 Address:{' '}
-                            </Text>
+                            </p>
                             {connectedWallet?.address}
-                        </Text>
-                    </VStack>
+                        </p>
+                    </div>
                 </SimpleGrid>
 
                 <Alert status="info" bg="whiteAlpha.200">
@@ -87,7 +78,7 @@ export function AccountInfo() {
                         unnecessary money spent on gas.
                     </AlertDescription>
                 </Alert>
-            </VStack>
-        </Box>
+            </div>
+        </div>
     );
 }

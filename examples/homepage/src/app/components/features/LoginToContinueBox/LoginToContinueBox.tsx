@@ -1,6 +1,7 @@
 'use client';
 
-import { Button, Text, VStack, useColorMode } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { useConnectModal } from '@vechain/vechain-kit';
 
 export function LoginToContinueBox() {
@@ -8,31 +9,31 @@ export function LoginToContinueBox() {
     const { open } = useConnectModal();
 
     return (
-        <VStack
+        <div className="flex flex-col space-y-3"
             w="full"
             p={4}
             rounded="md"
-            spacing={3}
+            
             borderRadius="lg"
             boxShadow="xl"
             bg="whiteAlpha.100"
             backdropFilter="blur(10px)"
             zIndex={2}
         >
-            <Text fontSize="lg" fontWeight="medium" textAlign="center">
+            <p fontSize="lg" fontWeight="medium" className="text-center">
                 Connect your wallet to explore all features
-            </Text>
-            <Text
+            </p>
+            <p
                 fontSize="sm"
                 color={colorMode === 'light' ? 'gray.600' : 'gray.400'}
-                textAlign="center"
+                className="text-center"
             >
                 Sign in to access transaction examples, signing capabilities,
                 profile customization and more.
-            </Text>
-            <Button width="full" onClick={open}>
+            </p>
+            <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200" width="full" onClick={open}>
                 Click here to sign in!
-            </Button>
-        </VStack>
+            </button>
+        </div>
     );
 }

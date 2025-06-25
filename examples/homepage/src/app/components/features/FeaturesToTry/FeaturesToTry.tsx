@@ -1,6 +1,7 @@
 'use client';
 
-import { VStack, Text, SimpleGrid } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { FaRegAddressCard } from 'react-icons/fa';
 import {
     RiExchangeLine,
@@ -109,17 +110,17 @@ export function FeaturesToTry() {
     ];
 
     return (
-        <VStack spacing={6} align="stretch">
-            <Text fontSize="xl" fontWeight="bold">
+        <div className="flex flex-col space-y-6"  align="stretch">
+            <p className="text-xl" className="font-bold">
                 Features
-            </Text>
-            <Text fontSize="sm" opacity={0.5}>
+            </p>
+            <p fontSize="sm" opacity={0.5}>
                 The following features are available for your users and for you
                 both accessible by using the VeChain Kit main modal or by adding
                 custom call to action buttons to your app and opening the
                 content you need on demand. Try them out by clicking on the
                 cards below.
-            </Text>
+            </p>
 
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
                 {features.map((feature, index) => (
@@ -133,6 +134,6 @@ export function FeaturesToTry() {
                 <ThemeCard />
                 <GithubCard />
             </SimpleGrid>
-        </VStack>
+        </div>
     );
 }

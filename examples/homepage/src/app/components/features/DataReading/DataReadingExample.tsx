@@ -1,16 +1,8 @@
 'use client';
 
 import { ReactElement } from 'react';
-import {
-    VStack,
-    Text,
-    SimpleGrid,
-    Button,
-    Code,
-    Box,
-    Link,
-    Heading,
-} from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import {
     useWallet,
     useGetB3trBalance,
@@ -41,52 +33,52 @@ export function DataReadingExample(): ReactElement {
             title="Reading Blockchain Data"
             icon={MdDataUsage}
         >
-            <VStack spacing={6} align="stretch">
-                <Text textAlign="center">
+            <div className="flex flex-col space-y-6"  align="stretch">
+                <p className="text-center">
                     VeChain Kit provides hooks to easily read data from the
                     blockchain. Here are some examples using built-in hooks.
-                </Text>
+                </p>
 
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
                     {/* Live Data Display */}
-                    <VStack
-                        spacing={4}
+                    <div className="flex flex-col space-y-4"
+                        
                         p={6}
                         borderRadius="md"
                         bg="whiteAlpha.50"
                     >
-                        <Text fontWeight="bold">Live Blockchain Data</Text>
-                        <VStack spacing={3} align="start" w="full">
-                            <Text>
-                                <Text as="span" fontWeight="bold">
+                        <p className="font-bold">Live Blockchain Data</p>
+                        <div className="flex flex-col space-y-3"  align="start" w="full">
+                            <p>
+                                <p as="span" className="font-bold">
                                     B3TR Balance:{' '}
-                                </Text>
+                                </p>
                                 {isLoadingB3tr
                                     ? 'Loading...'
                                     : b3trBalance?.formatted || '0'}
-                            </Text>
-                            <Text>
-                                <Text as="span" fontWeight="bold">
+                            </p>
+                            <p>
+                                <p as="span" className="font-bold">
                                     VOT3 Balance:{' '}
-                                </Text>
+                                </p>
                                 {isLoadingVot3
                                     ? 'Loading...'
                                     : vot3Balance?.formatted || '0'}
-                            </Text>
-                            <Text>
-                                <Text as="span" fontWeight="bold">
+                            </p>
+                            <p>
+                                <p as="span" className="font-bold">
                                     VET Price:{' '}
-                                </Text>
+                                </p>
                                 {isLoadingVetPrice
                                     ? 'Loading...'
                                     : `$${vetPrice?.toFixed(4) || '0'}`}
-                            </Text>
-                            <VStack mt={4} align="start" spacing={1}>
-                                <Heading size="sm">VeBetterDAO</Heading>
-                                <Text fontWeight="bold">
+                            </p>
+                            <div className="flex flex-col space-y-1" mt={4} align="start" >
+                                <h2 size="sm">VeBetterDAO</h2>
+                                <p className="font-bold">
                                     Current round: {vbdCurrentRound?.roundId}
-                                </Text>
-                                <Text fontWeight="bold">
+                                </p>
+                                <p className="font-bold">
                                     Next round starts on:{' '}
                                     {isLoadingVbdCurrentRound
                                         ? 'Loading...'
@@ -94,20 +86,20 @@ export function DataReadingExample(): ReactElement {
                                               vbdCurrentRound?.voteEndTimestamp ??
                                                   0,
                                           ).toLocaleString()}
-                                </Text>
-                            </VStack>
-                        </VStack>
-                    </VStack>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
                     {/* Code Example */}
-                    <VStack
-                        spacing={4}
+                    <div className="flex flex-col space-y-4"
+                        
                         p={6}
                         borderRadius="md"
                         bg="whiteAlpha.50"
                     >
-                        <Text fontWeight="bold">Implementation Example</Text>
-                        <Box
+                        <p className="font-bold">Implementation Example</p>
+                        <div
                             w="full"
                             p={3}
                             bg="blackAlpha.300"
@@ -131,8 +123,8 @@ const { data: b3trBalance } =
 const { data: vetPrice } = 
     useGetTokenUsdPrice('VET');`}
                             </Code>
-                        </Box>
-                        <Button
+                        </div>
+                        <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                             as={Link}
                             isExternal
                             href="https://docs.vechainkit.vechain.org/vechain-kit/hooks"
@@ -141,15 +133,15 @@ const { data: vetPrice } =
                             rightIcon={<MdDataUsage />}
                         >
                             View Full Documentation
-                        </Button>
-                    </VStack>
+                        </button>
+                    </div>
                 </SimpleGrid>
 
-                <Text fontSize="sm" textAlign="center" color="gray.400">
+                <p fontSize="sm" className="text-center" color="gray.400">
                     Note: These hooks use react-query under the hood for
                     efficient data fetching and caching.
-                </Text>
-            </VStack>
+                </p>
+            </div>
         </CollapsibleCard>
     );
 }

@@ -1,14 +1,8 @@
 'use client';
 
 import { ReactElement, useCallback } from 'react';
-import {
-    Button,
-    VStack,
-    Text,
-    Code,
-    useToast,
-    Heading,
-} from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import {
     useWallet,
     useSignMessage,
@@ -100,46 +94,46 @@ export function SigningExample(): ReactElement {
 
     if (!connection.isConnected) {
         return (
-            <VStack spacing={4}>
-                <Text>Connect your wallet to start signing messages</Text>
+            <div className="flex flex-col space-y-4" >
+                <p>Connect your wallet to start signing messages</p>
                 <WalletButton />
-            </VStack>
+            </div>
         );
     }
 
     return (
-        <VStack spacing={6} align="stretch">
-            <VStack align="stretch" spacing={4}>
-                <Heading size="md">Sign Message</Heading>
-                <Button
+        <div className="flex flex-col space-y-6"  align="stretch">
+            <div className="flex flex-col space-y-4" align="stretch" >
+                <h2 size="md">Sign Message</h2>
+                <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                     onClick={handleSignMessage}
                     isLoading={isMessageSignPending}
                     data-testid="sign-message-button"
                 >
                     Sign "Hello VeChain!"
-                </Button>
+                </button>
                 {messageSignature && (
                     <Code p={2} borderRadius="md">
                         {messageSignature}
                     </Code>
                 )}
-            </VStack>
+            </div>
 
-            <VStack align="stretch" spacing={4}>
-                <Heading size="md">Sign Typed Data</Heading>
-                <Button
+            <div className="flex flex-col space-y-4" align="stretch" >
+                <h2 size="md">Sign Typed Data</h2>
+                <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                     onClick={handleSignTypedData}
                     isLoading={isTypedDataSignPending}
                     data-testid="sign-typed-data-button"
                 >
                     Sign Typed Data
-                </Button>
+                </button>
                 {typedDataSignature && (
                     <Code p={2} borderRadius="md">
                         {typedDataSignature}
                     </Code>
                 )}
-            </VStack>
-        </VStack>
+            </div>
+        </div>
     );
 }

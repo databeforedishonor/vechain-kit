@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, Button, Heading, HStack } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import {
     useWallet,
     useThor,
@@ -74,29 +75,29 @@ export function TransactionExamples() {
 
     return (
         <>
-            <Box>
-                <Heading size="md">
+            <div>
+                <h2 size="md">
                     <b>Test Transactions</b>
-                </Heading>
-                <HStack mt={4} spacing={4}>
-                    <Button
+                </h2>
+                <div className="flex flex-row items-center space-x-4" mt={4} >
+                    <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                         onClick={handleTransactionWithToast}
                         isLoading={isTransactionPending}
                         isDisabled={isTransactionPending}
                         data-testid="tx-with-toast-button"
                     >
                         Tx with toast
-                    </Button>
-                    <Button
+                    </button>
+                    <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                         onClick={handleTransactionWithModal}
                         isLoading={isTransactionPending}
                         isDisabled={isTransactionPending}
                         data-testid="tx-with-modal-button"
                     >
                         Tx with modal
-                    </Button>
-                </HStack>
-            </Box>
+                    </button>
+                </div>
+            </div>
 
             <TransactionToast
                 isOpen={isTransactionToastOpen}

@@ -1,17 +1,7 @@
 'use client';
 
-import {
-    Box,
-    VStack,
-    Heading,
-    Accordion,
-    AccordionItem,
-    AccordionButton,
-    AccordionPanel,
-    AccordionIcon,
-    Text,
-} from '@chakra-ui/react';
-
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 export function FAQSection() {
     const faqItems = [
         {
@@ -53,7 +43,7 @@ export function FAQSection() {
     ];
 
     return (
-        <Box
+        <div
             p={8}
             borderRadius="lg"
             boxShadow="xl"
@@ -61,10 +51,10 @@ export function FAQSection() {
             backdropFilter="blur(10px)"
             w="full"
         >
-            <VStack spacing={6} align="stretch">
-                <Heading as="h2" size="lg" textAlign="center">
+            <div className="flex flex-col space-y-6"  align="stretch">
+                <h2 as="h2" size="lg" className="text-center">
                     Frequently Asked Questions
-                </Heading>
+                </h2>
 
                 <Accordion allowToggle>
                     {faqItems.map((item, index) => (
@@ -75,24 +65,24 @@ export function FAQSection() {
                                     borderRadius="md"
                                     _hover={{ bg: 'whiteAlpha.200' }}
                                 >
-                                    <Box
+                                    <div
                                         as="span"
                                         flex="1"
                                         textAlign="left"
                                         fontWeight="medium"
                                     >
                                         {item.question}
-                                    </Box>
+                                    </div>
                                     <AccordionIcon />
                                 </AccordionButton>
                             </h3>
                             <AccordionPanel pb={4} pt={4} px={6}>
-                                <Text>{item.answer}</Text>
+                                <p>{item.answer}</p>
                             </AccordionPanel>
                         </AccordionItem>
                     ))}
                 </Accordion>
-            </VStack>
-        </Box>
+            </div>
+        </div>
     );
 }

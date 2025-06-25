@@ -1,14 +1,7 @@
 'use client';
 
-import {
-    VStack,
-    Text,
-    Button,
-    Box,
-    HStack,
-    Grid,
-    useColorMode,
-} from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import {
     WalletButton,
     useAccountModal,
@@ -29,29 +22,29 @@ export function UIControls() {
             icon={MdBrush}
             defaultIsOpen={false}
         >
-            <VStack spacing={6} align="stretch" w={'full'}>
-                <Text textAlign="center">
+            <div className="flex flex-col space-y-6"  align="stretch" w={'full'}>
+                <p className="text-center">
                     VeChain Kit provides multiple ways to customize the UI
                     components. Here are some examples of different button
                     styles and variants.
-                </Text>
+                </p>
 
-                <HStack w={'full'} justifyContent={'space-between'}>
+                <div className="flex flex-row items-center" w={'full'} justifyContent={'space-between'}>
                     {/* Mobile Variants */}
-                    <HStack w={'full'} justifyContent={'center'}>
-                        <VStack
+                    <div className="flex flex-row items-center" w={'full'} justifyContent={'center'}>
+                        <div className="flex flex-col space-y-6"
                             w={'fit-content'}
-                            spacing={6}
+                            
                             p={6}
                             borderRadius="md"
                             bg="whiteAlpha.50"
                         >
-                            <Text fontWeight="bold">
+                            <p className="font-bold">
                                 Account Button Variants
-                            </Text>
-                            <Text
+                            </p>
+                            <p
                                 fontSize="sm"
-                                textAlign="center"
+                                className="text-center"
                                 color="gray.400"
                             >
                                 Note: Some variants might look different based
@@ -59,7 +52,7 @@ export function UIControls() {
                                 "iconDomainAndAssets" will show the assets only
                                 if the user has assets. And same for domain
                                 name.
-                            </Text>
+                            </p>
                             <Grid
                                 templateColumns={{
                                     base: '1fr',
@@ -70,15 +63,15 @@ export function UIControls() {
                                 justifyContent="space-between"
                             >
                                 {/* First Column Items */}
-                                <VStack alignItems="flex-start" spacing={8}>
-                                    <VStack alignItems="flex-start" spacing={2}>
-                                        <Box w={'fit-content'}>
+                                <div className="flex flex-col space-y-8" alignItems="flex-start" >
+                                    <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                        <div w={'fit-content'}>
                                             <WalletButton
                                                 mobileVariant="icon"
                                                 desktopVariant="icon"
                                             />
-                                        </Box>
-                                        <Text
+                                        </div>
+                                        <p
                                             fontSize="sm"
                                             fontWeight="medium"
                                             color="blue.300"
@@ -88,17 +81,17 @@ export function UIControls() {
                                             borderRadius="full"
                                         >
                                             variant: "icon"
-                                        </Text>
-                                    </VStack>
+                                        </p>
+                                    </div>
 
-                                    <VStack alignItems="flex-start" spacing={2}>
-                                        <Box w={'fit-content'}>
+                                    <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                        <div w={'fit-content'}>
                                             <WalletButton
                                                 mobileVariant="iconAndDomain"
                                                 desktopVariant="iconAndDomain"
                                             />
-                                        </Box>
-                                        <Text
+                                        </div>
+                                        <p
                                             fontSize="sm"
                                             fontWeight="medium"
                                             color="blue.300"
@@ -108,17 +101,17 @@ export function UIControls() {
                                             borderRadius="full"
                                         >
                                             variant: "iconAndDomain"
-                                        </Text>
-                                    </VStack>
+                                        </p>
+                                    </div>
 
-                                    <VStack alignItems="flex-start" spacing={2}>
-                                        <Box w={'fit-content'}>
+                                    <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                        <div w={'fit-content'}>
                                             <WalletButton
                                                 mobileVariant="iconDomainAndAddress"
                                                 desktopVariant="iconDomainAndAddress"
                                             />
-                                        </Box>
-                                        <Text
+                                        </div>
+                                        <p
                                             fontSize="sm"
                                             fontWeight="medium"
                                             color="blue.300"
@@ -128,20 +121,20 @@ export function UIControls() {
                                             borderRadius="full"
                                         >
                                             variant: "iconDomainAndAddress"
-                                        </Text>
-                                    </VStack>
-                                </VStack>
+                                        </p>
+                                    </div>
+                                </div>
 
                                 {/* Second Column Items */}
-                                <VStack alignItems={'flex-start'} spacing={8}>
-                                    <VStack alignItems="flex-start" spacing={2}>
-                                        <Box w={'fit-content'}>
+                                <div className="flex flex-col space-y-8" alignItems={'flex-start'} >
+                                    <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                        <div w={'fit-content'}>
                                             <WalletButton
                                                 mobileVariant="iconDomainAndAssets"
                                                 desktopVariant="iconDomainAndAssets"
                                             />
-                                        </Box>
-                                        <Text
+                                        </div>
+                                        <p
                                             fontSize="sm"
                                             fontWeight="medium"
                                             color="blue.300"
@@ -151,11 +144,11 @@ export function UIControls() {
                                             borderRadius="full"
                                         >
                                             variant: "iconDomainAndAssets"
-                                        </Text>
-                                    </VStack>
+                                        </p>
+                                    </div>
 
-                                    <VStack alignItems="flex-start" spacing={2}>
-                                        <Box w={'fit-content'}>
+                                    <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                        <div w={'fit-content'}>
                                             <WalletButton
                                                 mobileVariant="iconDomainAndAssets"
                                                 desktopVariant="iconDomainAndAssets"
@@ -174,8 +167,8 @@ export function UIControls() {
                                                     transition: 'all 0.2s ease',
                                                 }}
                                             />
-                                        </Box>
-                                        <Text
+                                        </div>
+                                        <p
                                             fontSize="sm"
                                             fontWeight="medium"
                                             color="blue.300"
@@ -186,14 +179,14 @@ export function UIControls() {
                                         >
                                             variant: "iconDomainAndAssets"
                                             (styled)
-                                        </Text>
-                                    </VStack>
+                                        </p>
+                                    </div>
 
-                                    <VStack alignItems="flex-start" spacing={2}>
-                                        <Button onClick={open}>
-                                            <Text>This is a custom button</Text>
-                                        </Button>
-                                        <Text
+                                    <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                        <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200" onClick={open}>
+                                            <p>This is a custom button</p>
+                                        </button>
+                                        <p
                                             fontSize="sm"
                                             fontWeight="medium"
                                             color="blue.300"
@@ -203,29 +196,29 @@ export function UIControls() {
                                             borderRadius="full"
                                         >
                                             no variant, custom button
-                                        </Text>
-                                    </VStack>
-                                </VStack>
+                                        </p>
+                                    </div>
+                                </div>
                             </Grid>
-                        </VStack>
-                    </HStack>
-                </HStack>
-                <VStack
+                        </div>
+                    </div>
+                </div>
+                <div className="flex flex-col space-y-6"
                     w={'full'}
                     justifyContent={'center'}
-                    spacing={6}
+                    
                     p={6}
                     borderRadius="md"
                     bg="whiteAlpha.50"
                 >
-                    <Text fontWeight="bold">Profile Cards</Text>
-                    <Text fontSize="sm" textAlign="center" color="gray.400">
+                    <p className="font-bold">Profile Cards</p>
+                    <p fontSize="sm" className="text-center" color="gray.400">
                         Import the profile card component and use it in your
                         app. You can pass in an address and it will display all
                         the information set by the user. You can decide to hide
                         specific sections. (Customize your profile to see how
                         this card changes)
-                    </Text>
+                    </p>
                     <Grid
                         templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}
                         gap={4}
@@ -252,8 +245,8 @@ export function UIControls() {
                             showHeader={false}
                         />
                     </Grid>
-                </VStack>
-            </VStack>
+                </div>
+            </div>
         </CollapsibleCard>
     );
 }

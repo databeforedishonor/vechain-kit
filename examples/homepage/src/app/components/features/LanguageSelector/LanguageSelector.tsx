@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, Heading, VStack, Text, Select } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { useTranslation } from 'react-i18next';
 import { languageNames, supportedLanguages } from '../../../../../i18n';
 
@@ -8,7 +9,7 @@ export function LanguageSelector() {
     const { t, i18n } = useTranslation();
 
     return (
-        <Box
+        <div
             p={6}
             bg="white"
             borderRadius="xl"
@@ -17,15 +18,15 @@ export function LanguageSelector() {
             _hover={{ borderColor: 'blue.500', cursor: 'pointer' }}
             transition="all 0.2s"
         >
-            <Heading size={'md'}>
+            <h2 size={'md'}>
                 <b>Multilanguage</b>
-            </Heading>
-            <VStack mt={4} spacing={4} alignItems="flex-start">
-                <Text>
+            </h2>
+            <div className="flex flex-col space-y-4" mt={4}  alignItems="flex-start">
+                <p>
                     {t('Demo text to be translated')} - (language should change
                     also in modal and toast)
-                </Text>
-                <Select
+                </p>
+                <select
                     borderRadius={'md'}
                     size="sm"
                     width="auto"
@@ -38,8 +39,8 @@ export function LanguageSelector() {
                             {languageNames[lang as keyof typeof languageNames]}
                         </option>
                     ))}
-                </Select>
-            </VStack>
-        </Box>
+                </select>
+            </div>
+        </div>
     );
 }

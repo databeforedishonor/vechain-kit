@@ -1,15 +1,23 @@
 'use client';
 
-import { Box, Button, useColorMode } from '@chakra-ui/react';
+import { useColorMode } from '../../../../hooks/useColorMode';
+import { cn } from '../../../../utils/cn';
 
 export function ThemeToggle() {
     const { colorMode, toggleColorMode } = useColorMode();
 
     return (
-        <Box>
-            <Button onClick={toggleColorMode}>
+        <div>
+            <button 
+                onClick={toggleColorMode}
+                className={cn(
+                    "btn-primary",
+                    "px-4 py-2 rounded-lg font-medium transition-colors duration-200",
+                    "bg-vechain-600 hover:bg-vechain-700 text-white"
+                )}
+            >
                 Toggle {colorMode === 'light' ? 'Dark' : 'Light'} Mode
-            </Button>
-        </Box>
+            </button>
+        </div>
     );
 }

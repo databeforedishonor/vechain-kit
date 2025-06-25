@@ -1,6 +1,7 @@
 'use client';
 
-import { VStack, Text, Box, Grid, Button } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import {
     WalletButton,
     useConnectModal,
@@ -19,21 +20,21 @@ export const LoginUIControl = () => {
             icon={MdLogin}
             defaultIsOpen={true}
         >
-            <VStack spacing={6} align="stretch" w={'full'}>
-                <Text textAlign="center">
+            <div className="flex flex-col space-y-6"  align="stretch" w={'full'}>
+                <p className="text-center">
                     VeChain Kit provides multiple ways to customize the login
                     button and how we show the login options. Here are some
                     examples of different login button variants.
-                </Text>
+                </p>
 
-                <VStack
+                <div className="flex flex-col space-y-6"
                     w={'full'}
-                    spacing={6}
+                    
                     p={6}
                     borderRadius="md"
                     bg="whiteAlpha.50"
                 >
-                    <Text fontWeight="bold">Login Button Variants</Text>
+                    <p className="font-bold">Login Button Variants</p>
                     <Grid
                         templateColumns={{
                             base: '1fr',
@@ -44,12 +45,12 @@ export const LoginUIControl = () => {
                         justifyContent="space-between"
                     >
                         {/* First Column Items */}
-                        <VStack alignItems="flex-start" spacing={8}>
-                            <VStack alignItems="flex-start" spacing={2}>
-                                <Box w={'fit-content'}>
+                        <div className="flex flex-col space-y-8" alignItems="flex-start" >
+                            <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                <div w={'fit-content'}>
                                     <WalletButton connectionVariant="modal" />
-                                </Box>
-                                <Text
+                                </div>
+                                <p
                                     fontSize="sm"
                                     fontWeight="medium"
                                     color="blue.300"
@@ -59,11 +60,11 @@ export const LoginUIControl = () => {
                                     borderRadius="full"
                                 >
                                     variant: "modal"
-                                </Text>
-                            </VStack>
+                                </p>
+                            </div>
 
-                            <VStack alignItems="flex-start" spacing={2}>
-                                <Box w={'fit-content'}>
+                            <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                <div w={'fit-content'}>
                                     <WalletButton
                                         connectionVariant="modal"
                                         buttonStyle={{
@@ -81,8 +82,8 @@ export const LoginUIControl = () => {
                                             transition: 'all 0.2s ease',
                                         }}
                                     />
-                                </Box>
-                                <Text
+                                </div>
+                                <p
                                     fontSize="sm"
                                     fontWeight="medium"
                                     color="blue.300"
@@ -92,17 +93,17 @@ export const LoginUIControl = () => {
                                     borderRadius="full"
                                 >
                                     variant: "modal" (with custom styling)
-                                </Text>
-                            </VStack>
-                        </VStack>
+                                </p>
+                            </div>
+                        </div>
 
                         {/* Second Column Items */}
-                        <VStack alignItems="flex-start" spacing={8}>
-                            <VStack alignItems="flex-start" spacing={2}>
-                                <Box w={'fit-content'}>
+                        <div className="flex flex-col space-y-8" alignItems="flex-start" >
+                            <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                <div w={'fit-content'}>
                                     <WalletButton connectionVariant="popover" />
-                                </Box>
-                                <Text
+                                </div>
+                                <p
                                     fontSize="sm"
                                     fontWeight="medium"
                                     color="blue.300"
@@ -112,16 +113,16 @@ export const LoginUIControl = () => {
                                     borderRadius="full"
                                 >
                                     variant: "popover" (desktop only)
-                                </Text>
-                            </VStack>
+                                </p>
+                            </div>
 
-                            <VStack alignItems="flex-start" spacing={2}>
-                                <Box w={'fit-content'}>
-                                    <Button onClick={open}>
+                            <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                <div w={'fit-content'}>
+                                    <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200" onClick={open}>
                                         Click me to login
-                                    </Button>
-                                </Box>
-                                <Text
+                                    </button>
+                                </div>
+                                <p
                                     fontSize="sm"
                                     fontWeight="medium"
                                     color="blue.300"
@@ -131,16 +132,16 @@ export const LoginUIControl = () => {
                                     borderRadius="full"
                                 >
                                     custom button (with onClick)
-                                </Text>
-                            </VStack>
+                                </p>
+                            </div>
 
-                            <VStack alignItems="flex-start" spacing={2}>
-                                <Box w={'fit-content'}>
-                                    <Button onClick={openWalletModal}>
+                            <div className="flex flex-col space-y-2" alignItems="flex-start" >
+                                <div w={'fit-content'}>
+                                    <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200" onClick={openWalletModal}>
                                         Open only "Connect Wallet"
-                                    </Button>
-                                </Box>
-                                <Text
+                                    </button>
+                                </div>
+                                <p
                                     fontSize="sm"
                                     fontWeight="medium"
                                     color="blue.300"
@@ -150,19 +151,19 @@ export const LoginUIControl = () => {
                                     borderRadius="full"
                                 >
                                     aka: dapp-kit connect modal
-                                </Text>
-                            </VStack>
-                        </VStack>
+                                </p>
+                            </div>
+                        </div>
                     </Grid>
 
-                    <Text fontSize="sm" fontWeight="medium" color="blue.300">
+                    <p fontSize="sm" fontWeight="medium" color="blue.300">
                         Note: The modal variant is the default login button
                         variant. You can pass an additional description and
                         Image to the modal when configuring you the
                         VeChainKitProvider.
-                    </Text>
-                </VStack>
-            </VStack>
+                    </p>
+                </div>
+            </div>
         </CollapsibleCard>
     );
 };

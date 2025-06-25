@@ -1,14 +1,7 @@
 'use client';
 
-import {
-    Box,
-    VStack,
-    Text,
-    Icon,
-    useColorMode,
-    Select,
-    Button,
-} from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { BsGlobe } from 'react-icons/bs';
 import { useTranslation } from 'react-i18next';
 import { languageNames, supportedLanguages } from '../../../../../i18n';
@@ -19,28 +12,28 @@ export function LanguageCard() {
     const { t, i18n } = useTranslation();
     const { open: openAccountModal } = useAccountModal();
     return (
-        <Box
+        <div
             p={4}
             backdropFilter="blur(10px)"
             borderRadius="md"
             bg={colorMode === 'light' ? 'gray.50' : 'whiteAlpha.50'}
             height="full"
         >
-            <VStack spacing={3} align="start">
+            <div className="flex flex-col space-y-3"  align="start">
                 <Icon
                     as={BsGlobe}
                     boxSize={6}
                     color={colorMode === 'light' ? 'blue.500' : 'blue.300'}
                 />
-                <Text fontWeight="bold">Multilanguage support</Text>
-                <VStack align="start" spacing={2}>
-                    <Text
+                <p className="font-bold">Multilanguage support</p>
+                <div className="flex flex-col space-y-2" align="start" >
+                    <p
                         fontSize="sm"
                         color={colorMode === 'light' ? 'gray.600' : 'gray.400'}
                     >
                         {t('Demo text to be translated')}
-                    </Text>
-                    <Select
+                    </p>
+                    <select
                         borderRadius={'md'}
                         size="sm"
                         width="auto"
@@ -56,17 +49,17 @@ export function LanguageCard() {
                                 }
                             </option>
                         ))}
-                    </Select>
-                    <Button
+                    </select>
+                    <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                         size="sm"
                         variant="ghost"
                         colorScheme="blue"
                         onClick={() => openAccountModal()}
                     >
                         {t('Check language in account modal')}
-                    </Button>
-                </VStack>
-            </VStack>
-        </Box>
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 }

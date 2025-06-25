@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, Heading, Text, Spinner } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { useWallet, useGetB3trBalance } from '@vechain/vechain-kit';
 
 export function AccountInfo() {
@@ -11,34 +12,34 @@ export function AccountInfo() {
     return (
         <>
             {smartAccount.address && (
-                <Box>
-                    <Heading size={'md'}>
+                <div>
+                    <h2 size={'md'}>
                         <b>Smart Account</b>
-                    </Heading>
-                    <Text data-testid="smart-account-address">
+                    </h2>
+                    <p data-testid="smart-account-address">
                         Smart Account: {smartAccount.address}
-                    </Text>
-                    <Text data-testid="is-sa-deployed">
+                    </p>
+                    <p data-testid="is-sa-deployed">
                         Deployed: {smartAccount.isDeployed.toString()}
-                    </Text>
+                    </p>
                     {b3trBalanceLoading ? (
-                        <Spinner />
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                     ) : (
-                        <Text data-testid="b3tr-balance">
+                        <p data-testid="b3tr-balance">
                             B3TR Balance: {b3trBalance?.formatted}
-                        </Text>
+                        </p>
                     )}
-                </Box>
+                </div>
             )}
 
-            <Box>
-                <Heading size={'md'}>
+            <div>
+                <h2 size={'md'}>
                     <b>Wallet</b>
-                </Heading>
-                <Text data-testid="connected-wallet-address">
+                </h2>
+                <p data-testid="connected-wallet-address">
                     Address: {connectedWallet?.address}
-                </Text>
-            </Box>
+                </p>
+            </div>
         </>
     );
 }

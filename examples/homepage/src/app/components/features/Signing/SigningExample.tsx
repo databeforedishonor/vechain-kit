@@ -1,14 +1,8 @@
 'use client';
 
 import { ReactElement, useCallback } from 'react';
-import {
-    Button,
-    VStack,
-    Text,
-    Code,
-    useToast,
-    SimpleGrid,
-} from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import {
     useWallet,
     useSignMessage,
@@ -17,7 +11,8 @@ import {
 } from '@vechain/vechain-kit';
 import { MdFingerprint } from 'react-icons/md';
 import { CollapsibleCard } from '../../ui/CollapsibleCard';
-import { Link } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { FaCode } from 'react-icons/fa';
 
 // Example EIP-712 typed data
@@ -105,10 +100,10 @@ export function SigningExample(): ReactElement {
     if (!connection.isConnected) {
         return (
             <CollapsibleCard title="Message Signing" icon={MdFingerprint}>
-                <VStack spacing={4}>
-                    <Text>Connect your wallet to start signing messages</Text>
+                <div className="flex flex-col space-y-4" >
+                    <p>Connect your wallet to start signing messages</p>
                     <WalletButton />
-                </VStack>
+                </div>
             </CollapsibleCard>
         );
     }
@@ -119,28 +114,28 @@ export function SigningExample(): ReactElement {
             title="Message Signing"
             icon={MdFingerprint}
         >
-            <VStack spacing={6} align="stretch">
-                <Text textAlign="center">
+            <div className="flex flex-col space-y-6"  align="stretch">
+                <p className="text-center">
                     VeChain Kit provides hooks for signing messages and typed
                     data. Try these examples to see signing in action.
-                </Text>
+                </p>
 
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
                     {/* Message Signing */}
-                    <VStack
-                        spacing={4}
+                    <div className="flex flex-col space-y-4"
+                        
                         p={6}
                         borderRadius="md"
                         bg="whiteAlpha.50"
                     >
-                        <Text fontWeight="bold">Sign Message</Text>
-                        <Button
+                        <p className="font-bold">Sign Message</p>
+                        <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                             onClick={handleSignMessage}
                             isLoading={isMessageSignPending}
                             w="full"
                         >
                             Sign "Hello VeChain!"
-                        </Button>
+                        </button>
                         {messageSignature && (
                             <Code
                                 p={2}
@@ -151,23 +146,23 @@ export function SigningExample(): ReactElement {
                                 {messageSignature}
                             </Code>
                         )}
-                    </VStack>
+                    </div>
 
                     {/* Typed Data Signing */}
-                    <VStack
-                        spacing={4}
+                    <div className="flex flex-col space-y-4"
+                        
                         p={6}
                         borderRadius="md"
                         bg="whiteAlpha.50"
                     >
-                        <Text fontWeight="bold">Sign Typed Data</Text>
-                        <Button
+                        <p className="font-bold">Sign Typed Data</p>
+                        <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                             onClick={handleSignTypedData}
                             isLoading={isTypedDataSignPending}
                             w="full"
                         >
                             Sign Typed Data
-                        </Button>
+                        </button>
                         {typedDataSignature && (
                             <Code
                                 p={2}
@@ -178,13 +173,13 @@ export function SigningExample(): ReactElement {
                                 {typedDataSignature}
                             </Code>
                         )}
-                    </VStack>
+                    </div>
                 </SimpleGrid>
 
                 {/* Implementation Example */}
-                <VStack spacing={4} p={6} borderRadius="md" bg="whiteAlpha.50">
-                    <Text fontWeight="bold">Implementation</Text>
-                    <Button
+                <div className="flex flex-col space-y-4"  p={6} borderRadius="md" bg="whiteAlpha.50">
+                    <p className="font-bold">Implementation</p>
+                    <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                         as={Link}
                         isExternal
                         href="https://github.com/vechain/vechain-kit/blob/main/examples/next-template/src/app/components/features/SigningExample/SigningExample.tsx"
@@ -193,8 +188,8 @@ export function SigningExample(): ReactElement {
                         rightIcon={<FaCode />}
                     >
                         View Code Example
-                    </Button>
-                    <Button
+                    </button>
+                    <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                         as={Link}
                         isExternal
                         href="https://docs.vechainkit.vechain.org/vechain-kit/sign-messages"
@@ -203,9 +198,9 @@ export function SigningExample(): ReactElement {
                         rightIcon={<MdFingerprint />}
                     >
                         Read Documentation
-                    </Button>
-                </VStack>
-            </VStack>
+                    </button>
+                </div>
+            </div>
         </CollapsibleCard>
     );
 }

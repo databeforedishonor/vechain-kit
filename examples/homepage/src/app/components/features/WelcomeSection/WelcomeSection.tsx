@@ -1,14 +1,9 @@
 'use client';
 
-import {
-    Container,
-    Spinner,
-    Text,
-    useColorMode,
-    VStack,
-} from '@chakra-ui/react';
 import { useWallet, WalletButton } from '@vechain/vechain-kit';
 import { FaHandPointUp } from 'react-icons/fa';
+import { useColorMode } from '../../../../hooks/useColorMode';
+import { cn } from '../../../../utils/cn';
 
 export function WelcomeSection() {
     const { connection } = useWallet();
@@ -16,75 +11,51 @@ export function WelcomeSection() {
     const isDarkMode = colorMode === 'dark';
 
     return (
-        <Container alignItems={'center'} justifyContent={'center'}>
-            <VStack spacing={10}>
-                <Text
-                    textAlign={'center'}
-                    fontSize="xl"
-                    fontWeight="bold"
-                    className="text-animation"
-                    bg={
-                        isDarkMode
-                            ? 'linear-gradient(45deg, #fafae6, #fafae6, #fff)'
-                            : 'linear-gradient(45deg, #2B6CB0, #3182CE, #4299E1)'
-                    }
-                    backgroundClip="text"
-                    color="transparent"
+        <div className="max-w-4xl mx-auto px-4 flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center space-y-10">
+                <h1
+                    className={cn(
+                        "text-center text-xl font-bold text-animation",
+                        "bg-gradient-to-r bg-clip-text text-transparent",
+                        isDarkMode 
+                            ? "from-yellow-100 via-yellow-100 to-white" 
+                            : "from-blue-600 via-blue-700 to-blue-500"
+                    )}
                 >
                     Hi! I'm VeChain Kit, a new way to access applications on
                     VeChain, and I'm here to show you my capabilities.
-                </Text>
+                </h1>
+                
                 {connection.isLoading ? (
-                    <Spinner />
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                 ) : (
-                    <VStack>
+                    <div className="flex flex-col items-center space-y-4">
                         <WalletButton
                             mobileVariant="iconDomainAndAssets"
                             desktopVariant="iconDomainAndAssets"
                         />
 
-                        <VStack
-                            mt={4}
-                            spacing={3}
-                            animation="bounce-top 1s infinite"
-                            transform="rotate(-10deg)"
-                            justifyContent="center"
-                            alignItems="center"
-                            sx={{
-                                '@keyframes bounce-top': {
-                                    '0%, 100%': {
-                                        transform: 'rotate(0deg) translateY(0)',
-                                    },
-                                    '50%': {
-                                        transform:
-                                            'rotate(0deg) translateY(-5px)',
-                                    },
-                                },
-                            }}
+                        <div 
+                            className={cn(
+                                "mt-4 flex flex-col items-center justify-center space-y-3",
+                                "animate-bounce transform -rotate-12"
+                            )}
                         >
                             <FaHandPointUp
                                 size={24}
-                                color={
-                                    colorMode === 'light'
-                                        ? '#4A5568'
-                                        : '#A0AEC0'
-                                }
+                                color={colorMode === 'light' ? '#4A5568' : '#A0AEC0'}
                             />
 
-                            <Text
-                                fontSize="sm"
-                                color={
-                                    colorMode === 'light'
-                                        ? 'gray.600'
-                                        : 'gray.400'
-                                }
-                            >
+                            <p className={cn(
+                                "text-sm",
+                                colorMode === 'light' ? 'text-gray-600' : 'text-gray-400'
+                            )}>
                                 Click me!
-                            </Text>
-                        </VStack>
-                    </VStack>
+                            </p>
+                        </div>
+                    </div>
                 )}
-            </VStack>
-        </Container>
+            </div>
+        </div>
     );
 }

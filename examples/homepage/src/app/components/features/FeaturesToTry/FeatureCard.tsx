@@ -1,13 +1,7 @@
 'use client';
 
-import {
-    Box,
-    VStack,
-    Text,
-    Icon,
-    useColorMode,
-    HStack,
-} from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { IconType } from 'react-icons';
 import { FaHandPointLeft } from 'react-icons/fa';
 
@@ -33,7 +27,7 @@ export function FeatureCard({
     const { colorMode } = useColorMode();
 
     return (
-        <Box
+        <div
             onClick={(e) => {
                 if (disabled) {
                     e.preventDefault();
@@ -55,16 +49,16 @@ export function FeatureCard({
             cursor={disabled ? 'not-allowed' : 'pointer'}
             height="full"
         >
-            <VStack spacing={3} align="start">
-                <HStack>
+            <div className="flex flex-col space-y-3"  align="start">
+                <div className="flex flex-row items-center">
                     <Icon
                         as={icon}
                         boxSize={6}
                         color={colorMode === 'light' ? 'blue.500' : 'blue.300'}
                     />
                     {showHint && (
-                        <HStack
-                            spacing={3}
+                        <div className="flex flex-row items-center space-x-3"
+                            
                             animation="bounce-left 1s infinite"
                             justifyContent="center"
                             alignItems="center"
@@ -92,7 +86,7 @@ export function FeatureCard({
                                 style={{ marginLeft: '8px' }}
                             />
 
-                            <Text
+                            <p
                                 fontSize="sm"
                                 color={
                                     colorMode === 'light'
@@ -101,23 +95,23 @@ export function FeatureCard({
                                 }
                             >
                                 Click me!
-                            </Text>
-                        </HStack>
+                            </p>
+                        </div>
                     )}
-                </HStack>
-                <Text fontWeight="bold">{title}</Text>
-                <Text
+                </div>
+                <p className="font-bold">{title}</p>
+                <p
                     fontSize="sm"
                     color={colorMode === 'light' ? 'gray.600' : 'gray.400'}
                 >
                     {description}
-                </Text>
+                </p>
                 {disabled && (
-                    <Text fontSize="xs" opacity={0.5}>
+                    <p fontSize="xs" opacity={0.5}>
                         Only available for social login users.
-                    </Text>
+                    </p>
                 )}
-            </VStack>
-        </Box>
+            </div>
+        </div>
     );
 }

@@ -1,18 +1,19 @@
 'use client';
 
-import { Box, VStack, Text, Icon, Link, useColorMode } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { BsGithub } from 'react-icons/bs';
 
 export function GithubCard() {
     const { colorMode } = useColorMode();
 
     return (
-        <Link
+        <a
             href="https://github.com/vechain/vechain-kit/issues/new"
             isExternal
             _hover={{ textDecoration: 'none' }}
         >
-            <Box
+            <div
                 p={4}
                 borderRadius="md"
                 bg={colorMode === 'light' ? 'green.50' : 'green.900'}
@@ -24,7 +25,7 @@ export function GithubCard() {
                 cursor="pointer"
                 height="full"
             >
-                <VStack spacing={3} align="start">
+                <div className="flex flex-col space-y-3"  align="start">
                     <Icon
                         as={BsGithub}
                         boxSize={6}
@@ -32,16 +33,16 @@ export function GithubCard() {
                             colorMode === 'light' ? 'green.500' : 'green.300'
                         }
                     />
-                    <Text fontWeight="bold">Feature Request</Text>
-                    <Text
+                    <p className="font-bold">Feature Request</p>
+                    <p
                         fontSize="sm"
                         color={colorMode === 'light' ? 'gray.600' : 'gray.400'}
                     >
                         Would you like to see something that is still missing?
                         Request the feature by opening an issue on our GitHub!
-                    </Text>
-                </VStack>
-            </Box>
-        </Link>
+                    </p>
+                </div>
+            </div>
+        </a>
     );
 }

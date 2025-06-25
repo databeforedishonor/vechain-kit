@@ -1,6 +1,7 @@
 'use client';
 
-import { VStack, Text, SimpleGrid, Button, Link } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { MdSend } from 'react-icons/md';
 import { FaCode } from 'react-icons/fa';
 import { useCallback } from 'react';
@@ -76,51 +77,51 @@ export function TransactionExamples() {
             title="Transaction Examples"
             icon={MdSend}
         >
-            <VStack spacing={6} align="stretch">
-                <Text textAlign="center">
+            <div className="flex flex-col space-y-6"  align="stretch">
+                <p className="text-center">
                     VeChain Kit provides built-in transaction handling with UI
                     components. Try these examples to see the transaction flow
                     in action.
-                </Text>
+                </p>
 
                 <SimpleGrid columns={{ base: 1, md: 1 }} spacing={6}>
-                    <VStack
-                        spacing={4}
+                    <div className="flex flex-col space-y-4"
+                        
                         p={6}
                         borderRadius="md"
                         bg="whiteAlpha.50"
                     >
-                        <Text fontWeight="bold">Test Transactions</Text>
-                        <VStack spacing={4} w="full">
-                            <Button
+                        <p className="font-bold">Test Transactions</p>
+                        <div className="flex flex-col space-y-4"  w="full">
+                            <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                                 onClick={handleTransactionWithToast}
                                 isLoading={isTransactionPending}
                                 isDisabled={isTransactionPending}
                                 w="full"
                             >
                                 Test with Toast
-                            </Button>
-                            <Button
+                            </button>
+                            <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                                 onClick={handleTransactionWithModal}
                                 isLoading={isTransactionPending}
                                 isDisabled={isTransactionPending}
                                 w="full"
                             >
                                 Test with Modal
-                            </Button>
-                        </VStack>
-                    </VStack>
+                            </button>
+                        </div>
+                    </div>
 
-                    <VStack
-                        spacing={4}
+                    <div className="flex flex-col space-y-4"
+                        
                         p={6}
                         borderRadius="md"
                         bg="whiteAlpha.50"
                     >
-                        <Text my={2} fontWeight="bold">
+                        <p my={2} className="font-bold">
                             Implementation
-                        </Text>
-                        <Button
+                        </p>
+                        <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                             as={Link}
                             isExternal
                             href="https://github.com/vechain/vechain-kit/blob/main/examples/next-template/src/app/components/features/TransactionExamples/TransactionExamples.tsx"
@@ -129,8 +130,8 @@ export function TransactionExamples() {
                             rightIcon={<FaCode />}
                         >
                             View Code Example
-                        </Button>
-                        <Button
+                        </button>
+                        <button className="btn-primary px-4 py-2 rounded-lg font-medium transition-colors duration-200"
                             as={Link}
                             isExternal
                             href="https://docs.vechainkit.vechain.org/vechain-kit/send-transactions"
@@ -139,8 +140,8 @@ export function TransactionExamples() {
                             rightIcon={<MdSend />}
                         >
                             Read Docs
-                        </Button>
-                    </VStack>
+                        </button>
+                    </div>
                 </SimpleGrid>
 
                 <TransactionToast
@@ -168,7 +169,7 @@ export function TransactionExamples() {
                         isClosable: true,
                     }}
                 />
-            </VStack>
+            </div>
         </CollapsibleCard>
     );
 }

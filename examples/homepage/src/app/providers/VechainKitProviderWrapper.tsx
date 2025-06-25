@@ -1,6 +1,6 @@
 'use client';
 
-import { useColorMode } from '@chakra-ui/react';
+import { useColorMode } from '../../hooks/useColorMode';
 import dynamic from 'next/dynamic';
 import '../../../i18n';
 import { useTranslation } from 'react-i18next';
@@ -91,7 +91,6 @@ export function VechainKitProviderWrapper({ children }: Props) {
             language={i18n.language}
             network={{
                 type: process.env.NEXT_PUBLIC_NETWORK_TYPE as NETWORK_TYPE,
-                // nodeUrl: 'http://localhost:8669',
             }}
             allowCustomTokens={true}
             legalDocuments={{

@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import {
     useWallet,
     useCurrentAllocationsRoundId,
@@ -13,14 +14,14 @@ export function DaoInfo() {
     const { data: isValidPassport } = useIsPerson(account?.address);
 
     return (
-        <Box>
-            <Heading size={'md'}>VeBetterDAO</Heading>
-            <Text data-testid="current-allocation-round-id">
+        <div>
+            <h2 size={'md'}>VeBetterDAO</h2>
+            <p data-testid="current-allocation-round-id">
                 Current Allocations Round ID: {currentAllocationsRoundId}
-            </Text>
-            <Text data-testid="is-passport-valid">
+            </p>
+            <p data-testid="is-passport-valid">
                 Is Passport Valid: {isValidPassport?.toString()}
-            </Text>
-        </Box>
+            </p>
+        </div>
     );
 }

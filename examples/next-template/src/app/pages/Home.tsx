@@ -1,7 +1,8 @@
 'use client';
 
 import { type ReactElement } from 'react';
-import { Container, Spinner, VStack } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { useWallet, WalletButton } from '@vechain/vechain-kit';
 import { AccountInfo } from '@/app/components/features/AccountInfo';
 import { ConnectionInfo } from '@/app/components/features/ConnectionInfo';
@@ -22,22 +23,22 @@ export default function Home(): ReactElement {
 
     if (connection.isLoading) {
         return (
-            <VStack w="full" h="full" justify="center" align="center">
-                <Spinner />
-            </VStack>
+            <div className="flex flex-col" w="full" h="full" justify="center" align="center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
         );
     }
 
     mixpanelClient.trackEvent('Home Page Viewed');
 
     return (
-        <Container
+        <div className="max-w-4xl mx-auto px-4"
             height={'full'}
             maxW="container.md"
             justifyContent={'center'}
             wordBreak={'break-word'}
         >
-            <VStack spacing={10} mt={10} pb={10} alignItems="flex-start">
+            <div className="flex flex-col space-y-10"  mt={10} pb={10} alignItems="flex-start">
                 <WalletButton
                     mobileVariant="iconDomainAndAssets"
                     desktopVariant="iconDomainAndAssets"
@@ -49,7 +50,7 @@ export default function Home(): ReactElement {
                 <LanguageSelector />
                 <TransactionExamples />
                 <SigningExample />
-            </VStack>
-        </Container>
+            </div>
+        </div>
     );
 }

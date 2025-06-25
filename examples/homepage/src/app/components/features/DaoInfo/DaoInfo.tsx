@@ -1,6 +1,7 @@
 'use client';
 
-import { VStack, Text, SimpleGrid } from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { MdAccountBalance } from 'react-icons/md';
 import { CollapsibleCard } from '../../ui/CollapsibleCard';
 import {
@@ -16,39 +17,39 @@ export function DaoInfo() {
 
     return (
         <CollapsibleCard title="Contract Interactions" icon={MdAccountBalance}>
-            <VStack spacing={6} align="stretch">
-                <Text textAlign="center">
+            <div className="flex flex-col space-y-6"  align="stretch">
+                <p className="text-center">
                     VeChain Kit provides hooks to easily interact with popular
                     VeChain contracts. Here's how to use them in your
                     application.
-                </Text>
+                </p>
 
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
                     {/* Current Implementation */}
-                    <VStack
-                        spacing={4}
+                    <div className="flex flex-col space-y-4"
+                        
                         p={6}
                         borderRadius="md"
                         bg="whiteAlpha.50"
                     >
-                        <Text fontWeight="bold">Live VeBetterDAO Data</Text>
-                        <VStack spacing={3} align="start" w="full">
-                            <Text>
-                                <Text as="span" fontWeight="bold">
+                        <p className="font-bold">Live VeBetterDAO Data</p>
+                        <div className="flex flex-col space-y-3"  align="start" w="full">
+                            <p>
+                                <p as="span" className="font-bold">
                                     Current Round ID:{' '}
-                                </Text>
+                                </p>
                                 {currentAllocationsRoundId}
-                            </Text>
-                            <Text>
-                                <Text as="span" fontWeight="bold">
+                            </p>
+                            <p>
+                                <p as="span" className="font-bold">
                                     Valid Passport:{' '}
-                                </Text>
+                                </p>
                                 {isValidPassport?.toString()}
-                            </Text>
-                        </VStack>
-                    </VStack>
+                            </p>
+                        </div>
+                    </div>
                 </SimpleGrid>
-            </VStack>
+            </div>
         </CollapsibleCard>
     );
 }

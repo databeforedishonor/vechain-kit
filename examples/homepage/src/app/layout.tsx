@@ -1,9 +1,8 @@
 'use client';
 
-import { ChakraProvider } from '@chakra-ui/react';
 import './globals.css';
 import dynamic from 'next/dynamic';
-import { darkTheme } from './theme';
+import { useEffect, useState } from 'react';
 
 const VechainKitProviderWrapper = dynamic(
     async () =>
@@ -18,6 +17,30 @@ function AppContent({ children }: { children: React.ReactNode }) {
     return <VechainKitProviderWrapper>{children}</VechainKitProviderWrapper>;
 }
 
+function ThemeProvider({ children }: { children: React.ReactNode }) {
+    const [isDark, setIsDark] = useState(false);
+
+    useEffect(() => {
+        // Check for saved theme preference or default to light mode
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            setIsDark(true);
+            document.documentElement.classList.add('dark');
+        } else {
+            setIsDark(false);
+            document.documentElement.classList.remove('dark');
+        }
+    }, []);
+
+    return (
+        <div className={isDark ? 'dark' : ''}>
+            {children}
+        </div>
+    );
+}
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -28,9 +51,7 @@ export default function RootLayout({
         <html
             lang="en"
             suppressHydrationWarning={true}
-            style={{
-                scrollBehavior: 'smooth',
-            }}
+            className="scroll-smooth"
         >
             <head>
                 <title>VeChain Kit</title>
@@ -87,16 +108,10 @@ export default function RootLayout({
                 />
                 <meta name="twitter:image:alt" content="VeChain Kit" />
             </head>
-            <body
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: 'inherit',
-                }}
-            >
-                <ChakraProvider theme={darkTheme}>
+            <body className="w-full h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+                <ThemeProvider>
                     <AppContent>{children}</AppContent>
-                </ChakraProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

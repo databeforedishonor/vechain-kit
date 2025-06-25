@@ -1,17 +1,8 @@
 'use client';
 
 import { type ReactElement, useEffect, useRef, useState } from 'react';
-import {
-    Container,
-    VStack,
-    Text,
-    Link,
-    HStack,
-    useColorMode,
-    IconButton,
-    useMediaQuery,
-    Flex,
-} from '@chakra-ui/react';
+import { cn } from '../../../../utils/cn';
+import { useColorMode } from '../../../../hooks/useColorMode';
 import { useWallet, WalletButton } from '@vechain/vechain-kit';
 import { UIControls } from '@/app/components/features/UIControls';
 import { TransactionExamples } from '@/app/components/features/TransactionExamples';
@@ -45,21 +36,21 @@ export default function Home(): ReactElement {
 
     if (!account) {
         return (
-            <Container
+            <div className="max-w-4xl mx-auto px-4"
                 height={'full'}
                 maxW="container.lg"
                 justifyContent={'center'}
                 wordBreak={'break-word'}
             >
-                <VStack spacing={10} mt={10} pb={10} alignItems="flex-start">
-                    <HStack w={'full'} justifyContent={'space-between'}>
-                        <HStack spacing={2} align="center">
+                <div className="flex flex-col space-y-10"  mt={10} pb={10} alignItems="flex-start">
+                    <div className="flex flex-row items-center" w={'full'} justifyContent={'space-between'}>
+                        <div className="flex flex-row items-center space-x-2"  align="center">
                             <WalletButton
                                 mobileVariant="iconDomainAndAssets"
                                 desktopVariant="iconDomainAndAssets"
                             />
-                            <HStack
-                                spacing={2}
+                            <div className="flex flex-row items-center space-x-2"
+                                
                                 animation="bounce-left 1s infinite"
                                 transform="rotate(-10deg)"
                                 sx={{
@@ -84,7 +75,7 @@ export default function Home(): ReactElement {
                                     }
                                     style={{ marginLeft: '8px' }}
                                 />
-                                <Text
+                                <p
                                     fontSize="sm"
                                     color={
                                         colorMode === 'light'
@@ -93,9 +84,9 @@ export default function Home(): ReactElement {
                                     }
                                 >
                                     Click me!
-                                </Text>
-                            </HStack>
-                        </HStack>
+                                </p>
+                            </div>
+                        </div>
                         <IconButton
                             onClick={toggleColorMode}
                             icon={
@@ -104,7 +95,7 @@ export default function Home(): ReactElement {
                             aria-label="Toggle color mode"
                             borderRadius="xl"
                         />
-                    </HStack>
+                    </div>
 
                     <Introduction />
 
@@ -115,20 +106,20 @@ export default function Home(): ReactElement {
                     <LoginToContinueBox />
 
                     <Logo />
-                </VStack>
-            </Container>
+                </div>
+            </div>
         );
     }
 
     return (
-        <Container
+        <div className="max-w-4xl mx-auto px-4"
             height={'full'}
             maxW="container.lg"
             justifyContent={'center'}
             wordBreak={'break-word'}
         >
-            <VStack spacing={10} mt={10} pb={10} alignItems="flex-start">
-                <HStack w={'full'} justifyContent={'space-between'}>
+            <div className="flex flex-col space-y-10"  mt={10} pb={10} alignItems="flex-start">
+                <div className="flex flex-row items-center" w={'full'} justifyContent={'space-between'}>
                     <WalletButton
                         mobileVariant="iconDomainAndAssets"
                         desktopVariant="iconDomainAndAssets"
@@ -140,21 +131,21 @@ export default function Home(): ReactElement {
                         aria-label="Toggle color mode"
                         borderRadius="xl"
                     />
-                </HStack>
+                </div>
 
                 {account && !hasScrolled && !isDesktop && (
-                    <VStack
+                    <div className="flex flex-col space-y-2"
                         w="full"
                         cursor="pointer"
                         onClick={scrollToFeatures}
-                        spacing={2}
+                        
                         p={4}
                         bg="whiteAlpha.100"
                         rounded="md"
                     >
-                        <Text fontSize="sm" textAlign="center">
+                        <p fontSize="sm" className="text-center">
                             Scroll down to explore available features
-                        </Text>
+                        </p>
                         <FaChevronDown
                             size={20}
                             color={
@@ -163,7 +154,7 @@ export default function Home(): ReactElement {
                                     : 'whiteAlpha.600'
                             }
                         />
-                    </VStack>
+                    </div>
                 )}
 
                 <Introduction />
@@ -178,33 +169,33 @@ export default function Home(): ReactElement {
                 <SigningExample />
                 <DataReadingExample />
                 <FAQSection />
-                <Text
+                <p
                     fontSize="sm"
                     color="gray.600"
                     w="full"
-                    textAlign="center"
+                    className="text-center"
                     mt={4}
                 >
                     Found a bug? Please open an issue on{' '}
-                    <Link
+                    <a
                         href="https://github.com/vechain/vechain-kit/issues"
                         color="blue.500"
                         isExternal
                     >
                         GitHub
-                    </Link>
-                </Text>
+                    </a>
+                </p>
 
                 <Logo />
-            </VStack>
-        </Container>
+            </div>
+        </div>
     );
 }
 
 const Logo = () => {
     const { colorMode } = useColorMode();
     return (
-        <HStack
+        <div className="flex flex-row items-center"
             onClick={() => window.open('https://vechain.org', '_blank')}
             pt={10}
             justify={'center'}
@@ -215,16 +206,16 @@ const Logo = () => {
                 transition: 'opacity 0.2s ease-in-out',
             }}
         >
-            <Flex
+            <div className="flex"
                 direction={{ base: 'column', md: 'row' }}
                 align="center"
                 wrap="wrap"
                 justify="center"
                 gap={2}
             >
-                <Text fontSize="md" fontWeight="bold">
+                <p fontSize="md" className="font-bold">
                     Made by
-                </Text>
+                </p>
                 <VechainLogo
                     maxW="200px"
                     isDark={colorMode === 'dark'}
@@ -233,7 +224,7 @@ const Logo = () => {
                     ml={{ base: 0, sm: -6 }}
                     mt={{ base: -6, md: 0 }}
                 />
-            </Flex>
-        </HStack>
+            </div>
+        </div>
     );
 };
