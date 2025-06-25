@@ -1,21 +1,3 @@
-import {
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    Text,
-    VStack,
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
-    Box,
-    ModalCloseButton,
-    HStack,
-    Circle,
-    Image,
-    Heading,
-    Icon,
-} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import {
     StickyHeaderContainer,
@@ -34,7 +16,7 @@ type Props = {
     >;
     handleClose: () => void;
     style?: UpgradeSmartAccountModalStyle;
-};
+}
 
 export const UpgradeSmartAccountContent = ({
     setCurrentContent,
@@ -98,97 +80,82 @@ export const UpgradeSmartAccountContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack spacing={10} align="stretch" justifyContent="center">
-                    <Text fontSize="sm" textAlign="center">
+                <div className="flex flex-col" justifyContent="center">
+                    <span>
                         {t(
                             'To continue interacting with VeChain blockchain and complete your operation, your smart account needs to be upgraded to the latest version (v3).',
                         )}
-                    </Text>
+                    </span>
 
-                    <HStack
-                        align="center"
+                    <div className="flex items-center"
                         justifyContent="space-evenly"
                         rounded="md"
                     >
-                        <Box position="relative" display="inline-block">
+                        <div>
                             <Circle size="60px" bg="gray.200">
-                                <Image
+                                <img
                                     src={smartAccount?.image}
                                     alt={t('Profile Picture')}
-                                    w="100%"
-                                    h="100%"
-                                    borderRadius="full"
-                                    objectFit="cover"
-                                />
+                                    objectFit="cover" />
                             </Circle>
 
-                            <Heading
-                                position="absolute"
-                                top="-5"
+                            <h2
+                                to
                                 right="-5"
-                                color="#D23F63"
-                                fontSize="28px"
                             >
                                 {`v1`}
-                            </Heading>
-                        </Box>
+                            </h2>
+                        </div>
 
-                        <Icon as={FaArrowRight} color="#3DBA67" />
+                        <FaArrowRight color="#3DBA67"  />
 
-                        <Box position="relative" display="inline-block">
+                        <div>
                             <Circle size="60px" bg="gray.200">
-                                <Image
+                                <img
                                     src={smartAccount?.image}
                                     alt={t('Profile Picture')}
-                                    w="100%"
-                                    h="100%"
-                                    borderRadius="full"
-                                    objectFit="cover"
-                                />
+                                    objectFit="cover" />
                             </Circle>
-                            <Heading
-                                position="absolute"
-                                top="-5"
+                            <h2
+                                to
                                 right="-5"
-                                color="#3DBA67"
-                                fontSize="28px"
                             >
                                 {`v3`}
-                            </Heading>
-                        </Box>
-                    </HStack>
+                            </h2>
+                        </div>
+                    </div>
 
-                    <Alert status="info" borderRadius="md">
-                        <AlertIcon />
-                        <Box>
-                            <AlertTitle fontSize="sm">
+                    <div status="info">
+                        <divIcon />
+                        <div>
+                            <divTitle>
                                 {t('Benefits of this upgrade:')}
                             </AlertTitle>
-                            <AlertDescription fontSize="xs">
-                                <VStack align="start" spacing={0} mt={1}>
-                                    <Text fontSize="xs" lineHeight="1.2">
+                            <divDescription>
+                                <div className="flex flex-col">
+                                    <span lineHeight="1.2">
                                         • {t('Improved security features')}
-                                    </Text>
-                                    <Text fontSize="xs">
+                                    </span>
+                                    <span>
                                         • {t('Better transaction handling')}
-                                    </Text>
-                                    <Text fontSize="xs">
+                                    </span>
+                                    <span>
                                         •{' '}
                                         {t('Enhanced compatibility with dApps')}
-                                    </Text>
-                                    <Text fontSize="xs">
+                                    </span>
+                                    <span>
                                         •{' '}
                                         {t('Reduced gas costs for operations')}
-                                    </Text>
-                                </VStack>
+                                    </span>
+                                </div>
                             </AlertDescription>
-                        </Box>
-                    </Alert>
-                </VStack>
+                        </div>
+                    </div>
+                </div>
             </ModalBody>
 
             <ModalFooter justifyContent="center">
-                <VStack spacing={3} w="full">
+                <div className="flex flex-col">
                     <TransactionButtonAndStatus
                         style={style}
                         buttonText={
@@ -204,7 +171,7 @@ export const UpgradeSmartAccountContent = ({
                         transactionError={upgradeError}
                         isDisabled={!upgradeRequired}
                     />
-                </VStack>
+                </div>
             </ModalFooter>
         </>
     );

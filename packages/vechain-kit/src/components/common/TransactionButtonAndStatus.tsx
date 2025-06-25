@@ -1,12 +1,11 @@
 import { useVeChainKitConfig } from '@/providers';
-import { Button, Link, Text, VStack } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useMemo } from 'react';
 import { TransactionStatusErrorType } from '@/types';
 import { getConfig } from '@/config';
 import { TransactionReceipt } from '@vechain/sdk-network';
 
-export type TransactionButtonAndStatusProps = {
+export interface TransactionButtonAndStatusProps {
     isSubmitting: boolean;
     isTxWaitingConfirmation: boolean;
     onConfirm: () => void;
@@ -21,7 +20,7 @@ export type TransactionButtonAndStatusProps = {
         accentColor?: string;
     };
     onError?: (error: string) => void;
-};
+}
 
 export const TransactionButtonAndStatus = ({
     transactionError,
@@ -61,21 +60,16 @@ export const TransactionButtonAndStatus = ({
     }, [style?.accentColor]);
 
     return (
-        <VStack width="full" spacing={4}>
+        <div className="flex flex-col space-y-4" widt>
             {errorMessage && (
-                <Text
-                    color="#da5a5a"
-                    textAlign="center"
-                    width="full"
+                <span
+                    widt
                     data-testid="tx-send-error-msg"
                 >
                     {errorMessage}
-                </Text>
+                </span>
             )}
-            <Button
-                px={4}
-                variant="vechainKitPrimary"
-                bg={buttonBg}
+            <button className="px-4 py-2 rounded-md transition-colors"
                 onClick={() =>
                     errorMessage && onRetry ? onRetry() : onConfirm()
                 }
@@ -94,14 +88,11 @@ export const TransactionButtonAndStatus = ({
                     : buttonText
                     ? buttonText
                     : t('Confirm')}
-            </Button>
+            </button>
             {errorMessage && txReceipt?.meta.txID && (
-                <Link
+                <a
                     isExternal
-                    fontSize="sm"
-                    color={isDark ? 'whiteAlpha.600' : 'blackAlpha.600'}
-                    textAlign="center"
-                    width="full"
+                    widt
                     href={`${getConfig(network.type).explorerUrl}/${
                         txReceipt?.meta.txID
                     }`}
@@ -109,8 +100,8 @@ export const TransactionButtonAndStatus = ({
                     rel="noopener noreferrer"
                 >
                     {t('View transaction on the explorer')}
-                </Link>
+                </a>
             )}
-        </VStack>
+        </div>
     );
 };

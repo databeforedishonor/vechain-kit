@@ -1,9 +1,7 @@
-import { GridItem } from '@chakra-ui/react';
 import { useState } from 'react';
 import { VechainLogoDark, VechainLogoLight } from '@/assets';
 import { ConnectionButton, LoginLoadingModal, SocialIcons } from '@/components';
 import { useLoginWithVeChain } from '@/hooks';
-import { useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IconType } from 'react-icons';
 import { Analytics } from '@/utils/mixpanelClientInstance';
@@ -12,7 +10,7 @@ import { VeLoginMethod } from '@/types/mixPanel';
 type Props = {
     isDark: boolean;
     gridColumn?: number;
-};
+}
 
 export const VeChainLoginButton = ({ isDark, gridColumn }: Props) => {
     const { t } = useTranslation();
@@ -46,7 +44,7 @@ export const VeChainLoginButton = ({ isDark, gridColumn }: Props) => {
 
     return (
         <>
-            <GridItem colSpan={gridColumn ? gridColumn : 4} w={'full'}>
+            <divItem colSpan={gridColumn ? gridColumn : 4}>
                 <ConnectionButton
                     isDark={isDark}
                     onClick={handleLoginWithVeChain}
@@ -59,7 +57,7 @@ export const VeChainLoginButton = ({ isDark, gridColumn }: Props) => {
                     variant={'loginWithVechain'}
                     rightIcon={<SocialIcons />}
                 />
-            </GridItem>
+            </div>
 
             <LoginLoadingModal
                 isOpen={loginLoadingModal.isOpen}

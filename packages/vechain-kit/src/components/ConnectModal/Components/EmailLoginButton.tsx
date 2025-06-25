@@ -1,13 +1,3 @@
-import {
-    Button,
-    GridItem,
-    Icon,
-    Input,
-    InputGroup,
-    InputLeftElement,
-    useDisclosure,
-    VStack,
-} from '@chakra-ui/react';
 import { useLoginWithEmail } from '@privy-io/react-auth';
 import { useState } from 'react';
 import { LuMail } from 'react-icons/lu';
@@ -38,24 +28,22 @@ export const EmailLoginButton = () => {
 
     return (
         <>
-            <GridItem colSpan={4} w={'full'}>
-                <VStack spacing={3} w="full">
-                    <InputGroup size="lg" w="full">
-                        <InputLeftElement
+            <divItem colSpan={4}>
+                <div className="flex flex-col">
+                    <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"Group>
+                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"LeftElement
                             pointerEvents="none"
                             height="100%"
-                            pl={4}
                         >
-                            <Icon
-                                as={LuMail}
+                            <LuMail
                                 color={
                                     isDark ? 'whiteAlpha.600' : 'blackAlpha.700'
                                 }
                                 w={'20px'}
                                 h={'20px'}
-                            />
-                        </InputLeftElement>
-                        <Input
+                             />
+                        </div>
+                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder={t('your@email.com')}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -71,25 +59,20 @@ export const EmailLoginButton = () => {
                             w={'full'}
                             pl={12}
                         />
-                        <Button
+                        <button className="px-4 py-2 rounded-md transition-colors hover:bg-gray-100"
                             aria-label="Send code"
-                            position="absolute"
                             right={2}
-                            top="50%"
-                            transform="translateY(-50%)"
+                            to
+                            transfor
                             zIndex={2}
-                            variant="ghost"
-                            size="sm"
-                            px={6}
-                            borderRadius="full"
                             isLoading={emailState.status === 'sending-code'}
                             onClick={handleSendCode}
                         >
                             {t('Submit')}
-                        </Button>
-                    </InputGroup>
-                </VStack>
-            </GridItem>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <EmailCodeVerificationModal
                 isOpen={emailCodeVerificationModal.isOpen}

@@ -1,15 +1,6 @@
 import { StickyHeaderContainer } from '@/components/common';
 import { useLegalDocuments, useVeChainKitConfig } from '@/providers';
 import { EnrichedLegalDocument } from '@/types';
-import {
-    Button,
-    ModalBody,
-    ModalFooter,
-    ModalHeader,
-    Stack,
-    Text,
-    VStack,
-} from '@chakra-ui/react';
 import { Fragment, useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { Trans, useTranslation } from 'react-i18next';
@@ -22,7 +13,7 @@ type Props = {
     ) => void;
     onReject: () => void;
     onlyOptionalDocuments?: boolean;
-};
+}
 
 export const LegalDocumentsContent = ({
     onAgree,
@@ -138,16 +129,16 @@ export const LegalDocumentsContent = ({
     };
 
     return (
-        <Stack width="full">
+        <div widt>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <StickyHeaderContainer>
                     <ModalHeader>{t('Terms and Policies')}</ModalHeader>
                 </StickyHeaderContainer>
 
                 <ModalBody>
-                    <VStack align="stretch" spacing={5} width="full">
+                    <div className="flex flex-col" widt>
                         {hasRequiredDocuments && (
-                            <Text as="span" fontSize="sm">
+                            <span as="span">
                                 {t('By continuing, you agree to')}{' '}
                                 {requiredDocuments.map((document, index) => (
                                     <Fragment key={document.id}>
@@ -166,43 +157,33 @@ export const LegalDocumentsContent = ({
                                 {t(
                                     'Please take a moment to review all the policies, with acceptance being mandatory to continue.',
                                 )}
-                            </Text>
+                            </span>
                         )}
                         {onlyOptionalDocuments && (
-                            <Text fontSize="sm" color={headingColor} mb={3}>
+                            <span>
                                 <Trans
                                     i18nKey="<bold>Your privacy matters.</bold> You’re in control, accept to enable optional features like cookies and analytics that help us enhance your experience."
                                     components={{
                                         bold: (
-                                            <Text
-                                                as="span"
-                                                fontWeight="semibold"
-                                                color={headingColor}
-                                            />
+                                            <span
+                                                as="span" />
                                         ),
                                     }}
                                 />
-                            </Text>
+                            </span>
                         )}
 
                         {hasOptionalDocuments && (
-                            <Stack
-                                p={4}
-                                borderRadius="xl"
-                                bg={sectionBgColor}
-                                borderWidth="1px"
+                            <div
+                                borderWidt
                                 borderColor={borderColor}
-                                boxShadow={sectionBoxShadow}
-                                spacing={5}
+                                boxShado
                             >
-                                <Text
-                                    fontSize="md"
-                                    fontWeight="bold"
-                                    color={headingColor}
+                                <span
                                 >
                                     {t('Optional')}
-                                </Text>
-                                <VStack align="stretch" spacing={4}>
+                                </span>
+                                <div className="flex flex-col space-y-4">
                                     {optionalDocuments.map((document) => (
                                         <LegalDocumentItem
                                             key={document.id}
@@ -210,36 +191,33 @@ export const LegalDocumentsContent = ({
                                             register={register}
                                         />
                                     ))}
-                                </VStack>
-                            </Stack>
+                                </div>
+                            </div>
                         )}
-                    </VStack>
+                    </div>
                 </ModalBody>
                 <ModalFooter>
-                    <VStack width="full" spacing={3}>
-                        <Button
-                            variant="vechainKitPrimary"
-                            width="full"
+                    <div className="flex flex-col" widt>
+                        <button className="px-4 py-2 rounded-md transition-colors"
+                            widt
                             type="submit"
                             isDisabled={!isValid}
                             data-testid={'accept-tnc-button'}
                         >
                             {acceptButtonText}
-                        </Button>
+                        </button>
                         {!onlyOptionalDocuments && (
-                            <Button
-                                variant="ghost"
-                                width="full"
+                            <button className="px-4 py-2 rounded-md transition-colors hover:bg-gray-100"
+                                widt
                                 onClick={onReject}
                                 data-testid={'reject-tnc-button'}
-                                colorScheme="red"
                             >
                                 {t('Reject and logout')}
-                            </Button>
+                            </button>
                         )}
-                    </VStack>
+                    </div>
                 </ModalFooter>
             </form>
-        </Stack>
+        </div>
     );
 };

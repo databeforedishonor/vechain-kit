@@ -1,16 +1,3 @@
-import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Text,
-    Button,
-    Box,
-    ModalFooter,
-    Icon,
-    Link,
-    HStack,
-} from '@chakra-ui/react';
 import { StickyHeaderContainer } from '@/components/common';
 import { useTranslation } from 'react-i18next';
 import { useVeChainKitConfig } from '@/providers';
@@ -21,7 +8,7 @@ import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { ShareButtons } from '@/components/TransactionModal';
 import { UpgradeSmartAccountModalContentsTypes } from '../UpgradeSmartAccountModal';
 
-export type SuccessfulOperationContentProps = {
+export interface SuccessfulOperationContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<UpgradeSmartAccountModalContentsTypes>
     >;
@@ -30,7 +17,7 @@ export type SuccessfulOperationContentProps = {
     description?: string;
     onDone: () => void;
     showSocialButtons?: boolean;
-};
+}
 
 export const SuccessfulOperationContent = ({
     txId,
@@ -45,14 +32,14 @@ export const SuccessfulOperationContent = ({
     const socialDescription = `${explorerUrl}/${txId}`;
 
     return (
-        <Box>
+        <div>
             <StickyHeaderContainer>
                 <ModalHeader>{title}</ModalHeader>
                 <ModalCloseButton />
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack align={'center'} p={6} spacing={3}>
+                <div className="flex flex-col">
                     <motion.div
                         transition={{
                             duration: 4,
@@ -63,63 +50,58 @@ export const SuccessfulOperationContent = ({
                             scale: [1, 1.1, 1],
                         }}
                     >
-                        <Icon
-                            as={IoIosCheckmarkCircleOutline}
+                        <IoIosCheckmarkCircleOutline
                             fontSize={'100px'}
                             color={darkMode ? '#00ff45de' : '#10ba3e'}
-                        />
+                         />
                     </motion.div>
 
                     {description && (
-                        <Text fontSize="sm" textAlign="center">
+                        <span>
                             {description}
-                        </Text>
+                        </span>
                     )}
 
                     {showSocialButtons && txId && (
-                        <VStack mt={2}>
-                            <Text fontSize="xs">{t('Share on')}</Text>
+                        <div className="flex flex-col">
+                            <span>{t('Share on')}</span>
                             <ShareButtons
                                 descriptionEncoded={socialDescription}
                             />
-                        </VStack>
+                        </div>
                     )}
-                </VStack>
+                </div>
             </ModalBody>
 
             <ModalFooter justifyContent={'center'}>
-                <VStack width="full" spacing={4}>
-                    <Button
+                <div className="flex flex-col space-y-4" widt>
+                    <button className="px-4 py-2 rounded-md transition-colors"
                         onClick={onDone}
-                        variant="vechainKitSecondary"
-                        width="full"
+                        widt
                     >
                         {t('Done')}
-                    </Button>
+                    </button>
 
                     {txId && (
-                        <Link
+                        <a
                             href={`${explorerUrl}/${txId}`}
                             isExternal
                             opacity={0.5}
-                            fontSize={'14px'}
                             textDecoration={'underline'}
                         >
-                            <HStack
-                                spacing={1}
+                            <div className="flex items-center"
                                 alignItems={'center'}
-                                w={'full'}
                                 justifyContent={'center'}
                             >
-                                <Text>
+                                <span>
                                     {t('View transaction on the explorer')}
-                                </Text>
+                                </span>
                                 <Icon size={16} as={GoLinkExternal} />
-                            </HStack>
-                        </Link>
+                            </div>
+                        </a>
                     )}
-                </VStack>
+                </div>
             </ModalFooter>
-        </Box>
+        </div>
     );
 };

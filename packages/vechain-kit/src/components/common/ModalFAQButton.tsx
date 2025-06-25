@@ -1,15 +1,14 @@
-import { IconButton, IconButtonProps, Icon } from '@chakra-ui/react';
 import { BsQuestionCircle } from 'react-icons/bs';
 
-type FAQButtonProps = {
+interface FAQButtonProps {
     onClick: () => void;
-} & Partial<IconButtonProps>;
+} & Partial<buttonProps>;
 
 export const ModalFAQButton = ({ onClick, ...props }: FAQButtonProps) => {
     return (
-        <IconButton
+        <button
             aria-label="FAQ"
-            icon={<Icon as={BsQuestionCircle} fontSize={'17px'} />}
+            icon={<BsQuestionCircle  />}
             size="sm"
             variant="ghost"
             _hover={{ bg: 'blackAlpha.100' }}

@@ -1,12 +1,3 @@
-import {
-    HStack,
-    Image,
-    ModalBody,
-    ModalCloseButton,
-    ModalFooter,
-    ModalHeader,
-    Text,
-} from '@chakra-ui/react';
 import { useVeChainKitConfig } from '@/providers';
 import { ModalFAQButton, StickyHeaderContainer } from '@/components/common';
 import { ConnectModalContentsTypes } from '../ConnectModal';
@@ -22,7 +13,7 @@ type Props = {
         React.SetStateAction<ConnectModalContentsTypes>
     >;
     onClose: () => void;
-};
+}
 
 export const MainContent = ({ setCurrentContent, onClose }: Props) => {
     const { t } = useTranslation();
@@ -58,47 +49,35 @@ export const MainContent = ({ setCurrentContent, onClose }: Props) => {
             </StickyHeaderContainer>
 
             {loginModalUI?.logo && (
-                <HStack justify={'center'}>
-                    <Image
+                <div className="flex items-center">
+                    <img
                         src={loginModalUI.logo || '/images/favicon.png'}
-                        maxW={'180px'}
-                        maxH={'90px'}
-                        m={8}
-                        alt="logo"
-                    />
-                </HStack>
+                        alt="logo" />
+                </div>
             )}
 
             <ModalBody>
                 {loginModalUI?.description && (
-                    <HStack
-                        spacing={4}
-                        w={'full'}
-                        justify={'center'}
-                        mb={'24px'}
-                        px={4}
+                    <div className="flex items-center space-x-4"
                     >
-                        <Text
-                            color={isDark ? '#dfdfdd' : '#4d4d4d'}
-                            fontSize={'sm'}
-                            textAlign={'center'}
+                        <span
                         >
                             {loginModalUI?.description}
-                        </Text>
-                    </HStack>
+                        </span>
+                    </div>
                 )}
                 <ConnectionOptionsStack />
             </ModalBody>
 
             {showEcosystemButton ? (
                 <ModalFooter>
-                    <HStack justify={'center'} w={'full'}>
+                    <div className="flex items-center">
                         <EcosystemButton
                             isDark={isDark}
                             appsInfo={Object.values(appsInfo || {})}
                             isLoading={isEcosystemAppsLoading}
                         />
-                    </HStack>
+                    </div>
                 </ModalFooter>
             ) : (
                 <ModalFooter pt={0} pb={'5px'} />

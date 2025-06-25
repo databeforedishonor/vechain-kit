@@ -1,11 +1,10 @@
-import { HStack, Text, Circle, Image, StackProps } from '@chakra-ui/react';
 import { useTokensWithValues } from '@/hooks';
 import { useVeChainKitConfig } from '@/providers';
 import { TOKEN_LOGOS, TOKEN_LOGO_COMPONENTS } from '@/utils';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 
-type AssetIconsProps = {
+interface AssetIconsProps {
     address: string;
     maxIcons?: number;
     iconSize?: number;
@@ -15,7 +14,7 @@ type AssetIconsProps = {
     rightIcon?: React.ReactNode;
     showNoAssetsWarning?: boolean;
     onClick?: () => void;
-};
+}
 
 export const AssetIcons = ({
     address,
@@ -40,8 +39,8 @@ export const AssetIcons = ({
     if (tokensWithBalance.length === 0 && !showNoAssetsWarning) return null;
 
     return (
-        <HStack spacing={0} ml={ml} {...style} onClick={onClick}>
-            <HStack spacing={0}>
+        <div className="flex items-center" {...style} onClick={onClick}>
+            <div className="flex items-center">
                 {tokensToShow.map((token, index) => (
                     <Circle
                         key={token.symbol}
@@ -64,21 +63,17 @@ export const AssetIcons = ({
                                 },
                             )
                         ) : TOKEN_LOGOS[token.symbol] ? (
-                            <Image
+                            <img
                                 src={TOKEN_LOGOS[token.symbol]}
                                 alt={`${token.symbol} logo`}
-                                width={`${iconSize * 0.8}px`}
+                                widtpx`}
                                 height={`${iconSize * 0.8}px`}
-                                rounded="full"
-                            />
+                                rounded="full" />
                         ) : (
-                            <Text
-                                fontSize={`${iconSize * 0.4}px`}
-                                fontWeight="bold"
-                                color={darkMode ? 'black' : 'white'}
+                            <spanpx`}
                             >
                                 {token.symbol.slice(0, 3)}
-                            </Text>
+                            </span>
                         )}
                     </Circle>
                 ))}
@@ -94,29 +89,23 @@ export const AssetIcons = ({
                         justifyContent="center"
                         border="2px solid"
                     >
-                        <Text
-                            fontSize={`${iconSize * 0.4}px`}
-                            fontWeight="bold"
-                            color={darkMode ? 'black' : 'white'}
+                        <spanpx`}
                         >
                             +{remainingTokens}
-                        </Text>
+                        </span>
                     </Circle>
                 )}
 
                 {tokensWithBalance.length === 0 && showNoAssetsWarning && (
-                    <Text
-                        fontSize={'sm'}
-                        color={darkMode ? 'white' : 'black'}
+                    <span
                         opacity={0.9}
-                        fontWeight="700"
                     >
                         {t('No assets')}
-                    </Text>
+                    </span>
                 )}
-            </HStack>
+            </div>
 
             {rightIcon}
-        </HStack>
+        </div>
     );
 };

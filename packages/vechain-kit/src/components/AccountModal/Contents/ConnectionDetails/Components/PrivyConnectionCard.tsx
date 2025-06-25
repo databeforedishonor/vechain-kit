@@ -1,6 +1,5 @@
 import { useFetchAppInfo } from '@/hooks';
 import { useVeChainKitConfig } from '@/providers';
-import { VStack, Text, Spinner, HStack } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { NetworkInfo } from './NetworkInfo';
 
@@ -11,39 +10,30 @@ export const PrivyConnectionCard = () => {
 
     if (isLoading)
         return (
-            <VStack w="full" h="full" justify="center" align="center">
-                <Spinner />
-            </VStack>
+            <div className="flex flex-col">
+                <div />
+            </div>
         );
 
     return (
         <>
             {appInfo && (
-                <VStack
-                    p={4}
-                    bg={isDark ? '#00000038' : '#f5f5f5'}
-                    borderRadius={'xl'}
-                    spacing={4}
-                    w="full"
+                <div className="flex flex-col space-y-4"
                     justifyContent="space-between"
                 >
-                    <HStack w="full" justifyContent="space-between">
-                        <Text
-                            fontSize="sm"
-                            color={isDark ? '#dfdfdd' : '#4d4d4d'}
+                    <div className="flex items-center" justifyContent="space-between">
+                        <span
                         >
                             {t('Logged in with')}:
-                        </Text>
+                        </span>
 
-                        <Text
-                            fontSize="sm"
-                            color={isDark ? '#dfdfdd' : '#4d4d4d'}
+                        <span
                         >
                             {Object.values(appInfo)[0].name}
-                        </Text>
-                    </HStack>
+                        </span>
+                    </div>
                     <NetworkInfo />
-                </VStack>
+                </div>
             )}
         </>
     );

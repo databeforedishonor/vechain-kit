@@ -7,7 +7,6 @@ import {
     LegalDocumentType,
 } from '@/types';
 import { compareAddresses, VECHAIN_KIT_TERMS_CONFIG } from '@/utils';
-import { Accordion, VStack } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdGavel } from 'react-icons/md';
@@ -79,8 +78,8 @@ export const TermsAndPrivacyAccordion = () => {
     }
 
     return (
-        <VStack spacing={4} align="stretch">
-            <Accordion allowMultiple>
+        <div className="flex flex-col space-y-4">
+            <div allowMultiple>
                 <PolicyAccordion
                     title={t('Terms and Conditions')}
                     description={t(
@@ -125,7 +124,7 @@ export const TermsAndPrivacyAccordion = () => {
                         latestDocumentsByType[LegalDocumentType.COOKIES]
                     }
                 />
-            </Accordion>
-        </VStack>
+            </div>
+        </div>
     );
 };

@@ -1,13 +1,4 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    VStack,
-    ModalFooter,
-    ModalHeader,
-    Text,
-    Box,
-} from '@chakra-ui/react';
-import {
     usePrivy,
     useWallet,
     useMfaEnrollment,
@@ -35,7 +26,7 @@ type Props = {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 
 export const AccessAndSecurityContent = ({ setCurrentContent }: Props) => {
     const { t } = useTranslation();
@@ -73,23 +64,17 @@ export const AccessAndSecurityContent = ({ setCurrentContent }: Props) => {
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack
-                    justify={'center'}
-                    spacing={3}
-                    align="flex-start"
-                    w={'full'}
+                <div className="flex flex-col"
                 >
-                    <VStack w="full" justifyContent="center" spacing={3} mb={3}>
-                        <Text
-                            fontSize={'sm'}
+                    <div className="flex flex-col" justifyContent="center">
+                        <span
                             opacity={0.5}
-                            textAlign={'center'}
                         >
                             {t(
                                 'Manage your embedded wallet security settings: handle your login methods, add a passkey or back up your wallet to never lose access to your assets.',
                             )}
-                        </Text>
-                    </VStack>
+                        </span>
+                    </div>
 
                     {upgradeRequired && (
                         <ActionButton
@@ -100,16 +85,11 @@ export const AccessAndSecurityContent = ({ setCurrentContent }: Props) => {
                             onClick={handleUpgradeSmartAccountClick}
                             leftIcon={IoCogSharp}
                             extraContent={
-                                <Box
-                                    minWidth="8px"
+                                <div
+                                    minWidt
                                     height="8px"
-                                    bg="red.500"
-                                    borderRadius="full"
-                                    display="flex"
                                     alignItems="center"
-                                    justifyContent="center"
-                                    ml={2}
-                                />
+                                    justifyContent="center" />
                             }
                         />
                     )}
@@ -125,7 +105,7 @@ export const AccessAndSecurityContent = ({ setCurrentContent }: Props) => {
                     />
 
                     {connection.isConnectedWithSocialLogin ? (
-                        <VStack w="full" justifyContent="center" spacing={0}>
+                        <div className="flex flex-col" justifyContent="center">
                             <ActionButton
                                 title={t('Login methods and Passkeys')}
                                 style={{
@@ -172,11 +152,11 @@ export const AccessAndSecurityContent = ({ setCurrentContent }: Props) => {
                                 }}
                                 leftIcon={MdOutlineSettingsBackupRestore}
                             />
-                        </VStack>
+                        </div>
                     ) : (
                         <CrossAppConnectionSecurityCard />
                     )}
-                </VStack>
+                </div>
             </ModalBody>
             <ModalFooter pt={0} />
         </ScrollToTopWrapper>

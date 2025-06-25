@@ -1,18 +1,16 @@
 import { useWallet } from '@/hooks';
 import { humanAddress, humanDomain } from '@/utils';
-import { HStack, Spinner, Text, VStack } from '@chakra-ui/react';
-
 import { AssetIcons } from './AssetIcons';
 import { WalletDisplayVariant } from './types';
 
-type WalletDisplayProps = {
+interface WalletDisplayProps {
     variant: WalletDisplayVariant;
-};
+}
 
 export const WalletDisplay = ({ variant }: WalletDisplayProps) => {
     const { account } = useWallet();
 
-    if (!account) return <Spinner />;
+    if (!account) return <div />;
 
     if (variant === 'icon') {
         return null;
@@ -20,51 +18,49 @@ export const WalletDisplay = ({ variant }: WalletDisplayProps) => {
 
     if (variant === 'iconAndDomain') {
         return account.domain ? (
-            <Text fontSize="sm">
+            <span>
                 {humanDomain(account?.domain ?? '', 16, 0)}
-            </Text>
+            </span>
         ) : (
-            <Text fontSize="sm">
+            <span>
                 {humanAddress(account.address ?? '', 6, 4)}
-            </Text>
+            </span>
         );
     }
 
     if (variant === 'iconDomainAndAssets') {
         return (
-            <HStack spacing={4}>
-                <VStack spacing={0} alignItems="flex-start">
+            <div className="flex items-center space-x-4">
+                <div className="flex flex-col" alignItems="flex-start">
                     {account.domain && (
-                        <Text fontSize="sm" fontWeight="bold">
+                        <span>
                             {humanDomain(account?.domain ?? '', 16, 0)}
-                        </Text>
+                        </span>
                     )}
-                    <Text
-                        fontSize={account.domain ? 'xs' : 'sm'}
+                    <span
                         opacity={account.domain ? 0.5 : 1}
                         data-testid="trimmed-address"
                     >
                         {humanAddress(account.address ?? '', 4, 4)}
-                    </Text>
-                </VStack>
+                    </span>
+                </div>
                 <AssetIcons address={account.address ?? ''} maxIcons={3} />
-            </HStack>
+            </div>
         );
     }
 
     return (
-        <VStack spacing={0} alignItems="flex-start">
+        <div className="flex flex-col" alignItems="flex-start">
             {account.domain && (
-                <Text fontSize="sm" fontWeight="bold">
+                <span>
                     {humanDomain(account?.domain ?? '', 16, 0)}
-                </Text>
+                </span>
             )}
-            <Text
-                fontSize={account.domain ? 'xs' : 'sm'}
+            <span
                 opacity={account.domain ? 0.5 : 1}
             >
                 {humanAddress(account.address ?? '', 4, 4)}
-            </Text>
-        </VStack>
+            </span>
+        </div>
     );
 };

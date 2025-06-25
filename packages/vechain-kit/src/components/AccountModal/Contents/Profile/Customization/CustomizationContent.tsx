@@ -1,23 +1,4 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Text,
-    Button,
-    Card,
-    CardBody,
-    Box,
-    ModalFooter,
-    Icon,
-    Input,
-    Textarea,
-    FormControl,
-    FormLabel,
-    InputGroup,
-    InputLeftElement,
-} from '@chakra-ui/react';
-import {
     ModalBackButton,
     StickyFooterContainer,
     StickyHeaderContainer,
@@ -46,14 +27,14 @@ type FormValues = {
     twitter: string;
     email: string;
     website: string;
-};
+}
 
-export type AccountCustomizationContentProps = {
+export interface AccountCustomizationContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
     initialContentSource?: AccountModalContentTypes;
-};
+}
 
 export const CustomizationContent = ({
     setCurrentContent,
@@ -247,7 +228,7 @@ export const CustomizationContent = ({
     };
 
     return (
-        <Box>
+        <div>
             <StickyHeaderContainer>
                 <ModalHeader data-testid='modal-title'>{t('Customization')}</ModalHeader>
                 <ModalBackButton onClick={handleBack} />
@@ -255,26 +236,19 @@ export const CustomizationContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <Card
-                    variant="vechainKitBase"
-                    position="relative"
-                    overflow="visible"
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"
+                    overflo
                 >
-                    <Box
-                        p={0}
+                    <div
                         backgroundSize="100% !important"
                         backgroundPosition="center"
-                        position="relative"
-                        h="80px"
                         background={`no-repeat url('${getPicassoImage(
                             account?.address ?? '',
                         )}')`}
-                        w="100%"
-                        borderRadius="14px 14px 0 0"
                     >
                         {/* For now we don't allow cover image upload */}
                         {/* {hasDomain && (
-                            <IconButton
+                            <button
                                 aria-label="Update cover"
                                 icon={<MdPhotoCamera />}
                                 size="sm"
@@ -284,12 +258,11 @@ export const CustomizationContent = ({
                                 onClick={() => coverInputRef.current?.click()}
                             />
                         )} */}
-                    </Box>
-                    <Box
-                        position="absolute"
-                        top="30px"
+                    </div>
+                    <div
+                        to
                         left="50%"
-                        transform="translateX(-50%)"
+                        transfor
                         cursor={hasDomain ? 'pointer' : 'default'}
                         onClick={() =>
                             hasDomain && fileInputRef.current?.click()
@@ -305,8 +278,7 @@ export const CustomizationContent = ({
                             }}
                         />
                         {hasDomain && (
-                            <Icon
-                                as={MdPhotoCamera}
+                            <MdPhotoCamera
                                 position="absolute"
                                 right="2"
                                 bottom="2"
@@ -315,38 +287,31 @@ export const CustomizationContent = ({
                                 p="1"
                                 borderRadius="full"
                                 boxSize="6"
-                            />
+                             />
                         )}
                         {isUploading && (
-                            <Box
-                                position="absolute"
-                                top="0"
+                            <div
+                                to
                                 left="0"
                                 right="0"
-                                bottom="0"
-                                display="flex"
+                                botto
                                 alignItems="center"
                                 justifyContent="center"
                                 backgroundColor="rgba(0, 0, 0, 0.5)"
-                                borderRadius="full"
                             >
-                                <Text fontSize="xs" color="white">
+                                <span>
                                     {isUploading
                                         ? 'Uploading...'
                                         : 'Processing...'}
-                                </Text>
-                            </Box>
+                                </span>
+                            </div>
                         )}
-                    </Box>
+                    </div>
 
-                    <CardBody
-                        pt="14"
-                        pb="6"
-                        w="full"
+                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"Body
                         backgroundColor={'none'}
-                        border={'none'}
                     >
-                        <VStack spacing={6} mt={4}>
+                        <div className="flex flex-col space-y-6">
                             {!hasDomain && <DomainRequiredAlert />}
 
                             <ActionButton
@@ -401,12 +366,12 @@ export const CustomizationContent = ({
                                 dataTestId="set-domain-name-button"
                             />
 
-                            <FormControl
+                            <div
                                 isDisabled={!hasDomain}
                                 isInvalid={!!errors.displayName}
                             >
-                                <FormLabel>Display Name</FormLabel>
-                                <Input
+                                <label>Display Name</label>
+                                <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     {...register('displayName', {
                                         maxLength: {
                                             value: 25,
@@ -420,21 +385,20 @@ export const CustomizationContent = ({
                                             ? t('Set a domain first')
                                             : t('Enter your display name')
                                     }
-                                    data-testid="display-name-input"
-                                />
+                                    data-testid="display-name-input" />
                                 {errors.displayName && (
-                                    <Text color="#ef4444" fontSize="sm" mt={1}>
+                                    <span>
                                         {errors.displayName.message}
-                                    </Text>
+                                    </span>
                                 )}
-                            </FormControl>
+                            </div>
 
-                            <FormControl
+                            <div
                                 isDisabled={!hasDomain}
                                 isInvalid={!!errors.description}
                             >
-                                <FormLabel>Description</FormLabel>
-                                <Textarea
+                                <label>Description</label>
+                                <spanarea
                                     {...register('description', {
                                         maxLength: {
                                             value: 100,
@@ -444,27 +408,26 @@ export const CustomizationContent = ({
                                         },
                                     })}
                                     placeholder={t('Eg: DevRel @ ENS Labs')}
-                                    data-testid="description-input"
-                                />
+                                    data-testid="description-input" />
                                 {errors.description && (
-                                    <Text color="#ef4444" fontSize="sm" mt={1}>
+                                    <span>
                                         {errors.description.message}
-                                    </Text>
+                                    </span>
                                 )}
-                            </FormControl>
+                            </div>
 
-                            <FormControl isDisabled={!hasDomain}>
-                                <FormLabel>Social Links</FormLabel>
-                                <VStack spacing={3}>
-                                    <FormControl
+                            <div isDisabled={!hasDomain}>
+                                <label>Social Links</label>
+                                <div className="flex flex-col">
+                                    <div
                                         isInvalid={!!errors.twitter}
                                         isDisabled={!hasDomain}
                                     >
-                                        <InputGroup>
-                                            <InputLeftElement>
-                                                <Icon as={FaXTwitter} />
-                                            </InputLeftElement>
-                                            <Input
+                                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"Group>
+                                            <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"LeftElement>
+                                                <FaXTwitter  />
+                                            </div>
+                                            <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                                 {...register('twitter', {
                                                     pattern: {
                                                         value: /^[A-Za-z0-9_]+$/,
@@ -476,29 +439,25 @@ export const CustomizationContent = ({
                                                 placeholder={t(
                                                     'Twitter username',
                                                 )}
-                                                data-testid='twitter-input'
-                                            />
-                                        </InputGroup>
+                                                data-testid='twitter-input' />
+                                        </div>
                                         {errors.twitter && (
-                                            <Text
-                                                color="#ef4444"
-                                                fontSize="sm"
-                                                mt={1}
+                                            <span
                                             >
                                                 {errors.twitter.message}
-                                            </Text>
+                                            </span>
                                         )}
-                                    </FormControl>
+                                    </div>
 
-                                    <FormControl
+                                    <div
                                         isInvalid={!!errors.website}
                                         isDisabled={!hasDomain}
                                     >
-                                        <InputGroup>
-                                            <InputLeftElement>
-                                                <Icon as={FaGlobe} />
-                                            </InputLeftElement>
-                                            <Input
+                                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"Group>
+                                            <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"LeftElement>
+                                                <FaGlobe  />
+                                            </div>
+                                            <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                                 {...register('website', {
                                                     pattern: {
                                                         value: /^https:\/\/.+/,
@@ -509,29 +468,25 @@ export const CustomizationContent = ({
                                                 })}
                                                 placeholder={t('Website URL')}
                                                 type="url"
-                                                data-testid='website-input'
-                                            />
-                                        </InputGroup>
+                                                data-testid='website-input' />
+                                        </div>
                                         {errors.website && (
-                                            <Text
-                                                color="#ef4444"
-                                                fontSize="sm"
-                                                mt={1}
+                                            <span
                                             >
                                                 {errors.website.message}
-                                            </Text>
+                                            </span>
                                         )}
-                                    </FormControl>
+                                    </div>
 
-                                    <FormControl
+                                    <div
                                         isInvalid={!!errors.email}
                                         isDisabled={!hasDomain}
                                     >
-                                        <InputGroup>
-                                            <InputLeftElement>
-                                                <Icon as={FaEnvelope} />
-                                            </InputLeftElement>
-                                            <Input
+                                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"Group>
+                                            <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"LeftElement>
+                                                <FaEnvelope  />
+                                            </div>
+                                            <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                                 {...register('email', {
                                                     pattern: {
                                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -542,24 +497,20 @@ export const CustomizationContent = ({
                                                 })}
                                                 placeholder={t('Email address')}
                                                 type="email"
-                                                data-testid='email-input'
-                                            />
-                                        </InputGroup>
+                                                data-testid='email-input' />
+                                        </div>
                                         {errors.email && (
-                                            <Text
-                                                color="#ef4444"
-                                                fontSize="sm"
-                                                mt={1}
+                                            <span
                                             >
                                                 {errors.email.message}
-                                            </Text>
+                                            </span>
                                         )}
-                                    </FormControl>
-                                </VStack>
-                            </FormControl>
-                        </VStack>
-                    </CardBody>
-                </Card>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <input
                     type="file"
@@ -582,8 +533,7 @@ export const CustomizationContent = ({
 
             <StickyFooterContainer>
                 <ModalFooter w="full" p={0}>
-                    <Button
-                        variant="vechainKitPrimary"
+                    <button className="px-4 py-2 rounded-md transition-colors"
                         onClick={handleSaveChanges}
                         isDisabled={!hasDomain || !hasChanges || !isValid}
                         isLoading={isUploading}
@@ -591,9 +541,9 @@ export const CustomizationContent = ({
                         data-testid='save-changes-button'
                     >
                         {t('Save Changes')}
-                    </Button>
+                    </button>
                 </ModalFooter>
             </StickyFooterContainer>
-        </Box>
+        </div>
     );
 };

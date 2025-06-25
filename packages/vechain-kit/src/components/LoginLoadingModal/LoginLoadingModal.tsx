@@ -1,15 +1,4 @@
 import { BaseModal } from '../common/BaseModal';
-import {
-    ModalBody,
-    ModalHeader,
-    Spinner,
-    VStack,
-    ModalCloseButton,
-    Text,
-    ModalFooter,
-    Icon,
-    Button,
-} from '@chakra-ui/react';
 import { StickyHeaderContainer } from '@/components/common';
 import { MdOutlineErrorOutline, MdOutlineRefresh } from 'react-icons/md';
 import { motion } from 'framer-motion';
@@ -17,14 +6,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { isMobile } from 'react-device-detect';
 
-type LoginLoadingModalProps = {
+interface LoginLoadingModalProps {
     isOpen: boolean;
     onClose: () => void;
     error?: string;
     title?: string;
     loadingText?: string;
     onTryAgain?: () => void;
-};
+}
 
 export const LoginLoadingModal = ({
     isOpen,
@@ -87,40 +76,36 @@ const LoadingContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack
-                    align={'center'}
-                    p={6}
-                    gap={0}
-                    w={'full'}
+                <div className="flex flex-col"
+                    ga
                     justifyContent={'center'}
-                    minH={'150px'}
                 >
-                    <Spinner size="xl" />
-                </VStack>
+                    <div />
+                </div>
                 {loadingText && !showTimeout && (
-                    <Text size="sm" textAlign={'center'}>
+                    <span>
                         {loadingText}
-                    </Text>
+                    </span>
                 )}
                 {showTimeout && (
-                    <VStack mt={4} spacing={2}>
-                        <Text color="orange.300" size="sm" textAlign={'center'}>
+                    <div className="flex flex-col space-y-2">
+                        <span>
                             {t('This is taking longer than expected.')}
-                        </Text>
-                        <Text size="sm" textAlign={'center'}>
+                        </span>
+                        <span>
                             {t(
                                 'You may want to try establishing the connection again.',
                             )}
-                        </Text>
-                    </VStack>
+                        </span>
+                    </div>
                 )}
             </ModalBody>
             <ModalFooter justifyContent={'center'}>
                 {showTimeout && (
-                    <Button variant="vechainKitSecondary" onClick={onTryAgain}>
+                    <button className="px-4 py-2 rounded-md transition-colors" onClick={onTryAgain}>
                         <Icon mr={2} size={'sm'} as={MdOutlineRefresh} />
                         {t('Try again')}
-                    </Button>
+                    </button>
                 )}
             </ModalFooter>
         </>
@@ -150,13 +135,9 @@ const ErrorContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack
-                    align={'center'}
-                    p={6}
-                    w={'full'}
+                <div className="flex flex-col"
                     justifyContent={'center'}
-                    minH={'100px'}
-                    gap={4}
+                    ga
                 >
                     <motion.div
                         transition={{
@@ -168,23 +149,22 @@ const ErrorContent = ({
                             scale: [1, 1.1, 1],
                         }}
                     >
-                        <Icon
-                            as={MdOutlineErrorOutline}
+                        <MdOutlineErrorOutline
                             color={'#ef4444'}
                             fontSize={'60px'}
                             opacity={0.5}
-                        />
+                         />
                     </motion.div>
-                    <Text w={'full'} size="sm" textAlign={'center'}>
+                    <span>
                         {error}
-                    </Text>
-                </VStack>
+                    </span>
+                </div>
             </ModalBody>
             <ModalFooter justifyContent={'center'}>
-                <Button variant="vechainKitSecondary" onClick={onTryAgain}>
+                <button className="px-4 py-2 rounded-md transition-colors" onClick={onTryAgain}>
                     <Icon mr={2} size={'sm'} as={MdOutlineRefresh} />
                     {t('Try again')}
-                </Button>
+                </button>
             </ModalFooter>
         </>
     );

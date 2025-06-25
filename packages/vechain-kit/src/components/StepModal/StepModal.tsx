@@ -1,14 +1,7 @@
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
-import {
-    Card,
-    CardBody,
-    Text,
-    useMediaQuery,
-    ModalCloseButton,
-    ModalHeader,
-} from '@chakra-ui/react';
 import { BaseModal, StickyHeaderContainer, ModalBackButton } from '../common';
+import { useMediaQuery } from '@/hooks';
 
 export type Step<T extends string> = {
     key: T;
@@ -49,7 +42,7 @@ export const StepModal = <T extends string>({
         // close the modal
         onClose();
     };
-    const [isDesktop] = useMediaQuery('(min-width: 1060px)');
+    const isDesktop = useMediaQuery('(min-width: 1060px)');
 
     const currentStepContent = steps[activeStep];
 
@@ -64,6 +57,24 @@ export const StepModal = <T extends string>({
         return null;
     }
 
+    const ModalCloseButton = ({ onClick }: { onClick: () => void }) => (
+        <button 
+            onClick={onClick}
+            className="absolute top-4 right-4 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            aria-label="Close modal"
+        >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    );
+
+    const ModalHeader = ({ children }: { children: ReactNode }) => (
+        <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-600">
+            {children}
+        </div>
+    );
+
     return (
         <BaseModal
             closeOnOverlayClick={closeOnOverlayClick}
@@ -72,8 +83,8 @@ export const StepModal = <T extends string>({
             isCloseable={isCloseable}
             blockScrollOnMount={true}
         >
-            <Card p={0} bg="none">
-                <CardBody p={0}>
+            <div className="p-0 bg-transparent">
+                <div className="p-0">
                     {showHeader ? (
                         <StickyHeaderContainer>
                             {currentStepContent?.title ? (
@@ -92,13 +103,11 @@ export const StepModal = <T extends string>({
                         </StickyHeaderContainer>
                     ) : null}
                     {currentStepContent?.description ? (
-                        <Text
-                            fontSize={{ base: 14, md: 16 }}
-                            fontWeight={400}
-                            px={4}
+                        <div
+                            className="text-sm md:text-base font-normal px-4"
                         >
                             {currentStepContent?.description}
-                        </Text>
+                        </div>
                     ) : null}
 
                     <motion.div
@@ -109,8 +118,8 @@ export const StepModal = <T extends string>({
                     >
                         {currentStepContent.content}
                     </motion.div>
-                </CardBody>
-            </Card>
+                </div>
+            </div>
         </BaseModal>
     );
 };

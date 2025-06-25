@@ -1,4 +1,3 @@
-import { ThemeConfig, extendTheme, theme as baseTheme } from '@chakra-ui/react';
 import { modalTheme } from './modal';
 import { cardTheme } from './card';
 import { buttonTheme } from './button';
@@ -49,7 +48,7 @@ const themeConfig: ThemeConfig = {
     fonts: baseTheme.fonts,
     colors: baseTheme.colors,
     space: baseTheme.space,
-};
+}
 
 export const VechainKitTheme = extendTheme(themeConfig);
 

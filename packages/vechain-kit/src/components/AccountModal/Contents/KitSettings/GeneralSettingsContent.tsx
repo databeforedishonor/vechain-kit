@@ -1,13 +1,4 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    VStack,
-    ModalFooter,
-    ModalHeader,
-    Text,
-    Box,
-} from '@chakra-ui/react';
-import {
     ModalBackButton,
     ScrollToTopWrapper,
     StickyHeaderContainer,
@@ -29,7 +20,7 @@ type Props = {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 
 export const GeneralSettingsContent = ({ setCurrentContent }: Props) => {
     const { t } = useTranslation();
@@ -64,25 +55,19 @@ export const GeneralSettingsContent = ({ setCurrentContent }: Props) => {
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack
-                    justify={'center'}
-                    spacing={3}
-                    align="flex-start"
-                    w={'full'}
+                <div className="flex flex-col"
                 >
-                    <VStack w="full" justifyContent="center" spacing={3} mb={3}>
-                        <Text
-                            fontSize={'sm'}
+                    <div className="flex flex-col" justifyContent="center">
+                        <span
                             opacity={0.5}
-                            textAlign={'center'}
                         >
                             {t(
                                 'Manage your preferences for currency, language, and appearance.',
                             )}
-                        </Text>
-                    </VStack>
+                        </span>
+                    </div>
 
-                    <VStack w="full" justifyContent="center" spacing={0}>
+                    <div className="flex flex-col" justifyContent="center">
                         <ActionButton
                             title={t('Currency')}
                             style={{
@@ -93,15 +78,11 @@ export const GeneralSettingsContent = ({ setCurrentContent }: Props) => {
                             rightIcon={MdOutlineNavigateNext}
                             extraContent={
                                 showCurrencyRedDot && (
-                                    <Box
-                                        minWidth="8px"
+                                    <div
+                                        minWidt
                                         height="8px"
-                                        bg="red.500"
-                                        borderRadius="full"
-                                        display="flex"
                                         alignItems="center"
-                                        justifyContent="center"
-                                    />
+                                        justifyContent="center" />
                                 )
                             }
                         />
@@ -118,7 +99,7 @@ export const GeneralSettingsContent = ({ setCurrentContent }: Props) => {
                             leftIcon={IoLanguage}
                             rightIcon={MdOutlineNavigateNext}
                         />
-                    </VStack>
+                    </div>
                     <ActionButton
                         title={t('Terms and Policies')}
                         onClick={() => {
@@ -134,7 +115,7 @@ export const GeneralSettingsContent = ({ setCurrentContent }: Props) => {
                         leftIcon={MdPrivacyTip}
                         rightIcon={MdOutlineNavigateNext}
                     />
-                </VStack>
+                </div>
             </ModalBody>
             <ModalFooter pt={0} />
         </ScrollToTopWrapper>

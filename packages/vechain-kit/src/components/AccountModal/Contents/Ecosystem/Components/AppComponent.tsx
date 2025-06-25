@@ -1,7 +1,6 @@
 import { useIpfsImage, useXAppMetadata, XApp } from '@/hooks';
 import { SharedAppCard } from './SharedAppCard';
 import { AccountModalContentTypes } from '@/components/AccountModal/Types';
-import { Skeleton } from '@chakra-ui/react';
 import { Analytics } from '@/utils/mixpanelClientInstance';
 import { CategoryFilter } from './CategoryFilterSection';
 
@@ -11,7 +10,7 @@ type Props = {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 
 export const AppComponent = ({
     xApp,
@@ -43,9 +42,7 @@ export const AppComponent = ({
     };
 
     return (
-        <Skeleton
-            isLoaded={!appMetadataLoading && !isLogoLoading}
-            borderRadius="md"
+        <div
             height="100%"
         >
             <SharedAppCard
@@ -55,6 +52,6 @@ export const AppComponent = ({
                 category="vebetter"
                 onClick={handleAppClick}
             />
-        </Skeleton>
+        </div>
     );
 };

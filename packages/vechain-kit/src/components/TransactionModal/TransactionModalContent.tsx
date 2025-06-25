@@ -1,17 +1,3 @@
-import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Text,
-    Button,
-    Box,
-    ModalFooter,
-    Icon,
-    Link,
-    HStack,
-    Spinner,
-} from '@chakra-ui/react';
 import { ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useVeChainKitConfig } from '@/providers';
@@ -27,7 +13,7 @@ type StatusConfig = {
     title: ReactNode;
     icon: ReactNode;
     description: string;
-};
+}
 
 export const TransactionModalContent = ({
     status,
@@ -62,7 +48,7 @@ export const TransactionModalContent = ({
                         (isSendingTransaction
                             ? t('Sending Transaction...')
                             : t('Waiting for confirmation')),
-                    icon: uiConfig?.loadingIcon ?? <Spinner size="xl" data-testid="pending-spinner-modal" />,
+                    icon: uiConfig?.loadingIcon ?? <div data-testid="pending-spinner-modal" />,
                     description: isSendingTransaction
                         ? t(
                               'Transaction is being processed, it can take up to 15 seconds.',
@@ -74,12 +60,11 @@ export const TransactionModalContent = ({
                 return {
                     title: t('Something went wrong'),
                     icon: uiConfig?.errorIcon ?? (
-                        <Icon
-                            as={MdOutlineErrorOutline}
+                        <MdOutlineErrorOutline
                             color="#ef4444"
                             fontSize="100px"
                             data-testid="error-icon-modal"
-                        />
+                         />
                     ),
                     description:
                         errorMessage ?? t('An unexpected error occurred.'),
@@ -88,12 +73,11 @@ export const TransactionModalContent = ({
                 return {
                     title: t('Transaction successful!'),
                     icon: uiConfig?.successIcon ?? (
-                        <Icon
-                            as={IoIosCheckmarkCircleOutline}
+                        <IoIosCheckmarkCircleOutline
                             color="#22c55e"
                             fontSize="100px"
                             data-testid="success-icon-modal"
-                        />
+                         />
                     ),
                     description: '',
                 };
@@ -122,7 +106,7 @@ export const TransactionModalContent = ({
     }`;
 
     return (
-        <Box>
+        <div>
             <StickyHeaderContainer>
                 <ModalHeader>{statusConfig.title}</ModalHeader>
                 <ModalCloseButton
@@ -131,100 +115,88 @@ export const TransactionModalContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack align="center" p={6} spacing={3}>
+                <div className="flex flex-col">
                     {statusConfig.icon}
 
                     {status === 'success' && uiConfig?.showShareOnSocials && (
-                        <VStack mt={2} spacing={3}>
-                            <Text
-                                fontSize="sm"
-                                fontWeight={'bold'}
+                        <div className="flex flex-col">
+                            <span
                                 opacity={0.5}
                             >
                                 {t('Share on')}
-                            </Text>
+                            </span>
                             <ShareButtons
                                 descriptionEncoded={socialDescription}
                             />
-                        </VStack>
+                        </div>
                     )}
 
                     {statusConfig.description && (
-                        <Text
-                            fontSize={status === 'ready' ? 'md' : 'sm'}
-                            textAlign="center"
-                            color={status === 'error' ? 'red.500' : 'inherit'}
-                            mt={5}
+                        <span
                             style={{
                                 lineBreak: 'anywhere',
                             }}
                         >
                             {statusConfig.description}
-                        </Text>
+                        </span>
                     )}
-                </VStack>
+                </div>
             </ModalBody>
 
             <ModalFooter justifyContent="center">
-                <VStack width="full" spacing={4}>
+                <div className="flex flex-col space-y-4" widt>
                     {status === 'error' && !!onTryAgain && (
-                        <Button
-                            variant="vechainKitPrimary"
+                        <button className="px-4 py-2 rounded-md transition-colors"
                             onClick={onTryAgain}
-                            width="full"
+                            widt
                         >
                             <Icon mr={2} as={MdOutlineRefresh} />
                             {t('Try again')}
-                        </Button>
+                        </button>
                     )}
 
                     {status === 'ready' && (
-                        <Button
+                        <button className="px-4 py-2 rounded-md transition-colors"
                             onClick={onTryAgain}
-                            variant="vechainKitPrimary"
-                            width="full"
+                            widt
                         >
                             {t('Confirm')}
-                        </Button>
+                        </button>
                     )}
 
                     {(status === 'success' ||
                         status === 'error' ||
                         status === 'ready') && (
-                        <Button
+                        <button className="px-4 py-2 rounded-md transition-colors"
                             onClick={onClose}
-                            variant="vechainKitSecondary"
-                            width="full"
+                            widt
                         >
                             {t('Close')}
-                        </Button>
+                        </button>
                     )}
 
                     {uiConfig?.showExplorerButton && txReceipt?.meta.txID && (
-                        <Link
+                        <a
                             href={`${getConfig(network.type).explorerUrl}/${
                                 txReceipt?.meta.txID
                             }`}
                             isExternal
                             opacity={0.5}
-                            fontSize="14px"
                             textDecoration="underline"
                         >
-                            <HStack
-                                spacing={1}
+                            <div className="flex items-center"
                                 alignItems="center"
-                                w="full"
                                 justifyContent="center"
                             >
-                                <Text>
+                                <span>
                                     {t('View transaction on the explorer')}
-                                </Text>
+                                </span>
                                 <Icon size="sm" as={GoLinkExternal} />
-                            </HStack>
-                        </Link>
+                            </div>
+                        </a>
                     )}
-                </VStack>
+                </div>
             </ModalFooter>
-        </Box>
+        </div>
     );
 };

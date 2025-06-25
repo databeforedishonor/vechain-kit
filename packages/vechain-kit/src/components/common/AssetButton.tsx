@@ -1,12 +1,3 @@
-import {
-    Button,
-    HStack,
-    Image,
-    Text,
-    Box,
-    VStack,
-    ButtonProps,
-} from '@chakra-ui/react';
 import { TOKEN_LOGOS, TOKEN_LOGO_COMPONENTS } from '@/utils';
 import React from 'react';
 import { useVeChainKitConfig } from '@/providers';
@@ -23,7 +14,7 @@ type AssetButtonProps = ButtonProps & {
     currentCurrency: CURRENCY;
     isDisabled?: boolean;
     onClick?: () => void;
-};
+}
 
 export const AssetButton = ({
     symbol,
@@ -37,13 +28,10 @@ export const AssetButton = ({
     const { darkMode: isDark } = useVeChainKitConfig();
 
     return (
-        <Button
+        <button className="px-4 py-2 rounded-md transition-colors hover:bg-gray-100"
             height="72px"
-            variant="ghost"
             justifyContent="space-between"
             isDisabled={isDisabled}
-            p={4}
-            w="100%"
             _disabled={{
                 cursor: 'not-allowed',
                 opacity: 0.5,
@@ -52,52 +40,44 @@ export const AssetButton = ({
             data-testid={`asset-${symbol}`}
             {...buttonProps}
         >
-            <HStack>
+            <div className="flex items-center">
                 {TOKEN_LOGO_COMPONENTS[symbol] ? (
                     React.cloneElement(TOKEN_LOGO_COMPONENTS[symbol], {
                         boxSize: '24px',
                         borderRadius: 'full',
                     })
                 ) : (
-                    <Image
+                    <img
                         src={TOKEN_LOGOS[symbol]}
                         alt={`${symbol} logo`}
-                        boxSize="24px"
-                        borderRadius="full"
                         fallback={
-                            <Box
-                                boxSize="24px"
-                                borderRadius="full"
-                                bg="whiteAlpha.200"
-                                display="flex"
+                            <div
                                 alignItems="center"
                                 justifyContent="center"
                             >
-                                <Text fontSize="10px" fontWeight="bold">
+                                <span>
                                     {symbol.slice(0, 3)}
-                                </Text>
-                            </Box>
+                                </span>
+                            </div>
                         }
                     />
                 )}
-                <Text>{symbol}</Text>
-            </HStack>
-            <VStack align="flex-end" spacing={0}>
-                <Text>
+                <span>{symbol}</span>
+            </div>
+            <div className="flex flex-col">
+                <span>
                     {amount.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
-                    })}{' '}</Text>
-                <Text
-                    fontSize="sm"
-                    color={isDark ? 'whiteAlpha.600' : 'blackAlpha.600'}
+                    })}{' '}</span>
+                <span
                     data-testid={`${symbol}-balance`}
                 >
                     {formatCompactCurrency(
                         currencyValue,
                         { currency: currentCurrency as SupportedCurrency },
                     )}
-                </Text>
-            </VStack>
-        </Button>
+                </span>
+            </div>
+        </button>
     );
 };

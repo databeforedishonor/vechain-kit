@@ -1,13 +1,3 @@
-import {
-    Grid,
-    Icon,
-    IconButton,
-    VStack,
-    Text,
-    Heading,
-    HStack,
-    Box,
-} from '@chakra-ui/react';
 import { MdSwapHoriz } from 'react-icons/md';
 import { FiSend } from 'react-icons/fi';
 import { AccountModalContentTypes } from '../Types';
@@ -105,42 +95,33 @@ const QuickActionButton = ({
     const { t } = useTranslation();
 
     return (
-        <IconButton
-            variant="mainContentButton"
-            h="80px"
-            w="full"
+        <button
             aria-label={label}
             isDisabled={isDisabled}
             icon={
-                <VStack spacing={4}>
-                    <Icon as={icon} boxSize={5} opacity={0.9} />
+                <div className="flex flex-col space-y-4">
+                    <icon className="w-5 h-5" opacity={0.9}  />
 
-                    <HStack p={0} alignItems={'baseline'} spacing={1}>
-                        <Text
-                            fontSize="sm"
-                            fontWeight="600"
+                    <div className="flex items-center" alignItems={'baseline'}>
+                        <span
                             data-testid={`${label.toLowerCase()}-button-label`}
                         >
                             {t(label, label)}
-                        </Text>
+                        </span>
                         {showRedDot && (
-                            <Box
-                                minWidth="8px"
+                            <div
+                                minWidt
                                 height="8px"
-                                bg="red.500"
-                                borderRadius="full"
-                                display="flex"
                                 alignItems="center"
-                                justifyContent="center"
-                            />
+                                justifyContent="center" />
                         )}
-                    </HStack>
-                </VStack>
+                    </div>
+                </div>
             }
             onClick={onClick}
         />
     );
-};
+}
 
 export const QuickActionsSection = ({ mt, setCurrentContent }: Props) => {
     const { account, smartAccount, connectedWallet, connection } = useWallet();
@@ -165,11 +146,11 @@ export const QuickActionsSection = ({ mt, setCurrentContent }: Props) => {
         (connection.isConnectedWithPrivy && upgradeRequired) || isFirstVisit;
 
     return (
-        <VStack w={'full'} mt={mt} spacing={4}>
-            <Heading size={'xs'} fontWeight={'500'} w={'full'} opacity={0.5}>
+        <div className="flex flex-col space-y-4">
+            <h2 opacity={0.5}>
                 {t('Tools')}
-            </Heading>
-            <Grid templateColumns="repeat(3, 1fr)" gap={2} w="full">
+            </h2>
+            <div templateColumns="repeat(3, 1fr)" ga>
                 {QUICK_ACTIONS.map((action) => (
                     <QuickActionButton
                         key={action.label}
@@ -186,7 +167,7 @@ export const QuickActionsSection = ({ mt, setCurrentContent }: Props) => {
                         showRedDot={showRedDot && action.label === 'Settings'}
                     />
                 ))}
-            </Grid>
-        </VStack>
+            </div>
+        </div>
     );
 };

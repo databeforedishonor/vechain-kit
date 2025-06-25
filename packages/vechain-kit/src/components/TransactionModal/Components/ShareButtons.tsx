@@ -1,4 +1,3 @@
-import { Box, HStack, Link } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { FaWhatsapp } from 'react-icons/fa6';
@@ -36,47 +35,44 @@ type Props = {
     descriptionEncoded: string;
     url?: string;
     facebookHashtag?: string;
-};
+}
 
 export const ShareButtons = ({ descriptionEncoded }: Props) => {
     const { darkMode: isDark } = useVeChainKitConfig();
 
     return (
-        <HStack gap={2}>
+        <div className="flex items-center" ga>
             <BouncingAnimation>
-                <Link
+                <a
                     href={`${TWITTER_INJECT}${descriptionEncoded}`}
                     isExternal
                 >
-                    <Box
-                        bg={isDark ? 'blackAlpha.700' : 'lightgrey'}
-                        p={2}
-                        borderRadius={'full'}
+                    <div
                     >
                         <RiTwitterXFill size={22} />
-                    </Box>
-                </Link>
+                    </div>
+                </a>
             </BouncingAnimation>
             <BouncingAnimation>
-                <Link
+                <a
                     href={`${TELEGRAM_INJECT}${descriptionEncoded}`}
                     isExternal
                 >
-                    <Box bg={'#30abec'} p={2} borderRadius={'full'}>
+                    <div>
                         <FaTelegramPlane color="white" size={22} />
-                    </Box>
-                </Link>
+                    </div>
+                </a>
             </BouncingAnimation>
             <BouncingAnimation>
-                <Link
+                <a
                     href={`${WHATSAPP_INJECT}${descriptionEncoded}`}
                     isExternal
                 >
-                    <Box bg={'#01cb37'} p={2} borderRadius={'full'}>
+                    <div>
                         <FaWhatsapp size={22} color="white" />
-                    </Box>
-                </Link>
+                    </div>
+                </a>
             </BouncingAnimation>
-        </HStack>
+        </div>
     );
 };

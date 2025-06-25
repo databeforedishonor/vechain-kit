@@ -1,14 +1,3 @@
-import {
-    Button,
-    ButtonProps,
-    HStack,
-    Icon,
-    Popover,
-    PopoverBody,
-    PopoverContent,
-    PopoverFooter,
-    PopoverTrigger,
-} from '@chakra-ui/react';
 import { ConnectionOptionsStack } from './Components/ConnectionOptionsStack';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown } from 'react-icons/fa';
@@ -16,10 +5,10 @@ import { EcosystemButton } from './Components';
 import { useVeChainKitConfig } from '@/providers';
 import { useFetchAppInfo } from '@/hooks';
 
-type ConnectPopoverProps = {
+interface ConnectPopoverProps {
     isLoading: boolean;
     buttonStyle?: ButtonProps;
-};
+}
 
 export const ConnectPopover = ({
     isLoading,
@@ -48,7 +37,7 @@ export const ConnectPopover = ({
             {({ isOpen }) => (
                 <>
                     <PopoverTrigger>
-                        <Button
+                        <button className="px-4 py-2 rounded-md transition-colors"
                             isLoading={isLoading}
                             {...buttonStyle}
                             isActive={isOpen}
@@ -62,7 +51,7 @@ export const ConnectPopover = ({
                                 }
                                 transition="transform 0.2s"
                             />
-                        </Button>
+                        </button>
                     </PopoverTrigger>
                     <PopoverContent>
                         <PopoverBody>
@@ -70,13 +59,13 @@ export const ConnectPopover = ({
                         </PopoverBody>
                         <PopoverFooter borderTop={'none'} pb={'15px'}>
                             {showEcosystemButton && (
-                                <HStack justify={'center'} w={'full'}>
+                                <div className="flex items-center">
                                     <EcosystemButton
                                         isDark={isDark}
                                         appsInfo={Object.values(appsInfo || {})}
                                         isLoading={isEcosystemAppsLoading}
                                     />
-                                </HStack>
+                                </div>
                             )}
                         </PopoverFooter>
                     </PopoverContent>

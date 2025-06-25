@@ -1,4 +1,3 @@
-import { GridItem, useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
 import { IoIosFingerPrint } from 'react-icons/io';
 import { LoginLoadingModal, ConnectionButton } from '@/components';
@@ -10,7 +9,7 @@ import { VeLoginMethod } from '@/types/mixPanel';
 type Props = {
     isDark: boolean;
     gridColumn?: number;
-};
+}
 
 export const PasskeyLoginButton = ({ isDark, gridColumn }: Props) => {
     const { t } = useTranslation();
@@ -54,7 +53,7 @@ export const PasskeyLoginButton = ({ isDark, gridColumn }: Props) => {
 
     return (
         <>
-            <GridItem colSpan={gridColumn} w={'full'}>
+            <divItem colSpan={gridColumn}>
                 <ConnectionButton
                     isDark={isDark}
                     onClick={handleLoginWithPasskey}
@@ -63,7 +62,7 @@ export const PasskeyLoginButton = ({ isDark, gridColumn }: Props) => {
                         gridColumn && gridColumn >= 2 ? t('Passkey') : undefined
                     }
                 />
-            </GridItem>
+            </div>
 
             <LoginLoadingModal
                 isOpen={loginLoadingModal.isOpen}

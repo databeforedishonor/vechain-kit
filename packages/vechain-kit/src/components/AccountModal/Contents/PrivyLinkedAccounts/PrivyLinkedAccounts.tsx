@@ -1,16 +1,5 @@
 import { LinkedAccountWithMetadata, usePrivy } from '@privy-io/react-auth';
 import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Button,
-    Flex,
-    Text,
-    Icon,
-    ModalFooter,
-} from '@chakra-ui/react';
-import {
     FaGoogle,
     FaEnvelope,
     FaWallet,
@@ -39,7 +28,7 @@ import { useVeChainKitConfig } from '@/providers';
 import { IoIosFingerPrint } from 'react-icons/io';
 import { humanAddress } from '@/utils';
 
-type ConfirmUnlinkProps = {
+interface ConfirmUnlinkProps {
     accountType: string;
     accountDescription: string;
     isLoading: boolean;
@@ -56,8 +45,8 @@ const ConfirmUnlink = ({
 }: ConfirmUnlinkProps) => {
     const { t } = useTranslation();
     return (
-        <VStack spacing={6} align="stretch">
-            <Text fontSize="md" textAlign="center">
+        <div className="flex flex-col space-y-6">
+            <span>
                 {t(
                     'Are you sure you want to unlink {{accountType}} as a login method linked to {{accountDescription}}?',
                     {
@@ -65,34 +54,31 @@ const ConfirmUnlink = ({
                         accountDescription,
                     },
                 )}
-            </Text>
+            </span>
 
-            <VStack spacing={3} w="full">
-                <Button
+            <div className="flex flex-col">
+                <button className="px-4 py-2 rounded-md transition-colors"
                     height="60px"
-                    colorScheme="red"
-                    w="full"
                     onClick={onConfirm}
                     isLoading={isLoading}
                 >
                     {t('Remove Login Method')}
-                </Button>
-                <Button
+                </button>
+                <button className="px-4 py-2 rounded-md transition-colors"
                     isLoading={isLoading}
                     height="60px"
-                    w="full"
                     onClick={onCancel}
                 >
                     {t('Cancel')}
-                </Button>
-            </VStack>
-        </VStack>
+                </button>
+            </div>
+        </div>
     );
 };
 
-type PrivyLinkedAccountsProps = {
+interface PrivyLinkedAccountsProps {
     onBack: () => void;
-};
+}
 
 export const PrivyLinkedAccounts = ({ onBack }: PrivyLinkedAccountsProps) => {
     const { t } = useTranslation();
@@ -335,7 +321,7 @@ export const PrivyLinkedAccounts = ({ onBack }: PrivyLinkedAccountsProps) => {
                     <ModalCloseButton />
                 </StickyHeaderContainer>
                 <ModalBody w="full">
-                    <VStack spacing={3} align="stretch" w="full">
+                    <div className="flex flex-col">
                         <ActionButton
                             title={t('Set up Passkey')}
                             description={t(
@@ -499,17 +485,15 @@ export const PrivyLinkedAccounts = ({ onBack }: PrivyLinkedAccountsProps) => {
                             !canLinkTelegram &&
                             !canLinkFarcaster &&
                             !canLinkDiscord && (
-                                <Text
-                                    fontSize="sm"
-                                    textAlign="center"
+                                <span
                                     opacity={0.7}
                                 >
                                     {t(
                                         'No additional accounts available to link',
                                     )}
-                                </Text>
+                                </span>
                             )}
-                    </VStack>
+                    </div>
                 </ModalBody>
                 <ModalFooter pt={0} />
             </ScrollToTopWrapper>
@@ -551,42 +535,30 @@ export const PrivyLinkedAccounts = ({ onBack }: PrivyLinkedAccountsProps) => {
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack
-                    spacing={3}
-                    align="center"
-                    w={'full'}
-                    justify={'center'}
+                <div className="flex flex-col"
                 >
-                    <VStack
-                        spacing={1}
-                        justify={'flex-start'}
+                    <div className="flex flex-col"
                         alignItems="flex-start"
-                        mb={5}
-                        textAlign="left"
-                        w={'full'}
                     >
-                        <Text fontSize="sm" opacity={0.5}>
+                        <span opacity={0.5}>
                             {t(
                                 'These accounts are linked to your embedded wallet and can be used to login to your wallet and access your private key.',
                             )}
-                        </Text>
+                        </span>
                         {showFullText && (
-                            <Text fontSize="sm" opacity={0.5}>
+                            <span opacity={0.5}>
                                 {t(
                                     'Adding more linked accounts increases security against loss of access, but also introduces additional potential attack vectors. For enhanced security, we recommend enabling MFA.',
                                 )}
-                            </Text>
+                            </span>
                         )}
-                        <Button
-                            variant="link"
-                            mt={0}
-                            size="sm"
+                        <button className="px-4 py-2 rounded-md transition-colors"
                             onClick={() => setShowFullText(!showFullText)}
                             color="blue.500"
                         >
                             {t(showFullText ? 'Show Less' : 'Read More')}
-                        </Button>
-                    </VStack>
+                        </button>
+                    </div>
 
                     {user?.linkedAccounts
                         ?.filter(
@@ -596,19 +568,14 @@ export const PrivyLinkedAccounts = ({ onBack }: PrivyLinkedAccountsProps) => {
                                     account.connectorType !== 'embedded'),
                         )
                         .map((account) => (
-                            <Flex
+                            <div
                                 key={account.type}
-                                p={4}
-                                borderWidth="1px"
-                                borderRadius="md"
-                                align="center"
-                                justify="space-between"
-                                w={'full'}
+                                borderWidt
                             >
-                                <Flex align="center" gap={3}>
-                                    <Icon as={getAccountIcon(account.type)} />
-                                    <VStack align="start" spacing={0}>
-                                        <Text fontWeight="500">
+                                <div ga>
+                                    <getAccountIcon(account.type)  />
+                                    <div className="flex flex-col">
+                                        <span>
                                             {account.type === 'google_oauth'
                                                 ? t('Google')
                                                 : account.type === 'email'
@@ -645,17 +612,14 @@ export const PrivyLinkedAccounts = ({ onBack }: PrivyLinkedAccountsProps) => {
                                                   'discord_oauth'
                                                 ? t('Discord')
                                                 : t('Wallet')}
-                                        </Text>
-                                        <Text fontSize="sm" opacity={0.8}>
+                                        </span>
+                                        <span opacity={0.8}>
                                             {getAccountDescription(account)}
-                                        </Text>
-                                    </VStack>
-                                </Flex>
+                                        </span>
+                                    </div>
+                                </div>
 
-                                <Button
-                                    size="sm"
-                                    variant="ghost"
-                                    colorScheme="red"
+                                <button className="px-4 py-2 rounded-md transition-colors hover:bg-gray-100"
                                     isDisabled={!canUnlink()}
                                     onClick={() => {
                                         if (account.type === 'passkey') {
@@ -666,17 +630,15 @@ export const PrivyLinkedAccounts = ({ onBack }: PrivyLinkedAccountsProps) => {
                                     }}
                                 >
                                     {t('Remove')}
-                                </Button>
-                            </Flex>
+                                </button>
+                            </div>
                         ))}
-                </VStack>
+                </div>
             </ModalBody>
             <ModalFooter w={'full'}>
-                <Button
-                    w="full"
-                    variant="vechainKitSecondary"
+                <button className="px-4 py-2 rounded-md transition-colors"
                     onClick={() => setShowLinkOptions(true)}
-                    leftIcon={<Icon as={FaPlus} />}
+                    leftIcon={<FaPlus  />}
                     isDisabled={
                         !canLinkGoogle &&
                         !canLinkEmail &&
@@ -694,7 +656,7 @@ export const PrivyLinkedAccounts = ({ onBack }: PrivyLinkedAccountsProps) => {
                     }
                 >
                     {t('Add Login Method')}
-                </Button>
+                </button>
             </ModalFooter>
         </ScrollToTopWrapper>
     );

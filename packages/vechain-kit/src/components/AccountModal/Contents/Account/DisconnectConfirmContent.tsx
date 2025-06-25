@@ -1,26 +1,17 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Button,
-    Text,
-    ModalFooter,
-} from '@chakra-ui/react';
-import {
     ModalBackButton,
     ScrollToTopWrapper,
     StickyHeaderContainer,
 } from '@/components/common';
 import { useTranslation } from 'react-i18next';
 
-export type DisconnectConfirmContentProps = {
+export interface DisconnectConfirmContentProps {
     onDisconnect: () => void;
     onBack: () => void;
     onClose?: () => void;
     text?: string;
     showCloseButton?: boolean;
-};
+}
 
 export const DisconnectConfirmContent = ({
     onDisconnect,
@@ -43,31 +34,28 @@ export const DisconnectConfirmContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack spacing={6} align="stretch">
-                    <Text fontSize="md" textAlign="center">
+                <div className="flex flex-col space-y-6">
+                    <span>
                         {textTitle}
-                    </Text>
-                </VStack>
+                    </span>
+                </div>
             </ModalBody>
             <ModalFooter w="full">
-                <VStack spacing={3} w="full">
-                    <Button
+                <div className="flex flex-col">
+                    <button className="px-4 py-2 rounded-md transition-colors"
                         height="60px"
-                        colorScheme="red"
-                        w="full"
                         onClick={onDisconnect}
                         data-testid="disconnect-button"
                     >
                         {t('Confirm')}
-                    </Button>
-                    <Button
-                        variant="vechainKitSecondary"
+                    </button>
+                    <button className="px-4 py-2 rounded-md transition-colors"
                         onClick={onBack}
                         data-testid="cancel-logout-button"
                     >
                         {t('Cancel')}
-                    </Button>
-                </VStack>
+                    </button>
+                </div>
             </ModalFooter>
         </ScrollToTopWrapper>
     );

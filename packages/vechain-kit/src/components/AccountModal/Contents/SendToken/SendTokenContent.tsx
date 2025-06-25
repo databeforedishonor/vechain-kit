@@ -1,20 +1,4 @@
 import React from 'react';
-import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Input,
-    Button,
-    Text,
-    Box,
-    HStack,
-    Center,
-    Icon,
-    ModalFooter,
-    Image,
-    FormControl,
-} from '@chakra-ui/react';
 import { useState, useEffect, useMemo } from 'react';
 import { ModalBackButton, StickyHeaderContainer } from '@/components';
 import { AccountModalContentTypes } from '../../Types';
@@ -35,7 +19,7 @@ import {
 } from '@/utils/currencyUtils';
 import { ens_normalize } from '@adraffy/ens-normalize';
 
-export type SendTokenContentProps = {
+export interface SendTokenContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
@@ -48,7 +32,7 @@ export type SendTokenContentProps = {
 type FormValues = {
     amount: string;
     toAddressOrDomain: string;
-};
+}
 
 export const SendTokenContent = ({
     setCurrentContent,
@@ -267,16 +251,13 @@ export const SendTokenContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack spacing={1} align="stretch" position="relative">
-                    <Box
-                        p={6}
-                        borderRadius="xl"
-                        bg={isDark ? '#00000038' : 'gray.50'}
+                <div className="flex flex-col">
+                    <div
                     >
-                        <VStack align="stretch" spacing={2}>
-                            <FormControl isInvalid={!!errors.amount}>
-                                <HStack justify="space-between">
-                                    <Input
+                        <div className="flex flex-col space-y-2">
+                            <div isInvalid={!!errors.amount}>
+                                <div className="flex items-center">
+                                    <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         {...register('amount', {
                                             required: t('Amount is required'),
                                             pattern: {
@@ -315,16 +296,7 @@ export const SendTokenContent = ({
                                     />
 
                                     {selectedToken ? (
-                                        <Button
-                                            variant="outline"
-                                            size="sm"
-                                            borderRadius="full"
-                                            px={6}
-                                            color={
-                                                isDark
-                                                    ? 'whiteAlpha.700'
-                                                    : 'blackAlpha.700'
-                                            }
+                                        <button className="px-4 py-2 rounded-md transition-colors border border-gray-300 hover:bg-gray-50"
                                             borderColor={
                                                 isDark
                                                     ? 'whiteAlpha.700'
@@ -353,7 +325,7 @@ export const SendTokenContent = ({
                                                         },
                                                     )
                                                 ) : (
-                                                    <Image
+                                                    <img
                                                         src={
                                                             TOKEN_LOGOS[
                                                                 selectedToken
@@ -361,45 +333,28 @@ export const SendTokenContent = ({
                                                             ]
                                                         }
                                                         alt={`${selectedToken.symbol} logo`}
-                                                        boxSize="20px"
-                                                        borderRadius="full"
                                                         fallback={
-                                                            <Box
-                                                                boxSize="20px"
-                                                                borderRadius="full"
-                                                                bg="whiteAlpha.200"
-                                                                display="flex"
+                                                            <div
                                                                 alignItems="center"
                                                                 justifyContent="center"
                                                             >
-                                                                <Text
-                                                                    fontSize="8px"
-                                                                    fontWeight="bold"
+                                                                <span
                                                                 >
                                                                     {selectedToken.symbol.slice(
                                                                         0,
                                                                         3,
                                                                     )}
-                                                                </Text>
-                                                            </Box>
+                                                                </span>
+                                                            </div>
                                                         }
                                                     />
                                                 )
                                             }
                                         >
                                             {selectedToken.symbol}
-                                        </Button>
+                                        </button>
                                     ) : (
-                                        <Button
-                                            variant="outline"
-                                            size="sm"
-                                            borderRadius="full"
-                                            px={6}
-                                            color={
-                                                isDark
-                                                    ? 'whiteAlpha.700'
-                                                    : 'blackAlpha.700'
-                                            }
+                                        <button className="px-4 py-2 rounded-md transition-colors border border-gray-300 hover:bg-gray-50"
                                             borderColor={
                                                 isDark
                                                     ? 'whiteAlpha.700'
@@ -418,25 +373,18 @@ export const SendTokenContent = ({
                                             }
                                         >
                                             {t('Select token')}
-                                        </Button>
+                                        </button>
                                     )}
-                                </HStack>
+                                </div>
                                 {selectedToken && (
-                                    <HStack
-                                        spacing={1}
-                                        fontSize="sm"
+                                    <div className="flex items-center"
                                         justifyContent={'space-between'}
-                                        color={
-                                            isDark
-                                                ? 'whiteAlpha.700'
-                                                : 'blackAlpha.700'
-                                        }
                                     >
-                                        <Text opacity={0.5}>
+                                        <span opacity={0.5}>
                                             ≈{' '}
                                             {formattedValue}
-                                        </Text>
-                                        <Text
+                                        </span>
+                                        <span
                                             cursor="pointer"
                                             _hover={{
                                                 color: isDark
@@ -446,54 +394,42 @@ export const SendTokenContent = ({
                                             }}
                                             onClick={handleSetMaxAmount}
                                             noOfLines={1}
-                                            overflow="hidden"
-                                            textOverflow="ellipsis"
+                                            overflo
+                                            textOverflo
                                         >
                                             {t('Send all')}
-                                        </Text>
-                                    </HStack>
+                                        </span>
+                                    </div>
                                 )}
                                 {errors.amount && (
-                                    <Text
-                                        color="#ef4444"
-                                        fontSize="sm"
-                                        mt={1}
+                                    <span
                                         data-testid="amount-error-msg"
                                     >
                                         {errors.amount.message}
-                                    </Text>
+                                    </span>
                                 )}
-                            </FormControl>
-                        </VStack>
-                    </Box>
+                            </div>
+                        </div>
+                    </div>
 
                     {/* Arrow Icon */}
-                    <Center
-                        position="relative"
-                        marginTop="-20px"
-                        marginBottom="-20px"
+                    <div
+                        marginTo
+                        marginBotto
                         marginX="auto"
-                        bg={isDark ? '#151515' : 'gray.100'}
-                        borderRadius="xl"
-                        w="40px"
-                        h="40px"
                         zIndex={2}
                     >
-                        <Icon
-                            as={FiArrowDown}
-                            boxSize={5}
+                        <FiArrowDown className="w-5 h-5"
                             opacity={0.5}
                             color={isDark ? 'whiteAlpha.700' : 'gray.600'}
-                        />
-                    </Center>
+                         />
+                    </div>
 
-                    <Box
-                        borderRadius="xl"
-                        bg={isDark ? '#00000038' : 'gray.50'}
+                    <div
                     >
-                        <VStack align="stretch" spacing={2} p={6} width="100%">
-                            <FormControl isInvalid={!!errors.toAddressOrDomain}>
-                                <Input
+                        <div className="flex flex-col space-y-2" widt>
+                            <div isInvalid={!!errors.toAddressOrDomain}>
+                                <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     {...register('toAddressOrDomain', {
                                         required: t('Address is required'),
                                     })}
@@ -526,30 +462,27 @@ export const SendTokenContent = ({
                                     data-testid="tx-address-input"
                                 />
                                 {errors.toAddressOrDomain && (
-                                    <Text
-                                        color="#ef4444"
-                                        fontSize="sm"
+                                    <span
                                         data-testid="address-error-msg"
                                     >
                                         {errors.toAddressOrDomain.message}
-                                    </Text>
+                                    </span>
                                 )}
-                            </FormControl>
-                        </VStack>
-                    </Box>
-                </VStack>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ModalBody>
 
             <ModalFooter>
-                <Button
-                    variant="vechainKitPrimary"
+                <button className="px-4 py-2 rounded-md transition-colors"
                     isDisabled={!selectedToken || !isValid}
                     isLoading={isLoading}
                     onClick={handleSubmit(onSubmit)}
                     data-testid="send-button"
                 >
                     {selectedToken ? t('Send') : t('Select Token')}
-                </Button>
+                </button>
             </ModalFooter>
         </>
     );

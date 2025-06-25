@@ -1,7 +1,6 @@
 import { getConfig } from '@/config';
 import { useWallet, useFetchPrivyStatus, useGetAccountVersion } from '@/hooks';
 import { useVeChainKitConfig } from '@/providers';
-import { HStack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import packageJson from '../../../../../../package.json';
 
@@ -31,22 +30,26 @@ export const NetworkInfo = () => {
         isLoading?: boolean;
         href?: string;
     }) => (
-        <HStack w="full" justifyContent="space-between">
-            <Text fontSize="sm" color={textColor}>
+        <div className="w-full flex justify-between items-center">
+            <span className="text-sm" style={{ color: textColor }}>
                 {label}:
-            </Text>
-            <Text
-                fontSize="sm"
-                color={textColor}
-                as={href ? 'a' : undefined}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ textDecoration: href ? 'underline' : 'none' }}
-            >
-                {isLoading ? 'Loading...' : value}
-            </Text>
-        </HStack>
+            </span>
+            {href ? (
+                <a
+                    className="text-sm underline"
+                    style={{ color: textColor }}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {isLoading ? 'Loading...' : value}
+                </a>
+            ) : (
+                <span className="text-sm" style={{ color: textColor }}>
+                    {isLoading ? 'Loading...' : value}
+                </span>
+            )}
+        </div>
     );
 
     return (

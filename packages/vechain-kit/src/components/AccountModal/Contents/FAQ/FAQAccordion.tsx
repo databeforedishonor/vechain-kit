@@ -1,17 +1,4 @@
 import { useVeChainKitConfig } from '@/providers';
-import {
-    Accordion,
-    AccordionItem,
-    AccordionButton,
-    AccordionPanel,
-    Box,
-    Text,
-    Icon,
-    VStack,
-    InputGroup,
-    Input,
-    InputLeftElement,
-} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import { useState } from 'react';
@@ -130,81 +117,68 @@ export const FAQAccordion = () => {
     );
 
     return (
-        <VStack spacing={4} align="stretch">
-            <InputGroup size="lg">
-                <Input
+        <div className="flex flex-col space-y-4">
+            <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"Group>
+                <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder={t('Search FAQ')}
-                    bg={isDark ? '#00000038' : 'gray.50'}
-                    borderRadius="xl"
                     height="56px"
-                    pl={12}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <InputLeftElement h="56px" w="56px" pl={4}>
+                <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"LeftElement>
                     <CiSearch
                         color={isDark ? 'whiteAlpha.400' : 'blackAlpha.600'}
                     />
-                </InputLeftElement>
-            </InputGroup>
+                </div>
+            </div>
 
             {filteredFaqItems.length === 0 ? (
-                <VStack
-                    spacing={2}
-                    py={8}
-                    color={isDark ? 'whiteAlpha.600' : 'blackAlpha.600'}
+                <div className="flex flex-col space-y-2"
                 >
-                    <Icon as={FiSlash} boxSize={12} opacity={0.5} />
-                    <Text fontSize="lg">{t('No questions found')}</Text>
-                    <Text fontSize="md">
+                    <FiSlash className="w-12 h-12" opacity={0.5}  />
+                    <span>{t('No questions found')}</span>
+                    <span>
                         {t('Try searching with a different term')}
-                    </Text>
-                </VStack>
+                    </span>
+                </div>
             ) : (
-                <Accordion allowMultiple>
+                <div allowMultiple>
                     {filteredFaqItems.map((item, index) => (
-                        <AccordionItem key={index} border="none" mb={2}>
+                        <divItem key={index}>
                             {({ isExpanded }) => (
                                 <>
-                                    <AccordionButton
-                                        bg={
-                                            isDark
-                                                ? 'whiteAlpha.50'
-                                                : 'blackAlpha.50'
-                                        }
-                                        borderRadius="xl"
+                                    <divButton
                                         _hover={{
                                             bg: isDark
                                                 ? 'whiteAlpha.100'
                                                 : 'blackAlpha.100',
                                         }}
                                     >
-                                        <Box flex="1" textAlign="left" py={2}>
-                                            <Text fontWeight="500">
+                                        <div flex="1">
+                                            <span>
                                                 {item.question}
-                                            </Text>
-                                        </Box>
-                                        <Icon
-                                            as={
+                                            </span>
+                                        </div>
+                                        <
                                                 isExpanded
                                                     ? IoChevronUp
                                                     : IoChevronDown
-                                            }
+                                            
                                             fontSize="20px"
                                             opacity={0.5}
-                                        />
-                                    </AccordionButton>
-                                    <AccordionPanel pb={4}>
-                                        <Text fontSize="sm" opacity={0.8}>
+                                         />
+                                    </button>
+                                    <divPanel>
+                                        <span opacity={0.8}>
                                             {item.answer}
-                                        </Text>
-                                    </AccordionPanel>
+                                        </span>
+                                    </div>
                                 </>
                             )}
-                        </AccordionItem>
+                        </div>
                     ))}
-                </Accordion>
+                </div>
             )}
-        </VStack>
+        </div>
     );
 };

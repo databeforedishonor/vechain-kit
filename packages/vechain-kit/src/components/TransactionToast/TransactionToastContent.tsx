@@ -1,14 +1,3 @@
-import {
-    VStack,
-    Text,
-    Link,
-    Icon,
-    HStack,
-    Heading,
-    Spinner,
-    Button,
-    IconButton,
-} from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 import { TransactionStatus, TransactionStatusErrorType } from '@/types';
 import { FcCheckmark } from 'react-icons/fc';
@@ -19,7 +8,7 @@ import { getConfig } from '@/config';
 import { useTranslation } from 'react-i18next';
 import { TransactionReceipt } from '@vechain/sdk-network';
 
-type TransactionToastContentProps = {
+interface TransactionToastContentProps {
     status: TransactionStatus;
     txReceipt: TransactionReceipt | null;
     onTryAgain: () => void;
@@ -33,7 +22,7 @@ type StatusConfig = {
     title: string;
     closeDisabled: boolean;
     description?: string;
-};
+}
 
 export const TransactionToastContent = ({
     status,
@@ -66,10 +55,8 @@ export const TransactionToastContent = ({
             case 'pending':
                 return {
                     icon: (
-                        <Spinner
-                            size="md"
-                            data-testid="pending-spinner-toast"
-                        />
+                        <div
+                            data-testid="pending-spinner-toast" />
                     ),
                     title: isSendingTransaction
                         ? t('Processing transaction...')
@@ -85,12 +72,11 @@ export const TransactionToastContent = ({
             case 'error':
                 return {
                     icon: (
-                        <Icon
-                            as={MdOutlineErrorOutline}
+                        <MdOutlineErrorOutline
                             color={'red.500'}
                             fontSize={'40px'}
                             data-testid="error-icon-toast"
-                        />
+                         />
                     ),
                     title: t('Transaction failed'),
                     closeDisabled: false,
@@ -99,11 +85,10 @@ export const TransactionToastContent = ({
             case 'success':
                 return {
                     icon: (
-                        <Icon
-                            as={FcCheckmark}
+                        <FcCheckmark
                             fontSize={'40px'}
                             data-testid="success-icon-toast"
-                        />
+                         />
                     ),
                     title: t('Transaction successful!'),
                     closeDisabled: false,
@@ -134,60 +119,54 @@ export const TransactionToastContent = ({
     if (!config) return null;
 
     return (
-        <HStack justify="space-between" alignItems={'flex-start'} w="full">
-            <VStack spacing={4}>
-                <HStack
-                    spacing={4}
-                    w={'full'}
+        <div className="flex items-center" alignItems={'flex-start'}>
+            <div className="flex flex-col space-y-4">
+                <div className="flex items-center space-x-4"
                     justifyContent={'flex-start'}
                     alignItems={'flex-start'}
                 >
                     {config.icon}
 
-                    <VStack w={'full'} align={'flex-start'} spacing={2}>
-                        <VStack spacing={1} w={'full'}>
-                            <Heading w={'full'} size={'xs'}>
+                    <div className="flex flex-col space-y-2">
+                        <div className="flex flex-col">
+                            <h2>
                                 {config.title}
-                            </Heading>
+                            </h2>
                             {config.description && (
-                                <Text fontSize={'xs'}>
+                                <span>
                                     {config.description}
-                                </Text>
+                                </span>
                             )}
-                        </VStack>
+                        </div>
 
                         {(status === 'error' || status === 'ready') && (
-                            <Button size="xs" onClick={onTryAgain}>
+                            <button className="px-4 py-2 rounded-md transition-colors" onClick={onTryAgain}>
                                 {status === 'error'
                                     ? t('Try again')
                                     : t('Confirm')}
-                            </Button>
+                            </button>
                         )}
 
                         {txReceipt && status !== 'pending' && (
-                            <Link
-                                fontSize={'xs'}
+                            <a
                                 isExternal
                                 href={`${explorerUrl}/${txReceipt.meta.txID}`}
                             >
                                 {t('View on explorer')}{' '}
-                                <Icon as={IoOpenOutline} />
-                            </Link>
+                                <IoOpenOutline  />
+                            </a>
                         )}
-                    </VStack>
-                </HStack>
-            </VStack>
+                    </div>
+                </div>
+            </div>
 
             {!config.closeDisabled && (
-                <IconButton
+                <button
                     onClick={onClose}
-                    variant="ghost"
-                    size="sm"
-                    borderRadius={'full'}
                     aria-label="Close"
-                    icon={<Icon as={IoCloseOutline} boxSize={4} />}
+                    icon={<IoCloseOutline  />}
                 />
             )}
-        </HStack>
+        </div>
     );
 };

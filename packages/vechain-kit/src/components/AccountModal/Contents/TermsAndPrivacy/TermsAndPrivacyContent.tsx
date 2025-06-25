@@ -3,20 +3,13 @@ import {
     ScrollToTopWrapper,
     StickyHeaderContainer,
 } from '@/components/common';
-import {
-    ModalBody,
-    ModalCloseButton,
-    ModalFooter,
-    ModalHeader,
-    VStack,
-} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import { TermsAndPrivacyAccordion } from './TermsAndPrivacyAccordion';
 
-export type TermsAndPrivacyContentProps = {
+export interface TermsAndPrivacyContentProps {
     onGoBack: () => void;
-};
+}
 
 export const TermsAndPrivacyContent = ({
     onGoBack,
@@ -32,9 +25,9 @@ export const TermsAndPrivacyContent = ({
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack spacing={6} align="stretch">
+                <div className="flex flex-col space-y-6">
                     <TermsAndPrivacyAccordion />
-                </VStack>
+                </div>
             </ModalBody>
             <ModalFooter pt={0} />
         </ScrollToTopWrapper>

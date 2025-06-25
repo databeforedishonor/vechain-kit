@@ -1,39 +1,33 @@
-import { Icon, Text, VStack, Button } from '@chakra-ui/react';
 import { IoWalletOutline } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next';
 
 type Props = {
     onOpenReceiveModal: () => void;
-};
+}
 
 export const NFTsTabPanel = ({ onOpenReceiveModal }: Props) => {
     const { t } = useTranslation();
     return (
-        <VStack spacing={4} align="center" mt={8}>
-            <Icon
-                as={IoWalletOutline}
-                boxSize={12}
+        <div className="flex flex-col space-y-4">
+            <IoWalletOutline className="w-12 h-12"
                 opacity={0.5}
                 p={2}
                 bg="whiteAlpha.100"
                 borderRadius="xl"
-            />
-            <VStack spacing={1}>
-                <Text fontSize="lg" fontWeight="500">
+             />
+            <div className="flex flex-col">
+                <span>
                     {t('Coming soon')}
-                </Text>
-                <Text fontSize="sm" opacity={0.5} textAlign="center">
+                </span>
+                <span opacity={0.5}>
                     {t('Stay tuned for our upcoming NFT feature')}
-                </Text>
-                <Button
-                    variant="ghost"
-                    size="sm"
+                </span>
+                <button className="px-4 py-2 rounded-md transition-colors hover:bg-gray-100"
                     onClick={onOpenReceiveModal}
-                    mt={2}
                 >
                     {t('Receive tokens')}
-                </Button>
-            </VStack>
-        </VStack>
+                </button>
+            </div>
+        </div>
     );
 };

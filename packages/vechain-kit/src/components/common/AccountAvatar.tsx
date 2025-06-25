@@ -1,11 +1,10 @@
 import { Wallet } from '@/types';
-import { Image, ImageProps, Skeleton } from '@chakra-ui/react';
 import { useRef, useEffect } from 'react';
 
-type AccountAvatarProps = {
+interface AccountAvatarProps {
     wallet?: Wallet;
     props?: ImageProps;
-};
+}
 
 export const AccountAvatar = ({ wallet, props }: AccountAvatarProps) => {
     // Store the previous image URL to maintain during loading
@@ -23,21 +22,19 @@ export const AccountAvatar = ({ wallet, props }: AccountAvatarProps) => {
         wallet?.isLoadingMetadata
     ) {
         return (
-            <Skeleton
+            <div
                 rounded="full"
-                width={props?.width}
-                height={props?.height}
-            />
+                widt
+                height={props?.height} />
         );
     }
     return (
-        <Image
+        <img
             src={props?.src || wallet?.image || previousImageRef.current}
             alt={props?.alt || wallet?.domain}
             objectFit="cover"
             rounded="full"
             // fallbackSrc={getPicassoImage(wallet?.address ?? '')}
-            {...props}
-        />
+            {...props} />
     );
 };

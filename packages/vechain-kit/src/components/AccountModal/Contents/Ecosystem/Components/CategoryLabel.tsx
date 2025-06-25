@@ -1,4 +1,3 @@
-import { Tag, TagProps } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 export type AllowedCategories =
@@ -9,9 +8,9 @@ export type AllowedCategories =
     | 'utilities'
     | 'vebetter';
 
-type CategoryProps = {
+interface CategoryProps {
     category: AllowedCategories;
-} & Omit<TagProps, 'category'>;
+} & Omit<spanProps, 'category'>;
 
 const getCategoryColor = (category: AllowedCategories): string => {
     switch (category) {
@@ -28,7 +27,7 @@ const getCategoryColor = (category: AllowedCategories): string => {
         default:
             return 'gray';
     }
-};
+}
 
 export const CategoryLabel = ({ category, ...props }: CategoryProps) => {
     const { t } = useTranslation();
@@ -37,14 +36,10 @@ export const CategoryLabel = ({ category, ...props }: CategoryProps) => {
     const color = getCategoryColor(categoryKey);
 
     return (
-        <Tag
-            size="sm"
-            colorScheme={color}
-            borderRadius="full"
-            px={2}
+        <span
             {...props}
         >
             {t(categoryKey)}
-        </Tag>
+        </span>
     );
 };

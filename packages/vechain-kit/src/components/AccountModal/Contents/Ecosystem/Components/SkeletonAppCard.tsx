@@ -1,19 +1,14 @@
-import { Card, CardBody, VStack, Skeleton } from '@chakra-ui/react';
-
 export const SkeletonAppCard = () => {
     return (
-        <Card variant="vechainKitAppCard">
-            <CardBody p={4} alignItems="center">
-                <VStack
-                    spacing={3}
-                    align="center"
-                    justify="center"
-                    width="100%"
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"Body alignItems="center">
+                <div className="flex flex-col"
+                    widt
                 >
-                    <Skeleton height="100px" width="100%" rounded="12px" />
-                    <Skeleton height="20px" width="80%" rounded="md" />
-                </VStack>
-            </CardBody>
-        </Card>
+                    <div height="100px" widt rounded="12px" />
+                    <div height="20px" widt rounded="md" />
+                </div>
+            </div>
+        </div>
     );
 };

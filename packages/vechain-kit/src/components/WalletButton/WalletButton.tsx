@@ -1,9 +1,3 @@
-import {
-    Button,
-    ButtonProps,
-    useDisclosure,
-    useMediaQuery,
-} from '@chakra-ui/react';
 import { useWallet, useDAppKitWallet, useDAppKitWalletModal } from '@/hooks';
 import { ConnectModal, AccountModal } from '@/components';
 import { ConnectedWallet } from './ConnectedWallet';
@@ -12,12 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { useVeChainKitConfig, VechainKitThemeProvider } from '@/providers';
 import { ConnectPopover } from '../ConnectModal';
 
-export type WalletButtonProps = {
+export interface WalletButtonProps {
     mobileVariant?: WalletDisplayVariant;
     desktopVariant?: WalletDisplayVariant;
     buttonStyle?: ButtonProps;
     connectionVariant?: 'modal' | 'popover';
-};
+}
 
 export const WalletButton = ({
     mobileVariant = 'iconAndDomain',
@@ -34,7 +28,7 @@ export const WalletButton = ({
     const { connection, account } = useWallet();
     const { setSource, connect } = useDAppKitWallet();
 
-    const [isMobile] = useMediaQuery('(max-width: 768px)');
+    const isMobile = useMediaQuery('(max-width: 768px)');
 
     const connectModal = useDisclosure();
     const accountModal = useDisclosure();
@@ -66,13 +60,13 @@ export const WalletButton = ({
                     buttonStyle={buttonStyle}
                 />
             ) : (
-                <Button
+                <button className="px-4 py-2 rounded-md transition-colors"
                     isLoading={connection.isLoading}
                     onClick={handleConnect}
                     {...buttonStyle}
                 >
                     {t('Login')}
-                </Button>
+                </button>
             )}
 
             <ConnectModal

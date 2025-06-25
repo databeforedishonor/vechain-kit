@@ -1,14 +1,3 @@
-import {
-    Container,
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Text,
-    ModalFooter,
-    Button,
-    Icon,
-} from '@chakra-ui/react';
 import { ModalBackButton, StickyHeaderContainer } from '@/components/common';
 import { AccountModalContentTypes } from '../../Types';
 import { FaExternalLinkAlt } from 'react-icons/fa';
@@ -21,7 +10,7 @@ type Props = {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 
 export const BridgeContent = ({ setCurrentContent }: Props) => {
     const { t } = useTranslation();
@@ -42,26 +31,25 @@ export const BridgeContent = ({ setCurrentContent }: Props) => {
 
             <Container maxW={'container.lg'}>
                 <ModalBody>
-                    <VStack spacing={6} align="center" w="full">
+                    <div className="flex flex-col space-y-6">
                         <VechainEnergy isDark={isDark} borderRadius={'xl'} />
 
-                        <Text fontSize="sm" textAlign="center">
+                        <span>
                             {t(
                                 'Exchange your digital assets between VeChain and other blockchain networks easily and securely. Swaps are executed through partners that leverage both decentralized and centralized exchanges to convert tokens.',
                             )}
-                        </Text>
-                    </VStack>
+                        </span>
+                    </div>
                 </ModalBody>
             </Container>
 
             <ModalFooter>
-                <Button
-                    variant="vechainKitSecondary"
+                <button className="px-4 py-2 rounded-md transition-colors"
                     onClick={handleLaunchVeChainEnergy}
                 >
                     {t('Launch vechain.energy')}
-                    <Icon as={FaExternalLinkAlt} ml={2} />
-                </Button>
+                    <FaExternalLinkAlt ml={2}  />
+                </button>
             </ModalFooter>
         </>
     );

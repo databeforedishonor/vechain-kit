@@ -1,16 +1,3 @@
-import {
-    Button,
-    Container,
-    Icon,
-    Input,
-    InputGroup,
-    InputLeftElement,
-    ModalBody,
-    ModalCloseButton,
-    ModalFooter,
-    ModalHeader,
-    VStack,
-} from '@chakra-ui/react';
 import { useWallet, useTokensWithValues, TokenWithValue } from '@/hooks';
 import {
     AssetButton,
@@ -26,11 +13,11 @@ import { useState } from 'react';
 import { useCurrency } from '@/hooks';
 import { SupportedCurrency } from '@/utils/currencyUtils';
 
-export type AssetsContentProps = {
+export interface AssetsContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 
 export const AssetsContent = ({ setCurrentContent }: AssetsContentProps) => {
     const { account } = useWallet();
@@ -67,25 +54,22 @@ export const AssetsContent = ({ setCurrentContent }: AssetsContentProps) => {
 
             <Container h={['540px', 'auto']} p={0}>
                 <ModalBody>
-                    <InputGroup size="lg">
-                        <Input
+                    <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"Group>
+                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder="Search token"
-                            bg={darkMode ? '#00000038' : 'gray.50'}
-                            borderRadius="xl"
                             height="56px"
-                            pl={12}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             data-testid="search-token-input"
                         />
-                        <InputLeftElement h="56px" w="56px" pl={4}>
+                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"LeftElement>
                             <CiSearch
                                 color={darkMode ? 'whiteAlpha.400' : 'gray.400'}
                             />
-                        </InputLeftElement>
-                    </InputGroup>
+                        </div>
+                    </div>
 
-                    <VStack spacing={2} align="stretch" mt={2}>
+                    <div className="flex flex-col space-y-2">
                         {filteredTokens.map((token) => {
                             const hasBalance = Number(token.balance) > 0;
 
@@ -103,19 +87,18 @@ export const AssetsContent = ({ setCurrentContent }: AssetsContentProps) => {
                                 />
                             );
                         })}
-                    </VStack>
+                    </div>
                 </ModalBody>
                 <ModalFooter>
                     {allowCustomTokens && (
-                        <Button
-                            variant="vechainKitSecondary"
-                            leftIcon={<Icon as={RiEdit2Line} boxSize={4} />}
+                        <button className="px-4 py-2 rounded-md transition-colors"
+                            leftIcon={<RiEdit2Line  />}
                             onClick={() =>
                                 setCurrentContent('add-custom-token')
                             }
                         >
                             {t('Manage Custom Tokens')}
-                        </Button>
+                        </button>
                     )}
                 </ModalFooter>
             </Container>

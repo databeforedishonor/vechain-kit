@@ -1,16 +1,3 @@
-import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Text,
-    Button,
-    Box,
-    ModalFooter,
-    Icon,
-    Link,
-    HStack,
-} from '@chakra-ui/react';
 import { StickyHeaderContainer } from '@/components/common';
 import { AccountModalContentTypes } from '../../Types';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +7,7 @@ import { GoLinkExternal } from 'react-icons/go';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { ShareButtons } from '@/components/TransactionModal';
 
-export type SuccessfulOperationContentProps = {
+export interface SuccessfulOperationContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
@@ -29,7 +16,7 @@ export type SuccessfulOperationContentProps = {
     description?: string;
     onDone: () => void;
     showSocialButtons?: boolean;
-};
+}
 
 export const SuccessfulOperationContent = ({
     txId,
@@ -44,77 +31,70 @@ export const SuccessfulOperationContent = ({
     const socialDescription = `${explorerUrl}/${txId}`;
 
     return (
-        <Box>
+        <div>
             <StickyHeaderContainer>
                 <ModalHeader>{title}</ModalHeader>
                 <ModalCloseButton />
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack align={'center'} p={6} spacing={3}>
-                    <Icon
-                        as={IoIosCheckmarkCircleOutline}
+                <div className="flex flex-col">
+                    <IoIosCheckmarkCircleOutline
                         fontSize={'100px'}
                         color={darkMode ? '#00ff45de' : '#10ba3e'}
                         data-testid="success-icon"
-                    />
+                     />
 
                     {description && (
-                        <Text fontSize="sm" textAlign="center">
+                        <span>
                             {description}
-                        </Text>
+                        </span>
                     )}
 
                     {showSocialButtons && txId && (
-                        <VStack mt={2} spacing={3}>
-                            <Text
-                                fontSize="sm"
-                                fontWeight={'bold'}
+                        <div className="flex flex-col">
+                            <span
                                 opacity={0.5}
                             >
                                 {t('Share on')}
-                            </Text>
+                            </span>
                             <ShareButtons
                                 descriptionEncoded={socialDescription}
                             />
-                        </VStack>
+                        </div>
                     )}
-                </VStack>
+                </div>
             </ModalBody>
 
             <ModalFooter justifyContent={'center'}>
-                <VStack width="full" spacing={4}>
-                    <Button
+                <div className="flex flex-col space-y-4" widt>
+                    <button className="px-4 py-2 rounded-md transition-colors"
                         onClick={onDone}
-                        variant="vechainKitSecondary"
-                        width="full"
+                        widt
                     >
                         {t('Done')}
-                    </Button>
+                    </button>
 
                     {txId && (
-                        <Link
+                        <a
                             href={`${explorerUrl}/${txId}`}
                             isExternal
                             opacity={0.5}
-                            fontSize={'14px'}
                             textDecoration={'underline'}
                         >
-                            <HStack
-                                spacing={1}
+                            <div className="flex items-center"
                                 alignItems={'center'}
-                                w={'full'}
                                 justifyContent={'center'}
                             >
-                                <Text>
+                                <span>
                                     {t('View transaction on the explorer')}
-                                </Text>
+                                </span>
                                 <Icon size={16} as={GoLinkExternal} />
-                            </HStack>
-                        </Link>
+                            </div>
+                        </a>
                     )}
-                </VStack>
+                </div>
             </ModalFooter>
-        </Box>
+        </div>
     );
 };

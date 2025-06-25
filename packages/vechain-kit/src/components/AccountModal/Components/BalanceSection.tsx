@@ -1,11 +1,3 @@
-import {
-    Heading,
-    VStack,
-    HStack,
-    Icon,
-    IconButton,
-    Box,
-} from '@chakra-ui/react';
 import { useRefreshBalances, useWallet, useTotalBalance } from '@/hooks';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +6,7 @@ import { AssetIcons } from '@/components/WalletButton/AssetIcons';
 import { MdOutlineNavigateNext } from 'react-icons/md';
 import { useVeChainKitConfig } from '@/providers';
 import { Analytics } from '@/utils/mixpanelClientInstance';
+import { cn } from '@/utils/cn';
 
 export const BalanceSection = ({
     mb,
@@ -44,51 +37,42 @@ export const BalanceSection = ({
     };
 
     return (
-        <VStack w="full" justifyContent={'start'} spacing={2} mt={mt} mb={mb}>
-            <Heading size={'xs'} fontWeight={'500'} w={'full'} opacity={0.5}>
+        <div 
+            className={cn("w-full flex flex-col justify-start space-y-2")}
+            style={{ 
+                marginTop: mt ? `${mt * 0.25}rem` : undefined,
+                marginBottom: mb ? `${mb * 0.25}rem` : undefined
+            }}
+        >
+            <h3 className="text-xs font-medium w-full opacity-50">
                 {t('Balance')}
-            </Heading>
-            <HStack
-                w={'full'}
-                justifyContent={'space-between'}
-                alignItems={'baseline'}
-                role="group"
-            >
-                <Heading size={'2xl'} fontWeight={'700'}>
+            </h3>
+            <div className="w-full flex justify-between items-baseline group">
+                <h2 className="text-3xl font-bold">
                     {formattedBalance}
-                </Heading>
+                </h2>
 
-                <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    w="32px"
-                    h="32px"
-                >
-                    <IconButton
+                <div className="flex items-center justify-center w-8 h-8">
+                    <button
                         aria-label="Refresh balances"
-                        variant="ghost"
-                        size="sm"
-                        opacity={0.5}
-                        _hover={{ opacity: 0.8 }}
+                        className={cn(
+                            "p-2 rounded-md bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700",
+                            "opacity-50 hover:opacity-80 transition-opacity relative",
+                            "disabled:opacity-30 disabled:cursor-not-allowed"
+                        )}
                         onClick={handleRefresh}
-                        icon={<Icon as={VscRefresh} boxSize={4} />}
-                        isLoading={isLoading || isRefreshing}
-                        sx={{
-                            '& > span.chakra-button__spinner': {
-                                width: '16px',
-                                height: '16px',
-                                position: 'absolute',
-                            },
-                        }}
-                    />
-                </Box>
-            </HStack>
-            <HStack
-                w={'full'}
-                justifyContent={'flex-start'}
-                data-testid="all-assets-button"
-            >
+                        disabled={isLoading || isRefreshing}
+                    >
+                        <VscRefresh 
+                            className={cn(
+                                "w-4 h-4",
+                                (isLoading || isRefreshing) && "animate-spin"
+                            )} 
+                        />
+                    </button>
+                </div>
+            </div>
+            <div className="w-full flex justify-start" data-testid="all-assets-button">
                 <AssetIcons
                     onClick={onAssetsClick}
                     maxIcons={10}
@@ -97,29 +81,20 @@ export const BalanceSection = ({
                     address={account?.address ?? ''}
                     showNoAssetsWarning={true}
                     rightIcon={
-                        <Icon
-                            as={MdOutlineNavigateNext}
-                            boxSize={5}
-                            opacity={0.5}
-                            marginLeft={2}
-                        />
+                        <MdOutlineNavigateNext className="w-5 h-5 opacity-50 ml-2" />
                     }
                     style={{
                         width: '100%',
-                        mt: 2,
-                        backgroundColor: isDark ? '#ffffff0a' : 'blackAlpha.50',
-                        borderRadius: 'xl',
-                        p: 3,
+                        marginTop: '0.5rem',
+                        backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.05)',
+                        borderRadius: '0.75rem',
+                        padding: '0.75rem',
                         cursor: 'pointer',
-                        _hover: {
-                            backgroundColor: isDark
-                                ? '#ffffff12'
-                                : 'blackAlpha.200',
-                        },
                         justifyContent: 'space-between',
+                        transition: 'background-color 0.2s ease',
                     }}
                 />
-            </HStack>
-        </VStack>
+            </div>
+        </div>
     );
 };

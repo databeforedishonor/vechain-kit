@@ -1,13 +1,3 @@
-import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Text,
-    Button,
-    Icon,
-    ModalFooter,
-} from '@chakra-ui/react';
 import { ModalBackButton, StickyHeaderContainer } from '@/components/common';
 import { AccountModalContentTypes } from '../../Types';
 import { FaRegAddressCard } from 'react-icons/fa';
@@ -15,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { useVeChainKitConfig } from '@/providers';
 import { Analytics } from '@/utils/mixpanelClientInstance';
 
-export type ChooseNameContentProps = {
+export interface ChooseNameContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
     onBack?: () => void;
     initialContentSource?: AccountModalContentTypes;
-};
+}
 
 export const ChooseNameContent = ({
     setCurrentContent,
@@ -57,33 +47,27 @@ export const ChooseNameContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack spacing={6} align="center" py={8}>
-                    <Icon
-                        as={FaRegAddressCard}
-                        boxSize={16}
+                <div className="flex flex-col space-y-6">
+                    <FaRegAddressCard className="w-16 h-16"
                         opacity={0.5}
                         color={isDark ? 'whiteAlpha.800' : 'gray.600'}
-                    />
-                    <VStack spacing={2}>
-                        <Text fontSize="lg" fontWeight="500" textAlign="center">
+                     />
+                    <div className="flex flex-col space-y-2">
+                        <span>
                             {t('Finally say goodbye to 0x addresses')}
-                        </Text>
-                        <Text
-                            fontSize="md"
+                        </span>
+                        <span
                             opacity={0.7}
-                            textAlign="center"
-                            px={4}
                         >
                             {t(
                                 'Name your account to make it easier to exchange assets',
                             )}
-                        </Text>
-                    </VStack>
-                </VStack>
+                        </span>
+                    </div>
+                </div>
             </ModalBody>
             <ModalFooter>
-                <Button
-                    variant="vechainKitPrimary"
+                <button className="px-4 py-2 rounded-md transition-colors"
                     onClick={() =>
                         setCurrentContent({
                             type: 'choose-name-search',
@@ -97,7 +81,7 @@ export const ChooseNameContent = ({
                     data-testid="choose-name-button"
                 >
                     {t('Choose name')}
-                </Button>
+                </button>
             </ModalFooter>
         </>
     );

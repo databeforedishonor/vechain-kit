@@ -4,7 +4,6 @@ import {
     LegalDocumentType,
 } from '@/types';
 import { formatDate } from '@/utils/dateUtils';
-import { HStack, Tag, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 export const AcceptedPolicyItem = ({
@@ -17,12 +16,11 @@ export const AcceptedPolicyItem = ({
         document.documentSource === LegalDocumentSource.VECHAIN_KIT &&
         document.documentType === LegalDocumentType.TERMS;
     return (
-        <HStack>
-            <Tag size="sm" borderRadius="full">
+        <div className="flex items-center">
+            <span>
                 v{document.version}
-            </Tag>
-            <Text
-                fontSize="xs"
+            </span>
+            <span
                 cursor="pointer"
                 onClick={() => {
                     window.open(document.url, '_blank');
@@ -40,7 +38,7 @@ export const AcceptedPolicyItem = ({
                           policyName: document.displayName ?? t('Policy'),
                           date: formatDate(document.timestamp),
                       })}
-            </Text>
-        </HStack>
+            </span>
+        </div>
     );
 };

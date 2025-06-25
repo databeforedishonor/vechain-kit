@@ -1,4 +1,3 @@
-import { HStack, Circle, Icon, useMediaQuery } from '@chakra-ui/react';
 import { useVeChainKitConfig } from '@/providers';
 import { FcGoogle } from 'react-icons/fc';
 import { FaDiscord } from 'react-icons/fa6';
@@ -9,11 +8,11 @@ export const SocialIcons = () => {
     const iconSize = 25;
     const { darkMode } = useVeChainKitConfig();
     const marginLeft = iconSize / 2;
-    const [isSmallScreen] = useMediaQuery('(max-width: 280px)');
-    const [isMediumScreen] = useMediaQuery('(max-width: 380px)');
+    const isSmallScreen = useMediaQuery('(max-width: 280px)');
+    const isMediumScreen = useMediaQuery('(max-width: 380px)');
 
     return (
-        <HStack spacing={0} ml={0}>
+        <div className="flex items-center">
             <Circle
                 size={`${iconSize}px`}
                 borderRadius="full"
@@ -23,7 +22,7 @@ export const SocialIcons = () => {
                 justifyContent="center"
                 zIndex={3}
             >
-                <Icon as={FcGoogle} fontSize={'20px'} />
+                <FcGoogle fontSize={'20px'}  />
             </Circle>
             {!isSmallScreen && (
                 <Circle
@@ -36,7 +35,7 @@ export const SocialIcons = () => {
                     justifyContent="center"
                     zIndex={2}
                 >
-                    <Icon as={FaXTwitter} color={'white'} fontSize={'20px'} />
+                    <FaXTwitter color={'white'} fontSize={'20px'}  />
                 </Circle>
             )}
             {!isSmallScreen && !isMediumScreen && (
@@ -50,7 +49,7 @@ export const SocialIcons = () => {
                     alignItems="center"
                     justifyContent="center"
                 >
-                    <Icon as={FaDiscord} color={'white'} fontSize={'20px'} />
+                    <FaDiscord color={'white'} fontSize={'20px'}  />
                 </Circle>
             )}
             <Icon
@@ -59,6 +58,6 @@ export const SocialIcons = () => {
                 color={darkMode ? 'black' : 'white'}
                 fontSize={'15px'}
             />
-        </HStack>
+        </div>
     );
 };

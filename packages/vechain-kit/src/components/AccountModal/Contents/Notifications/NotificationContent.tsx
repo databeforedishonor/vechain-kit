@@ -1,14 +1,3 @@
-import {
-    Container,
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Icon,
-    ModalFooter,
-    Button,
-    HStack,
-} from '@chakra-ui/react';
 import { BiBell, BiArchive } from 'react-icons/bi';
 import {
     ModalBackButton,
@@ -27,7 +16,7 @@ type Props = {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 
 export const NotificationsContent = ({ setCurrentContent }: Props) => {
     const { t } = useTranslation();
@@ -109,37 +98,32 @@ export const NotificationsContent = ({ setCurrentContent }: Props) => {
 
             <Container h={['540px', 'auto']} p={0}>
                 <ModalBody>
-                    <VStack spacing={4} align="stretch" w="full">
-                        <HStack justify="space-between">
-                            <Button
-                                variant="ghost"
+                    <div className="flex flex-col space-y-4">
+                        <div className="flex items-center">
+                            <button className="px-4 py-2 rounded-md transition-colors hover:bg-gray-100"
                                 leftIcon={
-                                    <Icon
-                                        as={isArchiveView ? BiBell : BiArchive}
-                                    />
+                                    <isArchiveView ? BiBell : BiArchive  />
                                 }
                                 size="sm"
                                 onClick={handleToggleView}
                                 data-testid="toggle-view-button"
                             >
                                 {isArchiveView ? t('Current') : t('Archived')}
-                            </Button>
+                            </button>
                             {!isArchiveView && notifications.length > 0 && (
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
+                                <button className="px-4 py-2 rounded-md transition-colors hover:bg-gray-100"
                                     onClick={handleClearAll}
                                     data-testid="clear-all-button"
                                 >
                                     {t('Clear all')}
-                                </Button>
+                                </button>
                             )}
-                        </HStack>
+                        </div>
 
                         {currentNotifications.length === 0 ? (
                             <EmptyNotifications showArchived={isArchiveView} />
                         ) : (
-                            <VStack spacing={3}>
+                            <div className="flex flex-col">
                                 {sortedNotifications.map((notification) => (
                                     <NotificationItem
                                         key={notification.id}
@@ -148,9 +132,9 @@ export const NotificationsContent = ({ setCurrentContent }: Props) => {
                                         onMarkAsRead={handleMarkAsRead}
                                     />
                                 ))}
-                            </VStack>
+                            </div>
                         )}
-                    </VStack>
+                    </div>
                 </ModalBody>
                 <ModalFooter pt={0} />
             </Container>

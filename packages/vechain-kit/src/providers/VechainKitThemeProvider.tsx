@@ -1,12 +1,8 @@
-import {
-    ChakraProvider,
-    createStandaloneToast,
-    ColorModeScript,
-} from '@chakra-ui/react';
 import { CacheProvider, Global, css } from '@emotion/react';
 import createCache from '@emotion/cache';
 import { ReactNode, useMemo } from 'react';
 import { VechainKitTheme } from '@/theme';
+import { cn } from '@/utils/cn';
 
 type Props = {
     children: ReactNode;
@@ -88,7 +84,7 @@ const EnsureColorModeScript = ({ darkMode }: { darkMode: boolean }) => {
 
     // If no ColorModeScript exists, provide one
     return <ColorModeScript initialColorMode={darkMode ? 'dark' : 'light'} />;
-};
+}
 
 export const VechainKitThemeProvider = ({
     children,

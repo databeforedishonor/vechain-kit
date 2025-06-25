@@ -1,4 +1,3 @@
-import { Button, ButtonProps, HStack, Icon, Text } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import { IconType } from 'react-icons';
 
@@ -27,29 +26,29 @@ export const ConnectionButton = ({
     // If text not provided we just show a button with an icon
     if (!text) {
         return (
-            <Button {...style} variant={variant} w={'full'} onClick={onClick}>
+            <button className="px-4 py-2 rounded-md transition-colors" {...style} onClick={onClick}>
                 {customIcon ? (
                     customIcon
                 ) : (
-                    <Icon as={icon} w={'20px'} h={'20px'} />
+                    <icon w={'20px'} h={'20px'}  />
                 )}
-            </Button>
+            </button>
         );
     }
 
     if (text) {
         return (
-            <Button {...style} variant={variant} w={'full'} onClick={onClick}>
-                <HStack w={'full'} justify={'flex-start'} gap={2}>
+            <button className="px-4 py-2 rounded-md transition-colors" {...style} onClick={onClick}>
+                <div className="flex items-center" ga>
                     {customIcon ? (
                         customIcon
                     ) : (
-                        <Icon as={icon} w={iconWidth} h={iconWidth} />
+                        <icon w={iconWidth} h={iconWidth}  />
                     )}
-                    <Text opacity={0.9}>{text}</Text>
-                </HStack>
+                    <span opacity={0.9}>{text}</span>
+                </div>
                 {rightIcon}
-            </Button>
+            </button>
         );
     }
 

@@ -1,22 +1,19 @@
-import { Box, BoxProps } from '@chakra-ui/react';
 import React from 'react';
 import { googleSvg } from '../../svg';
 
 type Props = {
     boxSize?: string | number;
-} & Omit<BoxProps, 'dangerouslySetInnerHTML'>;
+} & Omit<divProps, 'dangerouslySetInnerHTML'>;
 
 export const GoogleLogo: React.FC<Props> = ({ boxSize = '20px', ...props }) => {
     return (
-        <Box
+        <div
             as="span"
-            display="inline-block"
-            width={boxSize}
+            widt
             height={boxSize}
             dangerouslySetInnerHTML={{
                 __html: googleSvg,
             }}
-            {...props}
-        />
+            {...props} />
     );
 };

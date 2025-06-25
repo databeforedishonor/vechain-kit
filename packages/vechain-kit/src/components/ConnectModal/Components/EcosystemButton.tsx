@@ -1,4 +1,3 @@
-import { Button, useDisclosure } from '@chakra-ui/react';
 import { EcosystemModal } from '@/components';
 import { useTranslation } from 'react-i18next';
 import { PrivyAppInfo } from '@/types';
@@ -10,7 +9,7 @@ type Props = {
     appsInfo: PrivyAppInfo[];
     isLoading: boolean;
     gridColumn?: number;
-};
+}
 
 export const EcosystemButton = ({ appsInfo, isLoading }: Props) => {
     const { t } = useTranslation();
@@ -24,7 +23,7 @@ export const EcosystemButton = ({ appsInfo, isLoading }: Props) => {
 
     return (
         <>
-            {/* <GridItem colSpan={gridColumn} w={'full'}> */}
+            {/* <divItem colSpan={gridColumn}> */}
             {/* <ConnectionButton
                 isDark={isDark}
                 onClick={handleEcosystemClick}
@@ -34,17 +33,15 @@ export const EcosystemButton = ({ appsInfo, isLoading }: Props) => {
                         ? t('Other options')
                         : undefined
                 }
-                rightIcon={<Icon as={IoIosArrowForward} />}
+                rightIcon={<IoIosArrowForward  />}
             /> */}
-            {/* </GridItem> */}
+            {/* </div> */}
 
-            <Button
-                fontSize={'sm'}
-                variant="link"
+            <button className="px-4 py-2 rounded-md transition-colors"
                 onClick={handleEcosystemClick}
             >
                 {t('Already have an x2earn app wallet?')}
-            </Button>
+            </button>
 
             <EcosystemModal
                 isOpen={ecosystemModal.isOpen}

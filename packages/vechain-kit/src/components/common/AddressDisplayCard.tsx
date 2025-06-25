@@ -1,11 +1,11 @@
-import { Box, Text, HStack, VStack, Image, Skeleton } from '@chakra-ui/react';
 import { humanAddress } from '@/utils';
 import { useVeChainKitConfig } from '@/providers';
 import { useTotalBalance, useTokensWithValues } from '@/hooks';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
+import { cn } from '@/utils/cn';
 
-type AddressDisplayCardProps = {
+interface AddressDisplayCardProps {
     label: string;
     address: string;
     domain?: string;
@@ -14,7 +14,7 @@ type AddressDisplayCardProps = {
     hideAddress?: boolean;
     balance?: number;
     tokenAddress?: string;
-};
+}
 
 export const AddressDisplayCard = ({
     label,
@@ -59,76 +59,70 @@ export const AddressDisplayCard = ({
     const isLoading = totalBalanceLoading || tokensLoading;
 
     return (
-        <Box
-            w="full"
-            p={2}
-            borderRadius="lg"
-            bg={isDark ? '#00000038' : 'gray.50'}
-            wordBreak="break-word"
+        <div
+            className={cn(
+                "w-full p-2 rounded-lg break-words",
+                isDark ? "bg-black/20" : "bg-gray-50"
+            )}
         >
-            <Text fontSize="sm" fontWeight="bold" mb={2}>
+            <div className="text-sm font-bold mb-2">
                 {label}
-            </Text>
-            <HStack minH={'50px'} justify="space-between">
-                <HStack>
-                    <Image
+            </div>
+            <div className="min-h-[50px] flex justify-between items-center">
+                <div className="flex items-center space-x-3">
+                    <img
                         src={imageSrc}
                         alt={imageAlt}
-                        boxSize="40px"
-                        borderRadius="xl"
-                        objectFit="cover"
+                        className="w-10 h-10 rounded-xl object-cover"
                     />
-                    <VStack align="start" spacing={0}>
+                    <div className="flex flex-col justify-start space-y-0">
                         {domain ? (
                             <>
-                                <Text
-                                    fontWeight="medium"
-                                    fontSize="sm"
+                                <div
+                                    className="font-medium text-sm"
                                     data-testid={`${label.toLowerCase()}-domain`}
                                 >
                                     {domain}
-                                </Text>
+                                </div>
                                 {!hideAddress && (
-                                    <Text
-                                        fontSize="xs"
-                                        opacity={0.5}
+                                    <div
+                                        className="text-xs opacity-50"
                                         data-testid={`${label.toLowerCase()}-address`}
                                     >
                                         {humanAddress(address, 6, 4)}
-                                    </Text>
+                                    </div>
                                 )}
                             </>
                         ) : (
-                            <Text
-                                fontWeight="medium"
-                                fontSize="sm"
+                            <div
+                                className="font-medium text-sm"
                                 data-testid={`${label.toLowerCase()}-address`}
                             >
                                 {humanAddress(address, 6, 4)}
-                            </Text>
+                            </div>
                         )}
-                    </VStack>
-                </HStack>
+                    </div>
+                </div>
 
-                <VStack
-                    justify="flex-start"
-                    align="flex-end"
-                    spacing={0}
-                    mr={2}
-                >
-                    <Text fontSize="sm" fontWeight="medium">
+                <div className="flex flex-col justify-start items-end space-y-0 mr-2">
+                    <div className="text-sm font-medium">
                         {t('Balance')}
-                    </Text>
-                    <Skeleton isLoaded={!isLoading}>
-                        <Text fontSize="xs" opacity={0.5}>
-                            {displayBalance.toLocaleString(undefined, {
-                                maximumFractionDigits: 2,
-                            })}
-                            {displaySymbol && ` ${displaySymbol}`}
-                        </Text>
-                    </Skeleton>
-                </VStack>
-            </HStack>
-        </Box>
+                    </div>
+                    <div className={cn(
+                        "text-xs opacity-50",
+                        isLoading && "animate-pulse bg-gray-300 dark:bg-gray-600 rounded h-4 w-16"
+                    )}>
+                        {!isLoading && (
+                            <>
+                                {displayBalance.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                })}
+                                {displaySymbol && ` ${displaySymbol}`}
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };

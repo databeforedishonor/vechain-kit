@@ -1,14 +1,4 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    VStack,
-    ModalFooter,
-    ModalHeader,
-    Text,
-    Button,
-    Icon,
-} from '@chakra-ui/react';
-import {
     ModalBackButton,
     ScrollToTopWrapper,
     StickyHeaderContainer,
@@ -22,7 +12,7 @@ type Props = {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 
 export const LanguageSettingsContent = ({ setCurrentContent }: Props) => {
     const { t, i18n } = useTranslation();
@@ -32,21 +22,19 @@ export const LanguageSettingsContent = ({ setCurrentContent }: Props) => {
     };
 
     const renderLanguageButton = (lang: string) => (
-        <Button
+        <button className="px-4 py-2 rounded-md transition-colors hover:bg-gray-100"
             key={lang}
-            w="full"
-            variant="ghost"
             justifyContent="space-between"
             onClick={() => handleLanguageChange(lang)}
             py={6}
             px={4}
             _hover={{ bg: 'whiteAlpha.100' }}
         >
-            <Text>{languageNames[lang as keyof typeof languageNames]}</Text>
+            <span>{languageNames[lang as keyof typeof languageNames]}</span>
             {i18n.language === lang && (
-                <Icon as={BsCheck} boxSize={5} color="blue.500" />
+                <BsCheck className="w-5 h-5" color="blue.500"  />
             )}
-        </Button>
+        </button>
     );
 
     return (
@@ -61,16 +49,12 @@ export const LanguageSettingsContent = ({ setCurrentContent }: Props) => {
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack
-                    justify={'center'}
-                    spacing={3}
-                    align="flex-start"
-                    w={'full'}
+                <div className="flex flex-col"
                 >
                     {supportedLanguages.map((lang: string) =>
                         renderLanguageButton(lang),
                     )}
-                </VStack>
+                </div>
             </ModalBody>
             <ModalFooter pt={0} />
         </ScrollToTopWrapper>

@@ -1,10 +1,4 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    ModalFooter,
-    ModalHeader,
-} from '@chakra-ui/react';
-import {
     ModalBackButton,
     ScrollToTopWrapper,
     StickyHeaderContainer,
@@ -19,7 +13,7 @@ import {
 
 type Props = {
     onGoBack: () => void;
-};
+}
 
 export const ConnectionDetailsContent = ({ onGoBack }: Props) => {
     const { t } = useTranslation();

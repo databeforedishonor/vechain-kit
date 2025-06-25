@@ -1,13 +1,3 @@
-import {
-    AccordionButton,
-    AccordionItem,
-    AccordionPanel,
-    Button,
-    HStack,
-    Icon,
-    Text,
-    VStack,
-} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IoChevronDown } from 'react-icons/io5';
 import { IoChevronUp } from 'react-icons/io5';
@@ -17,14 +7,14 @@ import { MdCheck } from 'react-icons/md';
 import { formatDate } from '@/utils/dateUtils';
 import { AcceptedPolicyItem } from './AcceptedPolicyItem';
 
-type PolicyAccordionProps = {
+interface PolicyAccordionProps {
     title: string;
     description: string;
     documents: LegalDocumentAgreement[];
     bg: string;
     hoverBg: string;
     currentPolicy?: EnrichedLegalDocument | undefined;
-};
+}
 
 export const PolicyAccordion = ({
     title,
@@ -44,34 +34,31 @@ export const PolicyAccordion = ({
     if (!hasDocuments) return null;
 
     return (
-        <AccordionItem border="none" mb={3}>
+        <divItem>
             {({ isExpanded }) => (
                 <>
-                    <AccordionButton
-                        bg={bg}
-                        borderRadius="xl"
+                    <divButton
                         _hover={{
                             bg: hoverBg,
                         }}
                     >
-                        <VStack w="full" align="flex-start" textAlign="left">
-                            <Text fontWeight="700">{title}</Text>
-                            <Text fontSize="xs" color="gray.400">
+                        <div className="flex flex-col">
+                            <span>{title}</span>
+                            <span>
                                 {description}
-                            </Text>
-                        </VStack>
-                        <Icon
-                            as={isExpanded ? IoChevronUp : IoChevronDown}
+                            </span>
+                        </div>
+                        <isExpanded ? IoChevronUp : IoChevronDown
                             fontSize="20px"
                             opacity={0.7}
-                        />
-                    </AccordionButton>
-                    <AccordionPanel pb={4} pt={3}>
-                        <VStack align="stretch" spacing={4}>
+                         />
+                    </button>
+                    <divPanel>
+                        <div className="flex flex-col space-y-4">
                             {currentPolicyAgreement?.id ? (
-                                <HStack w="full">
-                                    <Icon as={MdCheck} color="green.500" />
-                                    <Text fontSize="xs">
+                                <div className="flex items-center">
+                                    <MdCheck color="green.500"  />
+                                    <span>
                                         {t(
                                             'You accepted current policy on {{date}}',
                                             {
@@ -80,31 +67,29 @@ export const PolicyAccordion = ({
                                                 ),
                                             },
                                         )}
-                                    </Text>
-                                </HStack>
+                                    </span>
+                                </div>
                             ) : null}
 
-                            <HStack w="full" textAlign="left">
-                                <Text fontSize="xs" fontWeight="bold">
+                            <div className="flex items-center">
+                                <span>
                                     {t('All policies you have accepted')}
-                                </Text>
-                            </HStack>
+                                </span>
+                            </div>
 
-                            <HStack w="full" gap={2}>
-                                <VStack align="stretch" spacing={2}>
+                            <div className="flex items-center" ga>
+                                <div className="flex flex-col space-y-2">
                                     {documents.map((document) => (
                                         <AcceptedPolicyItem
                                             key={document.id}
                                             document={document}
                                         />
                                     ))}
-                                </VStack>
-                            </HStack>
+                                </div>
+                            </div>
 
                             {currentPolicy && (
-                                <Button
-                                    variant="outline"
-                                    size="xs"
+                                <button className="px-4 py-2 rounded-md transition-colors border border-gray-300 hover:bg-gray-50"
                                     alignSelf="flex-end"
                                     onClick={() => {
                                         window.open(
@@ -114,12 +99,12 @@ export const PolicyAccordion = ({
                                     }}
                                 >
                                     {t('View Current Policy')}
-                                </Button>
+                                </button>
                             )}
-                        </VStack>
-                    </AccordionPanel>
+                        </div>
+                    </div>
                 </>
             )}
-        </AccordionItem>
+        </div>
     );
 };

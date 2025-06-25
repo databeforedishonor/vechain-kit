@@ -1,27 +1,24 @@
-import { Icon, Text, VStack } from '@chakra-ui/react';
 import { BiTransferAlt } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
 
 export const ActivityTabPanel = () => {
     const { t } = useTranslation();
     return (
-        <VStack spacing={4} align="center" mt={8}>
-            <Icon
-                as={BiTransferAlt}
-                boxSize={12}
+        <div className="flex flex-col space-y-4">
+            <BiTransferAlt className="w-12 h-12"
                 opacity={0.5}
                 p={2}
                 bg="whiteAlpha.100"
                 borderRadius="xl"
-            />
-            <VStack spacing={1}>
-                <Text fontSize="lg" fontWeight="500">
+             />
+            <div className="flex flex-col">
+                <span>
                     {t('Coming soon')}
-                </Text>
-                <Text fontSize="sm" opacity={0.5} textAlign="center">
+                </span>
+                <span opacity={0.5}>
                     {t('Stay tuned for our upcoming Activity feature')}
-                </Text>
-            </VStack>
-        </VStack>
+                </span>
+            </div>
+        </div>
     );
 };

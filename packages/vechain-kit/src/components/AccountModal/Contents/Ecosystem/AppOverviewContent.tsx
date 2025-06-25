@@ -1,17 +1,3 @@
-import {
-    Box,
-    Button,
-    Icon,
-    Image,
-    ModalBody,
-    ModalCloseButton,
-    ModalFooter,
-    ModalHeader,
-    Text,
-    VStack,
-    Flex,
-    HStack,
-} from '@chakra-ui/react';
 import { ModalBackButton, StickyHeaderContainer } from '@/components/common';
 import { AccountModalContentTypes } from '../../Types';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +7,7 @@ import { Analytics } from '@/utils/mixpanelClientInstance';
 import { CategoryLabel, AllowedCategories } from './Components/CategoryLabel';
 import { CategoryFilter } from './Components/CategoryFilterSection';
 
-export type AppOverviewContentProps = {
+export interface AppOverviewContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
@@ -32,7 +18,7 @@ export type AppOverviewContentProps = {
     category?: AllowedCategories;
     selectedCategory?: CategoryFilter;
     logoComponent?: JSX.Element;
-};
+}
 
 export const AppOverviewContent = ({
     setCurrentContent,
@@ -66,7 +52,7 @@ export const AppOverviewContent = ({
     };
 
     return (
-        <Box>
+        <div>
             <StickyHeaderContainer>
                 <ModalHeader>{name}</ModalHeader>
                 <ModalBackButton onClick={handleBackClick} />
@@ -74,50 +60,45 @@ export const AppOverviewContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack spacing={6} align="center" w="full">
-                    <Flex direction="column" align="center">
+                <div className="flex flex-col space-y-6">
+                    <div>
                         {logoComponent ? (
                             logoComponent
                         ) : (
-                            <Image
+                            <img
                                 src={image}
                                 alt={name}
-                                w={'200px'}
-                                h={'200px'}
-                                objectFit="contain"
-                                borderRadius={'xl'}
-                            />
+                                objectFit="contain" />
                         )}
 
                         {category && (
-                            <HStack mt={2}>
+                            <div className="flex items-center">
                                 <CategoryLabel category={category} />
-                            </HStack>
+                            </div>
                         )}
-                    </Flex>
+                    </div>
 
-                    <Text fontSize="sm" textAlign="center">
+                    <span>
                         {description}
-                    </Text>
+                    </span>
 
-                    <Text fontSize="sm" textAlign="center">
+                    <span>
                         {t(
                             'Click below to access {{ name }} and explore its features.',
                             { name },
                         )}
-                    </Text>
-                </VStack>
+                    </span>
+                </div>
             </ModalBody>
 
             <ModalFooter>
-                <VStack w="full" spacing={4}>
-                    <Button
-                        variant="vechainKitSecondary"
+                <div className="flex flex-col space-y-4">
+                    <button className="px-4 py-2 rounded-md transition-colors"
                         onClick={handleLaunchApp}
                     >
                         {t('Launch {{name}}', { name })}
-                        <Icon as={FaExternalLinkAlt} ml={2} />
-                    </Button>
+                        <FaExternalLinkAlt ml={2}  />
+                    </button>
 
                     <ShortcutButton
                         name={name}
@@ -125,8 +106,8 @@ export const AppOverviewContent = ({
                         url={url}
                         description={description}
                     />
-                </VStack>
+                </div>
             </ModalFooter>
-        </Box>
+        </div>
     );
 };

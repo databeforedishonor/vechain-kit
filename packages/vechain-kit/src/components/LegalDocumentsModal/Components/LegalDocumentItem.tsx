@@ -1,6 +1,5 @@
 import { useVeChainKitConfig } from '@/providers';
 import { EnrichedLegalDocument } from '@/types';
-import { Checkbox, HStack, Icon, Input, Link, Text } from '@chakra-ui/react';
 import { UseFormRegister } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FaExternalLinkAlt } from 'react-icons/fa';
@@ -10,7 +9,7 @@ type Props = {
     document: EnrichedLegalDocument;
     register: UseFormRegister<any>;
     isText?: boolean;
-};
+}
 
 export const LegalDocumentItem = ({
     document,
@@ -46,41 +45,36 @@ export const LegalDocumentItem = ({
 
     if (isText) {
         return (
-            <Link
+            <a
                 key={document.id}
                 href={document.url}
                 isExternal
-                color={'blue.500'}
                 textDecoration="underline"
                 _hover={{
                     color: 'blue.300',
                     textDecoration: 'underline',
                 }}
-                fontWeight="medium"
-                display="contents"
                 alignItems="center"
             >
-                <Input
+                <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     {...register(document.id, {
                         required: document.required,
                     })}
                     type="checkbox"
-                    hidden
-                />
+                    hidden />
                 {displayName}
-                <Icon as={FaExternalLinkAlt} ml={1} boxSize={3} />
-            </Link>
+                <FaExternalLinkAlt className="w-3 h-3" ml={1}  />
+            </a>
         );
     }
 
     return (
-        <HStack
-            width="full"
-            borderRadius="md"
+        <div className="flex items-center"
+            widt
             transition="all 0.2s"
             key={document.id}
         >
-            <HStack align="flex-start" spacing={3} width="full">
+            <div className="flex items-center" widt>
                 <Checkbox
                     mt="2px"
                     size="md"
@@ -92,31 +86,28 @@ export const LegalDocumentItem = ({
                     data-testid="tnc-checkbox"
                 />
 
-                <Text fontSize="xs">
+                <span>
                     {t('I have read and agree to ')}
-                    <Link
+                    <a
                         href={document.url}
                         isExternal
-                        color={linkColor}
                         textDecoration="underline"
                         _hover={{
                             color: linkHoverColor,
                             textDecoration: 'underline',
                         }}
-                        fontWeight="medium"
-                        display="contents"
                         alignItems="center"
                     >
                         {displayName}
-                        <Icon as={FiExternalLink} ml={1} />
-                    </Link>
+                        <FiExternalLink ml={1}  />
+                    </a>
                     {document.required && (
-                        <Text as="span" color="red.500" fontWeight="bold">
+                        <span as="span">
                             *
-                        </Text>
+                        </span>
                     )}
-                </Text>
-            </HStack>
-        </HStack>
+                </span>
+            </div>
+        </div>
     );
 };

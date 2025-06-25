@@ -1,14 +1,4 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Text,
-    HStack,
-    Divider,
-    ModalFooter,
-} from '@chakra-ui/react';
-import {
     ModalBackButton,
     StickyHeaderContainer,
     AddressDisplayCard,
@@ -32,7 +22,7 @@ import { useMemo } from 'react';
 import { Analytics } from '@/utils/mixpanelClientInstance';
 import { isRejectionError } from '@/utils/stringUtils';
 
-export type SendTokenSummaryContentProps = {
+export interface SendTokenSummaryContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
@@ -42,7 +32,7 @@ export type SendTokenSummaryContentProps = {
     amount: string;
     selectedToken: TokenWithValue;
     formattedTotalAmount: string;
-};
+}
 
 export const SendTokenSummaryContent = ({
     setCurrentContent,
@@ -247,13 +237,13 @@ export const SendTokenSummaryContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack spacing={6} align="stretch" w="full">
+                <div className="flex flex-col space-y-6">
                     {connection.isConnectedWithPrivy && (
                         <ExchangeWarningAlert />
                     )}
                     {/* From/To Card */}
 
-                    <VStack spacing={4} w="full">
+                    <div className="flex flex-col space-y-4">
                         <AddressDisplayCard
                             label={t('From')}
                             address={account?.address ?? ''}
@@ -273,26 +263,16 @@ export const SendTokenSummaryContent = ({
                             tokenAddress={selectedToken.address}
                         />
 
-                        <Divider />
-                        <VStack
-                            spacing={0}
-                            w="full"
+                        <hr />
+                        <div className="flex flex-col"
                             justifyContent="flex-start"
-                            p={2}
                         >
-                            <Text
-                                fontSize="sm"
-                                fontWeight="light"
-                                textAlign="left"
-                                w="full"
+                            <span
                             >
                                 {t('Amount')}
-                            </Text>
-                            <HStack justifyContent="flex-start" w="full">
-                                <Text
-                                    fontSize="xl"
-                                    fontWeight="semibold"
-                                    textAlign="left"
+                            </span>
+                            <div className="flex items-center" justifyContent="flex-start">
+                                <span
                                     data-testid="send-summary-amount"
                                 >
                                     {Number(amount).toLocaleString(undefined, {
@@ -300,15 +280,15 @@ export const SendTokenSummaryContent = ({
                                         maximumFractionDigits: 2,
                                     })}{' '}
                                     {selectedToken.symbol}
-                                </Text>
-                                <Text opacity={0.5}>
+                                </span>
+                                <span opacity={0.5}>
                                     ≈{' '}
                                     {formattedTotalAmount}
-                                </Text>
-                            </HStack>
-                        </VStack>
-                    </VStack>
-                </VStack>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ModalBody>
 
             <ModalFooter>

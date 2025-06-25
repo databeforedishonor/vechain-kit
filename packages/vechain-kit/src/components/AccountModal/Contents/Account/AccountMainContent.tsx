@@ -1,14 +1,4 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Tag,
-    ModalFooter,
-    HStack,
-    Text,
-} from '@chakra-ui/react';
-import {
     StickyHeaderContainer,
     ScrollToTopWrapper,
     ModalNotificationButton,
@@ -31,7 +21,7 @@ type Props = {
     >;
     onClose: () => void;
     wallet: Wallet;
-};
+}
 
 export const AccountMainContent = ({ setCurrentContent, wallet }: Props) => {
     const { t } = useTranslation();
@@ -53,42 +43,31 @@ export const AccountMainContent = ({ setCurrentContent, wallet }: Props) => {
                     data-testid="notifications-button"
                 />
                 <ModalHeader>
-                    <HStack
-                        w={'full'}
+                    <div className="flex items-center space-x-2"
                         justifyContent={'center'}
-                        p={0}
-                        spacing={2}
                     >
-                        <Text
-                            fontSize={'md'}
-                            fontWeight={'bold'}
+                        <span
                             data-testid="modal-title"
                         >
                             {t('Wallet')}
-                        </Text>
+                        </span>
                         {network?.type !== 'main' && (
-                            <Tag
-                                size="xs"
-                                colorScheme="orange"
-                                fontSize={'2xs'}
-                                p={1}
-                                textTransform={'uppercase'}
+                            <span
+                                textTransfor
                             >
                                 {`${network?.type}`}
-                            </Tag>
+                            </span>
                         )}
-                    </HStack>
+                    </div>
                 </ModalHeader>
 
                 <ModalCloseButton />
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack
-                    w={'full'}
-                    overflow={'hidden'}
+                <div className="flex flex-col space-y-6"
+                    overflo
                     justifyContent={'flex-start'}
-                    spacing={6}
                 >
                     <AccountSelector
                         style={{ justifyContent: 'flex-start' }}
@@ -107,7 +86,7 @@ export const AccountMainContent = ({ setCurrentContent, wallet }: Props) => {
                     <QuickActionsSection
                         setCurrentContent={setCurrentContent}
                     />
-                </VStack>
+                </div>
             </ModalBody>
             <ModalFooter pt={0}></ModalFooter>
         </ScrollToTopWrapper>

@@ -1,16 +1,3 @@
-import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Text,
-    Input,
-    InputGroup,
-    Box,
-    Button,
-    ModalFooter,
-    InputRightElement,
-} from '@chakra-ui/react';
 import { ModalBackButton, StickyHeaderContainer } from '@/components/common';
 import { AccountModalContentTypes } from '../../Types';
 import { useState, useEffect } from 'react';
@@ -27,13 +14,13 @@ import { ExistingDomainsList } from './Components/ExistingDomainsList';
 import { Analytics } from '@/utils/mixpanelClientInstance';
 import { ens_normalize } from '@adraffy/ens-normalize';
 
-export type ChooseNameSearchContentProps = {
+export interface ChooseNameSearchContentProps {
     name: string;
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
     initialContentSource?: AccountModalContentTypes;
-};
+}
 
 export const ChooseNameSearchContent = ({
     name: initialName,
@@ -191,7 +178,7 @@ export const ChooseNameSearchContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack spacing={4} align="stretch">
+                <div className="flex flex-col space-y-4">
                     <ExistingDomainsList
                         domains={vetDomainsOfAddress?.domains || []}
                         onDomainSelect={handleDomainSelect}
@@ -199,8 +186,8 @@ export const ChooseNameSearchContent = ({
                         isLoading={isVetDomainsOfAddressLoading}
                     />
 
-                    <InputGroup size="lg">
-                        <Input
+                    <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"Group>
+                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder={t('Enter your name')}
                             value={name}
                             onChange={(e) => {
@@ -228,38 +215,27 @@ export const ChooseNameSearchContent = ({
                             isInvalid={!!error}
                             data-testid="domain-input"
                         />
-                        <InputRightElement
-                            width="auto"
+                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"RightElement
+                            widt
                             paddingRight="12px"
-                            h={'full'}
                         >
-                            <Box
-                                mr={4}
-                                fontSize="sm"
-                                color={
-                                    isDark ? 'whiteAlpha.800' : 'blackAlpha.600'
-                                }
+                            <div
                             >
                                 .veworld.vet
-                            </Box>
-                        </InputRightElement>
-                    </InputGroup>
+                            </div>
+                        </div>
+                    </div>
 
                     {error && hasInteracted && (
-                        <Text
-                            color="#ef4444"
-                            fontSize="sm"
+                        <span
                             data-testid="domain-availability-status"
                         >
                             {error}
-                        </Text>
+                        </span>
                     )}
 
                     {!error && hasInteracted && name.length >= 3 && (
-                        <Text
-                            fontSize="sm"
-                            color={isAvailable ? 'green.500' : '#ef4444'}
-                            fontWeight="500"
+                        <span
                             data-testid="domain-availability-status"
                         >
                             {isOwnDomain
@@ -267,14 +243,13 @@ export const ChooseNameSearchContent = ({
                                 : isAvailable
                                 ? t('AVAILABLE')
                                 : t('UNAVAILABLE')}
-                        </Text>
+                        </span>
                     )}
-                </VStack>
+                </div>
             </ModalBody>
 
             <ModalFooter>
-                <Button
-                    variant="vechainKitPrimary"
+                <button className="px-4 py-2 rounded-md transition-colors"
                     isDisabled={
                         !isAvailable ||
                         !!error ||
@@ -285,7 +260,7 @@ export const ChooseNameSearchContent = ({
                     data-testid="continue-button"
                 >
                     {t('Continue')}
-                </Button>
+                </button>
             </ModalFooter>
         </>
     );

@@ -1,14 +1,3 @@
-import {
-    Button,
-    Link,
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Icon,
-    Select,
-    ModalFooter,
-} from '@chakra-ui/react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import {
     ModalBackButton,
@@ -21,10 +10,10 @@ import { useTranslation } from 'react-i18next';
 import { supportedLanguages, languageNames } from '../../../../../i18n';
 import { Analytics } from '@/utils/mixpanelClientInstance';
 
-export type FAQContentProps = {
+export interface FAQContentProps {
     onGoBack: () => void;
     showLanguageSelector?: boolean;
-};
+}
 
 export const FAQContent = ({
     onGoBack,
@@ -47,7 +36,7 @@ export const FAQContent = ({
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack spacing={6} align="stretch">
+                <div className="flex flex-col space-y-6">
                     {showLanguageSelector && (
                         <Select
                             borderRadius={'md'}
@@ -75,18 +64,17 @@ export const FAQContent = ({
                         </Select>
                     )}
 
-                    <Button
+                    <button className="px-4 py-2 rounded-md transition-colors"
                         as={Link}
                         href="https://docs.vechainkit.vechain.org/"
                         isExternal
-                        variant="vechainKitSecondary"
-                        rightIcon={<Icon as={FaExternalLinkAlt} />}
+                        rightIcon={<FaExternalLinkAlt  />}
                     >
                         {t('For developers')}
-                    </Button>
+                    </button>
 
                     <FAQAccordion />
-                </VStack>
+                </div>
             </ModalBody>
             <ModalFooter pt={0} />
         </ScrollToTopWrapper>

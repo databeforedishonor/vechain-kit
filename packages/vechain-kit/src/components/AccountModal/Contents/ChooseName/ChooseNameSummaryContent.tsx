@@ -1,12 +1,4 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    ModalFooter,
-    Text,
-} from '@chakra-ui/react';
-import {
     ModalBackButton,
     StickyHeaderContainer,
     TransactionButtonAndStatus,
@@ -23,7 +15,7 @@ import {
 } from '@/hooks';
 import { Analytics } from '@/utils/mixpanelClientInstance';
 import { isRejectionError } from '@/utils/stringUtils';
-export type ChooseNameSummaryContentProps = {
+export interface ChooseNameSummaryContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
@@ -32,7 +24,7 @@ export type ChooseNameSummaryContentProps = {
     isOwnDomain: boolean;
     isUnsetting?: boolean;
     initialContentSource?: AccountModalContentTypes;
-};
+}
 
 export const ChooseNameSummaryContent = ({
     setCurrentContent,
@@ -183,8 +175,8 @@ export const ChooseNameSummaryContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack spacing={4} w="full" textAlign="center">
-                    <Text fontSize="lg">
+                <div className="flex flex-col space-y-4">
+                    <span>
                         {isUnsetting
                             ? t(
                                   'Are you sure you want to unset your current domain?',
@@ -192,18 +184,15 @@ export const ChooseNameSummaryContent = ({
                             : t(
                                   'Are you sure you want to set your domain name to',
                               )}
-                    </Text>
+                    </span>
                     {!isUnsetting && (
-                        <Text
-                            fontSize="xl"
-                            fontWeight="bold"
-                            color="blue.500"
+                        <span
                             data-testid="preconfirm-domain-val"
                         >
                             {`${fullDomain}`}
-                        </Text>
+                        </span>
                     )}
-                </VStack>
+                </div>
             </ModalBody>
 
             <ModalFooter gap={4} w="full">

@@ -1,4 +1,3 @@
-import { Grid, Stack } from '@chakra-ui/react';
 import { EmailLoginButton } from './EmailLoginButton';
 import { LoginWithGoogleButton } from './LoginWithGoogleButton';
 import { VeChainWithPrivyLoginButton } from './VeChainWithPrivyLoginButton';
@@ -26,8 +25,8 @@ export const ConnectionOptionsStack = () => {
     } = useLoginModalContent();
 
     return (
-        <Stack spacing={4} w={'full'} align={'center'}>
-            <Grid templateColumns="repeat(4, 1fr)" gap={2} w={'full'}>
+        <div>
+            <div templateColumns="repeat(4, 1fr)" ga>
                 {loginMethods?.map(({ method, gridColumn }) => {
                     switch (method) {
                         case 'email':
@@ -98,7 +97,7 @@ export const ConnectionOptionsStack = () => {
                             return null;
                     }
                 })}
-            </Grid>
-        </Stack>
+            </div>
+        </div>
     );
 };

@@ -1,8 +1,7 @@
-import { Card, CardBody, Image, Text, VStack, Box } from '@chakra-ui/react';
 import { notFoundImage } from '@/utils';
 import { CategoryLabel, AllowedCategories } from './CategoryLabel';
 
-export type SharedAppCardProps = {
+export interface SharedAppCardProps {
     name?: string;
     imageUrl: string;
     linkUrl: string;
@@ -10,7 +9,7 @@ export type SharedAppCardProps = {
     logoComponent?: JSX.Element;
     onClick: () => void;
     size?: 'sm' | 'md';
-};
+}
 
 export const SharedAppCard = ({
     name,
@@ -21,45 +20,39 @@ export const SharedAppCard = ({
     size = 'md',
 }: SharedAppCardProps) => {
     return (
-        <Card
-            variant="vechainKitAppCard"
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"
             _hover={{ opacity: 0.8 }}
             cursor="pointer"
             onClick={onClick}
-            position="relative"
         >
             {category && (
-                <Box position="absolute" top="2" right="2" zIndex="1">
+                <div to right="2" zIndex="1">
                     <CategoryLabel category={category} />
-                </Box>
+                </div>
             )}
-            <CardBody p={size === 'sm' ? 2 : 4} alignItems="center">
-                <VStack spacing={2} h="100%" justifyContent="space-between">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"Body alignItems="center">
+                <div className="flex flex-col space-y-2" justifyContent="space-between">
                     {logoComponent
                         ? logoComponent
                         : imageUrl && (
-                              <Image
+                              <img
                                   src={imageUrl}
                                   fallbackSrc={notFoundImage}
                                   alt={name}
                                   height="90px"
                                   objectFit="contain"
-                                  rounded="full"
-                              />
+                                  rounded="full" />
                           )}
                     {name && (
-                        <Text
-                            fontWeight="medium"
+                        <span
                             wordBreak="break-word"
                             noOfLines={1}
-                            textAlign="center"
-                            w="full"
                         >
                             {name}
-                        </Text>
+                        </span>
                     )}
-                </VStack>
-            </CardBody>
-        </Card>
+                </div>
+            </div>
+        </div>
     );
 };

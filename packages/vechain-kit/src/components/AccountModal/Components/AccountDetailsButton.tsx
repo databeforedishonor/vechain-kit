@@ -1,18 +1,9 @@
-import {
-    Button,
-    Box,
-    HStack,
-    VStack,
-    Text,
-    Icon,
-    Image,
-    Tag,
-} from '@chakra-ui/react';
 import { ElementType } from 'react';
 import { humanAddress, humanDomain } from '@/utils';
 import { useTranslation } from 'react-i18next';
 import { Wallet } from '@/types';
 import { useVeChainKitConfig } from '@/providers';
+import { cn } from '@/utils/cn';
 
 interface AccountDetailsButtonProps {
     title: string;
@@ -38,64 +29,54 @@ export const AccountDetailsButton = ({
     const { t } = useTranslation();
     const { darkMode: isDark } = useVeChainKitConfig();
 
+    const LeftIcon = leftIcon;
+    const RightIcon = rightIcon;
+
     return (
-        <Button
-            w={'full'}
-            minH={'70px'}
-            h={'fit-content'}
-            py={4}
+        <button
+            className={cn(
+                "w-full min-h-[70px] h-fit py-4 px-4 rounded-md border transition-colors",
+                "flex items-center justify-between",
+                "bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800",
+                isDark ? "border-white/20" : "border-gray-200"
+            )}
             onClick={onClick}
-            backgroundColor={isDark ? 'transparent' : 'transparent'}
-            border={`1px solid ${isDark ? '#ffffff29' : '#ebebeb'}`}
         >
-            <HStack w={'full'} justify={'space-between'}>
-                <Box minW={'40px'} justifyContent={'center'}>
+            <div className="w-full flex justify-between items-center">
+                <div className="min-w-[40px] flex justify-center">
                     {leftImage ? (
-                        <Image
-                            justifySelf={'center'}
+                        <img
                             src={leftImage}
-                            w={'28px'}
+                            className="w-7 h-7"
                             alt="left-image"
                         />
                     ) : (
-                        <Icon as={leftIcon} fontSize={'28px'} />
+                        LeftIcon && <LeftIcon className="text-[28px]" />
                     )}
-                </Box>
-                <VStack textAlign={'left'} w={'full'} flex={1}>
-                    <HStack
-                        w={'full'}
-                        spacing={2}
-                        justifyContent={'flex-start'}
-                    >
-                        <Text fontSize={'sm'} fontWeight={'400'}>
+                </div>
+                <div className="flex flex-col w-full flex-1 text-left ml-3">
+                    <div className="w-full flex items-center justify-start space-x-2">
+                        <span className="text-sm font-normal">
                             {title}
-                        </Text>
-                    </HStack>
-                    <Text
-                        fontSize={'sm'}
-                        fontWeight={'500'}
-                        opacity={0.5}
-                        overflowWrap={'break-word'}
-                        wordBreak={'break-word'}
-                        whiteSpace={'normal'}
-                        w={'full'}
-                    >
+                        </span>
+                    </div>
+                    <span className="text-sm font-medium opacity-50 break-words whitespace-normal w-full text-left">
                         {wallet?.domain
                             ? humanDomain(wallet?.domain ?? '', 18, 0)
                             : humanAddress(wallet?.address ?? '', 6, 4)}
-                    </Text>
-                </VStack>
-                <VStack minW={'40px'} justifyContent={'flex-end'}>
-                    <HStack justifyContent={'flex-end'} minW={'40px'}>
+                    </span>
+                </div>
+                <div className="min-w-[40px] flex flex-col justify-end">
+                    <div className="flex justify-end items-center min-w-[40px] space-x-2">
                         {isActive && (
-                            <Tag size={'sm'} colorScheme={'green'}>
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 rounded-md">
                                 {t('Active')}
-                            </Tag>
+                            </span>
                         )}
-                        <Icon as={rightIcon} fontSize={'20px'} opacity={0.5} />
-                    </HStack>
-                </VStack>
-            </HStack>
-        </Button>
+                        {RightIcon && <RightIcon className="text-xl opacity-50" />}
+                    </div>
+                </div>
+            </div>
+        </button>
     );
 };

@@ -1,11 +1,10 @@
-import { Box, BoxProps } from '@chakra-ui/react';
 import React from 'react';
 import { twitterSvg } from '../../svg';
 
 type Props = {
     isDark?: boolean;
     boxSize?: string | number;
-} & Omit<BoxProps, 'dangerouslySetInnerHTML'>;
+} & Omit<divProps, 'dangerouslySetInnerHTML'>;
 
 export const TwitterLogo: React.FC<Props> = ({
     isDark,
@@ -13,15 +12,13 @@ export const TwitterLogo: React.FC<Props> = ({
     ...props
 }) => {
     return (
-        <Box
+        <div
             as="span"
-            display="inline-block"
-            width={boxSize}
+            widt
             height={boxSize}
             dangerouslySetInnerHTML={{
                 __html: isDark ? twitterSvg.dark : twitterSvg.light,
             }}
-            {...props}
-        />
+            {...props} />
     );
 };

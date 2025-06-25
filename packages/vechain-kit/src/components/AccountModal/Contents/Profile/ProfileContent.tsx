@@ -1,11 +1,3 @@
-import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    Box,
-    ModalFooter,
-    VStack,
-} from '@chakra-ui/react';
 import { useWallet } from '@/hooks';
 import { FeatureAnnouncementCard, ProfileCard } from '@/components';
 import { ModalBackButton, StickyHeaderContainer } from '@/components/common';
@@ -13,12 +5,12 @@ import { AccountModalContentTypes } from '../../Types';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '@/utils/mixpanelClientInstance';
 
-export type ProfileContentProps = {
+export interface ProfileContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
     onLogoutSuccess: () => void;
-};
+}
 
 export const ProfileContent = ({
     setCurrentContent,
@@ -29,7 +21,7 @@ export const ProfileContent = ({
     const { account, disconnect } = useWallet();
 
     return (
-        <Box>
+        <div>
             <StickyHeaderContainer>
                 <ModalHeader data-testid='modal-title'>{t('Profile')}</ModalHeader>
 
@@ -38,7 +30,7 @@ export const ProfileContent = ({
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack w={'full'} spacing={2}>
+                <div className="flex flex-col space-y-2">
                     {!account?.domain && (
                         <FeatureAnnouncementCard
                             setCurrentContent={setCurrentContent}
@@ -81,9 +73,9 @@ export const ProfileContent = ({
                             });
                         }}
                     />
-                </VStack>
+                </div>
             </ModalBody>
             <ModalFooter pt={0} />
-        </Box>
+        </div>
     );
 };

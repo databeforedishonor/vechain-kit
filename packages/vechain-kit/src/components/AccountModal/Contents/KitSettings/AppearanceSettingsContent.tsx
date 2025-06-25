@@ -1,12 +1,4 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    VStack,
-    ModalFooter,
-    ModalHeader,
-    Text,
-} from '@chakra-ui/react';
-import {
     ModalBackButton,
     ScrollToTopWrapper,
     StickyHeaderContainer,
@@ -18,7 +10,7 @@ type Props = {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 
 export const AppearanceSettingsContent = ({ setCurrentContent }: Props) => {
     const { t } = useTranslation();
@@ -35,26 +27,20 @@ export const AppearanceSettingsContent = ({ setCurrentContent }: Props) => {
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack
-                    justify={'center'}
-                    spacing={3}
-                    align="flex-start"
-                    w={'full'}
+                <div className="flex flex-col"
                 >
-                    <VStack w="full" justifyContent="center" spacing={3} mb={3}>
-                        <Text
-                            fontSize={'sm'}
+                    <div className="flex flex-col" justifyContent="center">
+                        <span
                             opacity={0.5}
-                            textAlign={'center'}
                         >
                             {t('Customize the appearance of your wallet.')}
-                        </Text>
-                    </VStack>
+                        </span>
+                    </div>
 
-                    <VStack w="full" justifyContent="center" spacing={0}>
+                    <div className="flex flex-col" justifyContent="center">
                         {/* Add appearance settings buttons here */}
-                    </VStack>
-                </VStack>
+                    </div>
+                </div>
             </ModalBody>
             <ModalFooter pt={0} />
         </ScrollToTopWrapper>

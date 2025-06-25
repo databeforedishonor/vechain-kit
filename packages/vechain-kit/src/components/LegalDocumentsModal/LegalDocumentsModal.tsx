@@ -2,7 +2,6 @@
 
 import { EnrichedLegalDocument } from '@/types';
 import { Step, StepModal } from '../StepModal/StepModal';
-import { useSteps } from '@chakra-ui/react';
 import { DisconnectConfirmContent } from '../AccountModal/Contents/Account/DisconnectConfirmContent';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +15,7 @@ type Props = {
     ) => void;
     handleLogout: () => void;
     onlyOptionalDocuments?: boolean;
-};
+}
 
 export type LegalDocumentsModalContentsTypes = 'legal-documents';
 

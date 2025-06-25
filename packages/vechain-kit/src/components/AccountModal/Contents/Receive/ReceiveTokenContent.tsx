@@ -1,12 +1,3 @@
-import {
-    Container,
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Text,
-    ModalFooter,
-} from '@chakra-ui/react';
 import { QRCode } from 'react-qrcode-logo';
 import {
     ModalBackButton,
@@ -21,7 +12,7 @@ type Props = {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 
 export const ReceiveTokenContent = ({ setCurrentContent }: Props) => {
     const { t } = useTranslation();
@@ -37,7 +28,7 @@ export const ReceiveTokenContent = ({ setCurrentContent }: Props) => {
 
             <Container maxW={'container.lg'}>
                 <ModalBody>
-                    <VStack spacing={6} align="center" w="full">
+                    <div className="flex flex-col space-y-6">
                         <QRCode
                             value={account?.address ?? ''}
                             size={200}
@@ -55,14 +46,14 @@ export const ReceiveTokenContent = ({ setCurrentContent }: Props) => {
                             fromScreen="receive"
                         />
 
-                        <Text fontSize="sm" textAlign="center">
+                        <span>
                             {t('Copy your address or scan this QR code')}
-                        </Text>
+                        </span>
 
-                        <Text fontSize="xs" textAlign="center" opacity={0.5}>
+                        <span opacity={0.5}>
                             {t('This address only supports VeChain assets.')}
-                        </Text>
-                    </VStack>
+                        </span>
+                    </div>
                 </ModalBody>
                 <ModalFooter pt={0} />
             </Container>

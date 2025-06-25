@@ -1,11 +1,3 @@
-import {
-    Alert,
-    AlertIcon,
-    Box,
-    AlertDescription,
-    IconButton,
-    AlertTitle,
-} from '@chakra-ui/react';
 import { IoCloseCircle } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next';
 import { Notification } from '@/hooks/notifications/types';
@@ -15,7 +7,7 @@ type Props = {
     notification: Notification;
     isArchiveView: boolean;
     onMarkAsRead: (id: string) => void;
-};
+}
 
 export const NotificationItem = ({
     notification,
@@ -34,36 +26,29 @@ export const NotificationItem = ({
     }
 
     return (
-        <Alert
+        <div
             key={notification.id}
             status={notification.status}
-            variant="subtle"
-            borderRadius={'lg'}
-            pr={8}
-            position="relative"
             opacity={notification.isRead ? 0.7 : 1}
             cursor="pointer"
             _hover={{ opacity: 0.8 }}
             data-testid="notification-item"
         >
-            <AlertIcon boxSize={'16px'} />
-            <Box>
-                <AlertTitle fontSize={'sm'} data-testid="notification-title">
+            <divIcon />
+            <div>
+                <divTitle data-testid="notification-title">
                     {/* @ts-ignore */}
                     {t(notification.title)}
                 </AlertTitle>
-                <AlertDescription fontSize={'xs'} lineHeight={'1.2'} data-testid="notification-text">
+                <divDescription lineHeight={'1.2'} data-testid="notification-text">
                     {/* @ts-ignore */}
                     {t(notification.description)}
                 </AlertDescription>
-            </Box>
+            </div>
             {!isArchiveView && !notification.isRead && (
-                <IconButton
-                    position="absolute"
+                <button
                     right={1}
-                    top={1}
-                    size="sm"
-                    variant="ghost"
+                    to
                     icon={<IoCloseCircle />}
                     onClick={(e) => {
                         e.stopPropagation();
@@ -73,6 +58,6 @@ export const NotificationItem = ({
                     data-testid="remove-notification-button"
                 />
             )}
-        </Alert>
+        </div>
     );
 };

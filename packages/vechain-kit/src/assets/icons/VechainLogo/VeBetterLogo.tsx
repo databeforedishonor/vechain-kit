@@ -1,4 +1,3 @@
-import { IconProps } from '@chakra-ui/react';
 import React from 'react';
 import { VeBetterLogoLight } from './VeBetterLogoLight';
 import { VeBetterLogoDark } from './VeBetterLogoDark';

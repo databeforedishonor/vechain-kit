@@ -1,18 +1,3 @@
-import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Input,
-    Button,
-    Text,
-    Box,
-    HStack,
-    ModalFooter,
-    FormControl,
-    FormLabel,
-    Image,
-} from '@chakra-ui/react';
 import { ModalBackButton, StickyHeaderContainer } from '@/components';
 import { AccountModalContentTypes } from '../../Types';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +7,7 @@ import { useCustomTokens } from '@/hooks/api/wallet/useCustomTokens';
 import { humanAddress, TOKEN_LOGOS } from '@/utils';
 import { IoTrashBin } from 'react-icons/io5';
 
-export type ManageCustomTokenContentProps = {
+export interface ManageCustomTokenContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
@@ -31,7 +16,7 @@ export type ManageCustomTokenContentProps = {
 // Add form values type
 type FormValues = {
     newTokenAddress: string;
-};
+}
 
 export const ManageCustomTokenContent = ({
     setCurrentContent,
@@ -94,19 +79,16 @@ export const ManageCustomTokenContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack spacing={4} align="stretch" position="relative">
+                <div className="flex flex-col space-y-4">
                     {/* Input Section */}
-                    <Box
-                        p={6}
-                        borderRadius="xl"
-                        bg={isDark ? '#1a1a1a' : 'gray.50'}
+                    <div
                     >
-                        <VStack align="stretch" spacing={2}>
-                            <FormControl isInvalid={!!errors.newTokenAddress}>
-                                <FormLabel fontSize="sm" fontWeight="medium">
+                        <div className="flex flex-col space-y-2">
+                            <div isInvalid={!!errors.newTokenAddress}>
+                                <label>
                                     {t('Token Contract Address')}
-                                </FormLabel>
-                                <Input
+                                </label>
+                                <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     {...register('newTokenAddress', {
                                         required: t('Address is required'),
                                         pattern: {
@@ -132,100 +114,78 @@ export const ManageCustomTokenContent = ({
                                     fontWeight="medium"
                                 />
                                 {errors.newTokenAddress && (
-                                    <Text color="#ef4444" fontSize="sm">
+                                    <span>
                                         {errors.newTokenAddress.message}
-                                    </Text>
+                                    </span>
                                 )}
-                            </FormControl>
-                        </VStack>
-                    </Box>
+                            </div>
+                        </div>
+                    </div>
 
                     {/* Existing Tokens List */}
                     {customTokens.length > 0 && (
-                        <Box
-                            p={4}
-                            borderRadius="xl"
-                            bg={isDark ? '#ffffff0f' : 'gray.50'}
+                        <div
                         >
-                            <Text fontSize="sm" fontWeight="medium" mb={2}>
+                            <span>
                                 {t('Existing Custom Tokens')}
-                            </Text>
-                            <VStack align="stretch" spacing={2}>
+                            </span>
+                            <div className="flex flex-col space-y-2">
                                 {customTokens.map((token) => (
-                                    <HStack
+                                    <div className="flex items-center"
                                         key={token.address}
-                                        justify="space-between"
-                                        fontSize="sm"
-                                        p={2}
-                                        borderRadius="md"
-                                        bg={isDark ? '#2a2a2a' : 'gray.100'}
                                     >
-                                        <HStack>
-                                            <Image
+                                        <div className="flex items-center">
+                                            <img
                                                 src={TOKEN_LOGOS[token?.symbol]}
                                                 alt={`${token.symbol} logo`}
-                                                boxSize="20px"
-                                                borderRadius="full"
                                                 fallback={
-                                                    <Box
-                                                        boxSize="20px"
-                                                        borderRadius="full"
-                                                        bg="whiteAlpha.200"
-                                                        display="flex"
+                                                    <div
                                                         alignItems="center"
                                                         justifyContent="center"
                                                     >
-                                                        <Text
-                                                            fontSize="8px"
-                                                            fontWeight="bold"
+                                                        <span
                                                         >
                                                             {token.symbol?.slice(
                                                                 0,
                                                                 3,
                                                             )}
-                                                        </Text>
-                                                    </Box>
+                                                        </span>
+                                                    </div>
                                                 }
                                             />
-                                            <Text fontWeight="medium">
+                                            <span>
                                                 {token.symbol ?? 'Unknown'}
-                                            </Text>
-                                        </HStack>
-                                        <Text opacity={0.7}>
+                                            </span>
+                                        </div>
+                                        <span opacity={0.7}>
                                             {humanAddress(
                                                 token.address ?? '',
                                                 4,
                                                 4,
                                             )}
-                                        </Text>
-                                        <Button
-                                            size="sm"
-                                            variant="ghost"
-                                            colorScheme="red"
-                                            borderRadius="md"
-                                            p={2}
+                                        </span>
+                                        <button className="px-4 py-2 rounded-md transition-colors hover:bg-gray-100"
                                             onClick={() =>
                                                 removeToken(token.address)
                                             }
                                         >
                                             <IoTrashBin size={16} />
-                                        </Button>
-                                    </HStack>
+                                        </button>
+                                    </div>
                                 ))}
-                            </VStack>
-                        </Box>
+                            </div>
+                        </div>
                     )}
-                </VStack>
+                </div>
             </ModalBody>
 
             <ModalFooter>
-                <Button
-                    variant="vechainKitPrimary"
+                <button className="px-4 py-2 rounded-md transition-colors"
                     isDisabled={!isValid}
                     onClick={handleSubmit(onSubmit)}
                 >
                     {t('Add Token')}
-                </Button>
+                </button>
             </ModalFooter>
         </>
     );

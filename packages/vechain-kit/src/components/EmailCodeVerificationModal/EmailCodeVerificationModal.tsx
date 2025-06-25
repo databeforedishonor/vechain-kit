@@ -1,17 +1,3 @@
-import {
-    Button,
-    VStack,
-    Text,
-    HStack,
-    PinInput,
-    PinInputField,
-    Icon,
-    ModalFooter,
-    ModalBody,
-    ModalHeader,
-    ModalCloseButton,
-    Container,
-} from '@chakra-ui/react';
 import { MdEmail } from 'react-icons/md';
 import { BaseModal, StickyHeaderContainer } from '../common';
 import { useEffect, useState } from 'react';
@@ -25,7 +11,7 @@ type Props = {
     isLoading: boolean;
     isOpen: boolean;
     onClose: () => void;
-};
+}
 
 export const EmailCodeVerificationModal = ({
     email,
@@ -73,18 +59,14 @@ export const EmailCodeVerificationModal = ({
 
             <Container maxW={'container.lg'}>
                 <ModalBody>
-                    <VStack spacing={2}>
-                        <Icon
-                            as={MdEmail}
+                    <div className="flex flex-col space-y-2">
+                        <MdEmail
                             w="48px"
                             h="48px"
                             color={isDark ? 'whiteAlpha.700' : 'gray.600'}
-                        />
+                         />
 
-                        <Text
-                            fontSize="xs"
-                            color={isDark ? 'whiteAlpha.700' : 'gray.600'}
-                            textAlign="center"
+                        <span
                         >
                             {t(
                                 'Please check {{email}} for an email from privy.io and enter your code below.',
@@ -92,8 +74,8 @@ export const EmailCodeVerificationModal = ({
                                     email,
                                 },
                             )}
-                        </Text>
-                        <HStack spacing={2} justify="center" mt={4}>
+                        </span>
+                        <div className="flex items-center space-x-2">
                             <PinInput
                                 value={code}
                                 onChange={setCode}
@@ -223,32 +205,25 @@ export const EmailCodeVerificationModal = ({
                                     }
                                 />
                             </PinInput>
-                        </HStack>
+                        </div>
                         {error && (
-                            <Text color="#ef4444" fontSize="xs">
+                            <span>
                                 {error}
-                            </Text>
+                            </span>
                         )}
-                    </VStack>
+                    </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Text
-                        w="100%"
-                        textAlign="center"
-                        fontSize="14px"
-                        color={isDark ? 'whiteAlpha.700' : 'gray.600'}
+                    <span
                     >
                         {t("Didn't get an email?")}{' '}
-                        <Button
-                            variant="link"
-                            color="blue.500"
-                            fontSize="14px"
+                        <button className="px-4 py-2 rounded-md transition-colors"
                             onClick={onResend}
                             isLoading={isLoading}
                         >
                             {t('Resend code')}
-                        </Button>
-                    </Text>
+                        </button>
+                    </span>
                 </ModalFooter>
             </Container>
         </BaseModal>

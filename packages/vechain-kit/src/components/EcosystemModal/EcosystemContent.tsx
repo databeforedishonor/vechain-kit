@@ -1,16 +1,3 @@
-import {
-    Box,
-    Button,
-    Image,
-    ModalBody,
-    ModalCloseButton,
-    ModalFooter,
-    ModalHeader,
-    Spinner,
-    Text,
-    VStack,
-    useDisclosure,
-} from '@chakra-ui/react';
 import { StickyHeaderContainer } from '@/components/common';
 import { useCrossAppConnectionCache, usePrivy } from '@/hooks';
 import { usePrivyCrossAppSdk } from '@/providers/PrivyCrossAppProvider';
@@ -26,7 +13,7 @@ type Props = {
     onClose: () => void;
     appsInfo: PrivyAppInfo[];
     isLoading: boolean;
-};
+}
 
 export const EcosystemContent = ({ onClose, appsInfo, isLoading }: Props) => {
     const { t } = useTranslation();
@@ -117,7 +104,7 @@ export const EcosystemContent = ({ onClose, appsInfo, isLoading }: Props) => {
     };
 
     return (
-        <Box>
+        <div>
             <>
                 <StickyHeaderContainer>
                     <ModalHeader>
@@ -128,31 +115,21 @@ export const EcosystemContent = ({ onClose, appsInfo, isLoading }: Props) => {
 
                 <ModalBody>
                     {isLoading && (
-                        <VStack
-                            minH={'200px'}
-                            w={'full'}
+                        <div className="flex flex-col"
                             justifyContent={'center'}
                         >
-                            <Spinner />
-                        </VStack>
+                            <div />
+                        </div>
                     )}
 
                     {!isLoading && appsInfo && (
-                        <VStack spacing={4} w={'full'} pb={6}>
+                        <div className="flex flex-col space-y-4">
                             {appsInfo.map((appInfo) => (
-                                <Button
+                                <button className="px-4 py-2 rounded-md transition-colors"
                                     key={appInfo.id}
-                                    fontSize={'14px'}
-                                    fontWeight={'400'}
                                     backgroundColor={
                                         isDark ? 'transparent' : '#ffffff'
-                                    }
-                                    border={`1px solid ${
-                                        isDark ? '#ffffff29' : '#ebebeb'
                                     }`}
-                                    p={6}
-                                    borderRadius={16}
-                                    w={'full'}
                                     onClick={() => {
                                         connectWithVebetterDaoApps(
                                             appInfo.id,
@@ -161,23 +138,21 @@ export const EcosystemContent = ({ onClose, appsInfo, isLoading }: Props) => {
                                     }}
                                     justifyContent={'flex-start'}
                                 >
-                                    <Image
+                                    <img
                                         src={appInfo.logo_url}
-                                        alt={appInfo.name}
-                                        w={'30px'}
-                                    />
-                                    <Text ml={5}>{appInfo.name}</Text>
-                                </Button>
+                                        alt={appInfo.name} />
+                                    <span>{appInfo.name}</span>
+                                </button>
                             ))}
-                        </VStack>
+                        </div>
                     )}
 
                     {!isLoading && !appsInfo && (
-                        <Text textAlign={'center'}>
+                        <span>
                             {t(
                                 'No application from VeChain ecosystem is available to login.',
                             )}
-                        </Text>
+                        </span>
                     )}
                 </ModalBody>
                 <ModalFooter pt={0} />
@@ -195,6 +170,6 @@ export const EcosystemContent = ({ onClose, appsInfo, isLoading }: Props) => {
                 )}
                 onTryAgain={handleTryAgain}
             />
-        </Box>
+        </div>
     );
 };

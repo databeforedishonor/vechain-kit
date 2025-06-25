@@ -1,13 +1,4 @@
 import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Text,
-    ModalFooter,
-    Box,
-} from '@chakra-ui/react';
-import {
     ModalBackButton,
     StickyHeaderContainer,
     TransactionButtonAndStatus,
@@ -31,7 +22,7 @@ import { isRejectionError } from '@/utils/stringUtils';
 import { useQueryClient } from '@tanstack/react-query';
 import { convertUriToUrl } from '@/utils';
 
-export type CustomizationSummaryContentProps = {
+export interface CustomizationSummaryContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
@@ -53,7 +44,7 @@ type FormValues = {
     twitter?: string;
     website?: string;
     email?: string;
-};
+}
 
 export const CustomizationSummaryContent = ({
     setCurrentContent,
@@ -188,15 +179,13 @@ export const CustomizationSummaryContent = ({
     const renderField = (label: string, value: string) => {
         if (!value?.trim()) return null;
         return (
-            <VStack align="flex-start" w="full" spacing={1}>
-                <Text
-                    fontSize="sm"
-                    color={isDark ? 'whiteAlpha.600' : 'blackAlpha.600'}
+            <div className="flex flex-col">
+                <span
                 >
                     {label}
-                </Text>
-                <Text fontSize="md">{value}</Text>
-            </VStack>
+                </span>
+                <span>{value}</span>
+            </div>
         );
     };
 
@@ -259,7 +248,7 @@ export const CustomizationSummaryContent = ({
     };
 
     return (
-        <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+        <div as="form" onSubmit={handleSubmit(onSubmit)}>
             <StickyHeaderContainer>
                 <ModalHeader>{t('Confirm Changes')}</ModalHeader>
                 <ModalBackButton
@@ -273,19 +262,15 @@ export const CustomizationSummaryContent = ({
             </StickyHeaderContainer>
 
             <ModalBody>
-                <VStack spacing={4} align="stretch">
+                <div className="flex flex-col space-y-4">
                     {changes.avatarIpfsHash && (
-                        <VStack align="flex-start" w="full" spacing={1}>
-                            <Text
-                                fontSize="sm"
-                                color={
-                                    isDark ? 'whiteAlpha.600' : 'blackAlpha.600'
-                                }
+                        <div className="flex flex-col">
+                            <span
                             >
                                 {t('Profile Image')}
-                            </Text>
-                            <Text fontSize="md">{t('New image selected')}</Text>
-                        </VStack>
+                            </span>
+                            <span>{t('New image selected')}</span>
+                        </div>
                     )}
 
                     {changes.displayName &&
@@ -297,7 +282,7 @@ export const CustomizationSummaryContent = ({
                     {changes.website &&
                         renderField(t('Website'), changes.website)}
                     {changes.email && renderField(t('Email'), changes.email)}
-                </VStack>
+                </div>
             </ModalBody>
 
             <ModalFooter gap={4} w="full">
@@ -313,6 +298,6 @@ export const CustomizationSummaryContent = ({
                     isDisabled={isTransactionPending}
                 />
             </ModalFooter>
-        </Box>
+        </div>
     );
 };

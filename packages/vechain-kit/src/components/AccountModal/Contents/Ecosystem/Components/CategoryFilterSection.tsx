@@ -1,15 +1,14 @@
-import { Box, Tag, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { CategoryLabel, AllowedCategories } from './CategoryLabel';
 
 export type CategoryFilter = string | null;
 
-type CategoryFilterSectionProps = {
+interface CategoryFilterSectionProps {
     selectedCategory: CategoryFilter;
     onCategoryChange: (category: CategoryFilter) => void;
     categories: AllowedCategories[];
     darkMode: boolean;
-};
+}
 
 export const CategoryFilterSection = ({
     selectedCategory,
@@ -20,24 +19,18 @@ export const CategoryFilterSection = ({
     const { t } = useTranslation();
 
     return (
-        <Box width="full" mb={4}>
-            <Text fontSize="sm" fontWeight="500" mb={2}>
+        <div widt>
+            <span>
                 {t('Filter by category')}
-            </Text>
+            </span>
             <Wrap spacing={2}>
                 <WrapItem>
-                    <Tag
-                        size="md"
-                        borderRadius="full"
-                        variant={
-                            selectedCategory === null ? 'solid' : 'outline'
-                        }
-                        colorScheme={darkMode ? 'gray' : 'blackAlpha'}
+                    <span
                         cursor="pointer"
                         onClick={() => onCategoryChange(null)}
                     >
                         {t('All')}
-                    </Tag>
+                    </span>
                 </WrapItem>
 
                 {categories.map((category) => (
@@ -56,6 +49,6 @@ export const CategoryFilterSection = ({
                     </WrapItem>
                 ))}
             </Wrap>
-        </Box>
+        </div>
     );
 };

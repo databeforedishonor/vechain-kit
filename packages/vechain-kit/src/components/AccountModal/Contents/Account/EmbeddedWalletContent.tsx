@@ -6,18 +6,6 @@ import {
 } from '@/components/common';
 import { useCrossAppConnectionCache, useWallet } from '@/hooks';
 import { getPicassoImage } from '@/utils';
-import {
-    Divider,
-    Icon,
-    Image,
-    Link,
-    ModalBody,
-    ModalCloseButton,
-    ModalFooter,
-    ModalHeader,
-    Text,
-    VStack,
-} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { AccountModalContentTypes } from '../../Types';
 import { IoOpenOutline } from 'react-icons/io5';
@@ -26,7 +14,7 @@ import { useVeChainKitConfig } from '@/providers';
 
 type Props = {
     setCurrentContent: (content: AccountModalContentTypes) => void;
-};
+}
 
 export const EmbeddedWalletContent = ({ setCurrentContent }: Props) => {
     const { t } = useTranslation();
@@ -48,29 +36,22 @@ export const EmbeddedWalletContent = ({ setCurrentContent }: Props) => {
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack
-                    justify={'center'}
-                    spacing={3}
-                    align="flex-start"
-                    w={'full'}
+                <div className="flex flex-col"
                 >
-                    <VStack justify={'center'} align={'center'} w={'full'}>
-                        <Image
-                            src={walletImage}
-                            maxW={'100px'}
-                            borderRadius="50%"
-                        />
+                    <div className="flex flex-col">
+                        <img
+                            src={walletImage} />
                         <AddressDisplay
                             wallet={connectedWallet}
                             style={{ mt: 2 }}
                             showHumanAddress={false}
                             fromScreen="account"
                         />
-                    </VStack>
+                    </div>
 
                     {connection.isConnectedWithCrossApp && (
                         <>
-                            <Text fontSize={'sm'} opacity={0.5}>
+                            <span opacity={0.5}>
                                 {t(
                                     'This is your main wallet, created by {{element}} and secured by Privy.',
                                     {
@@ -78,81 +59,69 @@ export const EmbeddedWalletContent = ({ setCurrentContent }: Props) => {
                                             connectionCache?.ecosystemApp?.name,
                                     },
                                 )}
-                            </Text>
+                            </span>
 
-                            <Text fontSize={'sm'} opacity={0.5}>
+                            <span opacity={0.5}>
                                 {t(
                                     'This wallet is the owner of your smart account, which is used as your identity and as a gateway for your blockchain interactions.',
                                 )}
-                            </Text>
-                            <Text fontSize={'sm'} opacity={0.5}>
+                            </span>
+                            <span opacity={0.5}>
                                 {t(
                                     'Please be sure to keep this wallet safe and backed up.',
                                 )}
-                            </Text>
+                            </span>
                         </>
                     )}
 
                     {connection.isConnectedWithSocialLogin && (
                         <>
-                            <Text fontSize={'sm'} opacity={0.5}>
+                            <span opacity={0.5}>
                                 {t(
                                     'You are using an Embedded Wallet secured by your social login method, ensuring a seamless VeChain experience.',
                                 )}
-                            </Text>
+                            </span>
 
-                            <Text fontSize={'sm'} opacity={0.5}>
+                            <span opacity={0.5}>
                                 {t(
                                     'This wallet is the owner of your smart account, which is used as your identity and as a gateway for your blockchain interactions.',
                                 )}
-                            </Text>
-                            <Text fontSize={'sm'} opacity={0.5}>
+                            </span>
+                            <span opacity={0.5}>
                                 {t(
                                     'We highly recommend exporting your private key to back up your wallet. This ensures you can restore it if needed or transfer it to self-custody using',
                                 )}
-                                <Link
+                                <a
                                     href="https://www.veworld.net/"
                                     isExternal
-                                    color={
-                                        isDark
-                                            ? 'whiteAlpha.600'
-                                            : 'blackAlpha.600'
-                                    }
-                                    fontSize={'14px'}
                                     textDecoration={'underline'}
                                 >
                                     {' '}
                                     {t('VeWorld Wallet')}
                                     <Icon ml={1} as={IoOpenOutline} />
-                                </Link>
+                                </a>
                                 .
-                            </Text>
-                            <Text fontSize={'sm'} opacity={0.5}>
+                            </span>
+                            <span opacity={0.5}>
                                 {t('Click')}{' '}
-                                <Link
+                                <a
                                     href="https://docs.vechainkit.vechain.org/vechain-kit/embedded-wallets"
                                     isExternal
-                                    color={
-                                        isDark
-                                            ? 'whiteAlpha.600'
-                                            : 'blackAlpha.600'
-                                    }
-                                    fontSize={'14px'}
                                     textDecoration={'underline'}
                                 >
                                     {t('here')}
-                                </Link>{' '}
+                                </a>{' '}
                                 {t('to learn more about embedded wallets.')}
-                            </Text>
+                            </span>
                         </>
                     )}
-                </VStack>
+                </div>
             </ModalBody>
             <ModalFooter w={'full'}>
-                <VStack w={'full'}>
-                    <Divider />
+                <div className="flex flex-col">
+                    <hr />
                     {connection.isConnectedWithPrivy && <WalletSecuredBy />}
-                </VStack>
+                </div>
             </ModalFooter>
         </ScrollToTopWrapper>
     );

@@ -1,13 +1,5 @@
 'use client';
 
-import {
-    Text,
-    Icon,
-    HStack,
-    Button,
-    StackProps,
-    IconButton,
-} from '@chakra-ui/react';
 import { humanAddress, humanDomain } from '../../../utils';
 import { Wallet } from '@/types';
 import { MdOutlineNavigateNext } from 'react-icons/md';
@@ -21,7 +13,7 @@ type Props = {
     onClick?: () => void;
     mt?: number;
     style?: StackProps;
-};
+}
 
 export const AccountSelector = ({
     wallet,
@@ -42,37 +34,29 @@ export const AccountSelector = ({
         }, 2000);
     };
     return (
-        <HStack
-            mt={mt}
-            w={'full'}
+        <div className="flex items-center"
             {...style}
             justifyContent={'flex-start'}
             alignItems={'center'}
         >
-            <Button
-                w="full"
-                h={12}
+            <button className="px-4 py-2 rounded-md transition-colors"
                 aria-label="Wallet"
                 onClick={onClick}
-                variant="mainContentButton"
                 data-testid="profile-button"
             >
-                <HStack
-                    spacing={2}
-                    align="center"
+                <div className="flex items-center space-x-2"
                     justifyContent={'space-between'}
-                    w={'full'}
                 >
-                    <HStack spacing={2} justifyContent={'flex-start'}>
+                    <div className="flex items-center space-x-2" justifyContent={'flex-start'}>
                         <AccountAvatar
                             wallet={wallet}
                             props={{ width: 7, height: 7 }}
                         />
-                        <Text fontSize={size} fontWeight="500">
+                        <span>
                             {humanDomain(wallet?.domain ?? '', 22, 0) ||
                                 humanAddress(wallet?.address ?? '', 6, 4)}
-                        </Text>
-                    </HStack>
+                        </span>
+                    </div>
 
                     <Icon
                         boxSize={5}
@@ -80,18 +64,18 @@ export const AccountSelector = ({
                         cursor="pointer"
                         opacity={0.5}
                     />
-                </HStack>
-            </Button>
+                </div>
+            </button>
 
-            <IconButton
+            <button
                 aria-label="Copy address"
-                icon={<Icon as={copied ? IoCheckmarkOutline : IoCopyOutline} />}
+                icon={<copied ? IoCheckmarkOutline : IoCopyOutline  />}
                 onClick={copyToClipboard}
                 variant="ghost"
                 size="sm"
                 opacity={0.5}
                 _hover={{ opacity: 0.8 }}
             />
-        </HStack>
+        </div>
     );
 };

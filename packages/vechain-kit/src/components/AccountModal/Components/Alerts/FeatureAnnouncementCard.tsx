@@ -1,23 +1,13 @@
-import {
-    Card,
-    CardBody,
-    HStack,
-    VStack,
-    Text,
-    useColorModeValue,
-    IconButton,
-    Tag,
-} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IoCloseCircle } from 'react-icons/io5';
 import { useFeatureAnnouncement } from '@/hooks/utils/useFeatureAnnouncement';
 import { AccountModalContentTypes } from '../../Types';
 
-type FeatureAnnouncementCardProps = {
+interface FeatureAnnouncementCardProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 export const FeatureAnnouncementCard = ({
     setCurrentContent,
 }: FeatureAnnouncementCardProps) => {
@@ -45,39 +35,31 @@ export const FeatureAnnouncementCard = ({
     if (!isVisible) return null;
 
     return (
-        <Card
-            w="full"
-            variant={'featureAnnouncement'}
-            overflow="hidden"
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"
+            overflo
             onClick={handleOnClick}
             cursor="pointer"
             _hover={{ opacity: 0.8 }}
         >
-            <CardBody p={4}>
-                <HStack justify="space-between" align="flex-start" spacing={3}>
-                    <VStack align="flex-start" spacing={1}>
-                        <HStack spacing={2}>
-                            <Text
-                                fontSize="sm"
-                                fontWeight="400"
-                                color={titleColor}
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"Body>
+                <div className="flex items-center">
+                    <div className="flex flex-col">
+                        <div className="flex items-center space-x-2">
+                            <span
                             >
                                 {t('Claim your vet domain!')}
-                            </Text>
-                            <Tag size="sm" colorScheme="red">
+                            </span>
+                            <span>
                                 {t('New')}
-                            </Tag>
-                        </HStack>
-                        <Text fontSize="xs" color={descriptionColor}>
+                            </span>
+                        </div>
+                        <span>
                             {t(
                                 'Say goodbye to 0x addresses, claim your .veworld.vet subdomain now for free!',
                             )}
-                        </Text>
-                    </VStack>
-                    <IconButton
-                        size="sm"
-                        variant="ghost"
-                        colorScheme="gray"
+                        </span>
+                    </div>
+                    <button
                         icon={<IoCloseCircle />}
                         onClick={(e) => {
                             e.stopPropagation();
@@ -85,8 +67,8 @@ export const FeatureAnnouncementCard = ({
                         }}
                         aria-label={t('Close announcement')}
                     />
-                </HStack>
-            </CardBody>
-        </Card>
+                </div>
+            </div>
+        </div>
     );
 };

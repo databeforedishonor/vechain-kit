@@ -7,8 +7,6 @@ import {
     SuccessfulOperationContentProps,
 } from './Contents/SuccessfulOperationContent';
 import { UpgradeSmartAccountContent } from './Contents/UpgradeSmartAccountContent';
-import { ThemeTypings } from '@chakra-ui/react';
-
 export type UpgradeSmartAccountModalStyle = {
     accentColor?: string;
     modalSize?: ThemeTypings['components']['Modal']['sizes'];
@@ -18,14 +16,14 @@ type Props = {
     isOpen: boolean;
     onClose: () => void;
     style?: UpgradeSmartAccountModalStyle;
-};
+}
 
 export type UpgradeSmartAccountModalContentsTypes =
     | 'upgrade-smart-account'
     | {
           type: 'successful-operation';
           props: SuccessfulOperationContentProps;
-      };
+      }
 
 export const UpgradeSmartAccountModal = ({ isOpen, onClose, style }: Props) => {
     const [currentContent, setCurrentContent] =

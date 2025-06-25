@@ -1,12 +1,3 @@
-import {
-    Card,
-    CardBody,
-    Grid,
-    GridItem,
-    Image,
-    Text,
-    VStack,
-} from '@chakra-ui/react';
 import { useEcosystemShortcuts } from '@/hooks';
 import { AccountModalContentTypes } from '@/components/AccountModal/Types';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +7,7 @@ type Props = {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
-};
+}
 
 export const ShortcutsSection = ({}: Props) => {
     const { t } = useTranslation();
@@ -25,31 +16,30 @@ export const ShortcutsSection = ({}: Props) => {
     if (shortcuts.length === 0) return null;
 
     return (
-        <VStack w="full" align="flex-start" spacing={2}>
-            <Text fontSize="sm" fontWeight="500">
+        <div className="flex flex-col space-y-2">
+            <span>
                 {t('Shortcuts')}
-            </Text>
-            <Grid templateColumns="repeat(4, 1fr)" gap={2} w="full">
+            </span>
+            <div templateColumns="repeat(4, 1fr)" ga>
                 {shortcuts.map((shortcut) => (
-                    <GridItem key={shortcut.url}>
-                        <Card
+                    <divItem key={shortcut.url}>
+                        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"
                             _hover={{ opacity: 0.8 }}
                             cursor="pointer"
                             onClick={() => window.open(shortcut.url, '_blank')}
                         >
-                            <CardBody p={2} alignItems="center">
-                                <Image
+                            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"Body alignItems="center">
+                                <img
                                     src={shortcut.image}
                                     fallbackSrc={notFoundImage}
                                     alt={shortcut.name}
                                     objectFit="contain"
-                                    rounded="full"
-                                />
-                            </CardBody>
-                        </Card>
-                    </GridItem>
+                                    rounded="full" />
+                            </div>
+                        </div>
+                    </div>
                 ))}
-            </Grid>
-        </VStack>
+            </div>
+        </div>
     );
 };

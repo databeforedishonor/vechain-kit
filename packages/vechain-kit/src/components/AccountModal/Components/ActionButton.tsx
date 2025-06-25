@@ -1,18 +1,7 @@
-import {
-    Button,
-    Box,
-    HStack,
-    VStack,
-    Text,
-    Icon,
-    Image,
-    Tag,
-    ButtonProps,
-} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IconType } from 'react-icons';
 
-type ActionButtonProps = {
+interface ActionButtonProps {
     title: string;
     description?: string;
     onClick: () => void;
@@ -32,7 +21,7 @@ type ActionButtonProps = {
     extraContent?: React.ReactNode;
     dataTestId?: string;
     variant?: string;
-};
+}
 
 export const ActionButton = ({
     leftIcon,
@@ -55,11 +44,8 @@ export const ActionButton = ({
 }: ActionButtonProps) => {
     const { t } = useTranslation();
     return (
-        <Button
-            variant={variant}
-            py={stacked ? 0 : 2}
+        <button className="px-4 py-2 rounded-md transition-colors"
             onClick={onClick}
-            display={hide ? 'none' : 'flex'}
             isDisabled={showComingSoon || isDisabled}
             isLoading={isLoading}
             loadingText={loadingText}
@@ -68,66 +54,55 @@ export const ActionButton = ({
             data-testid={dataTestId}
             {...style}
         >
-            <HStack w={'full'} justify={'space-between'} alignItems={'center'}>
-                <Box minW={'40px'} h={'20px'}>
+            <div className="flex items-center" alignItems={'center'}>
+                <div>
                     {leftImage ? (
-                        <Image
+                        <img
                             src={leftImage}
-                            w={'30px'}
-                            h={'30px'}
-                            borderRadius={'full'}
                             alt="left-image"
                             alignSelf={'end'}
-                            objectFit="cover"
-                        />
+                            objectFit="cover" />
                     ) : (
-                        <Icon
-                            as={leftIcon}
+                        <leftIcon
                             fontSize={'20px'}
                             h={'full'}
                             alignContent={'center'}
-                        />
+                         />
                     )}
-                </Box>
-                <VStack
-                    textAlign={'left'}
-                    w={'full'}
+                </div>
+                <div className="flex flex-col"
                     flex={1}
                     justifyContent={'flex-start'}
                     alignItems={'flex-start'}
                 >
-                    <HStack justify={'flex-start'} alignItems={'baseline'}>
-                        <Text fontSize={'sm'} fontWeight={'400'}>
+                    <div className="flex items-center" alignItems={'baseline'}>
+                        <span>
                             {title}
-                        </Text>
+                        </span>
                         {showComingSoon && (
-                            <Tag size="sm" colorScheme="red">
+                            <span>
                                 {t('Coming Soon!')}
-                            </Tag>
+                            </span>
                         )}
                         {extraContent}
-                    </HStack>
+                    </div>
 
-                    {/* <Text
-                        fontSize={'xs'}
-                        fontWeight={'400'}
+                    {/* <span
                         opacity={0.5}
-                        overflowWrap={'break-word'}
+                        overflowWra
                         wordBreak={'break-word'}
                         whiteSpace={'normal'}
-                        w={'full'}
-                        pr={rightIcon ? '0px' : '10px'}
                     >
                         {description}
-                    </Text> */}
-                </VStack>
+                    </span> */}
+                </div>
 
                 {rightIcon && (
-                    <VStack minW={'40px'} justifyContent={'flex-end'}>
-                        <Icon as={rightIcon} fontSize={'20px'} opacity={0.5} />
-                    </VStack>
+                    <div className="flex flex-col" justifyContent={'flex-end'}>
+                        <rightIcon fontSize={'20px'} opacity={0.5}  />
+                    </div>
                 )}
-            </HStack>
-        </Button>
+            </div>
+        </button>
     );
 };

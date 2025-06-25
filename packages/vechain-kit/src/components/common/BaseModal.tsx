@@ -1,15 +1,8 @@
 import { VechainKitThemeProvider } from '@/providers';
-import {
-    Modal,
-    ModalContent,
-    ModalContentProps,
-    ModalOverlay,
-    useMediaQuery,
-} from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import { useVeChainKitConfig } from '@/providers';
 
-type BaseModalProps = {
+interface BaseModalProps {
     isOpen: boolean;
     onClose: () => void;
     children: ReactNode;
@@ -24,7 +17,7 @@ type BaseModalProps = {
     allowExternalFocus?: boolean;
     backdropFilter?: string;
     isCloseable?: boolean;
-};
+}
 
 export const BaseModal = ({
     isOpen,
@@ -39,7 +32,7 @@ export const BaseModal = ({
     backdropFilter,
     isCloseable = true,
 }: BaseModalProps) => {
-    const [isDesktop] = useMediaQuery('(min-width: 768px)');
+    const isDesktop = useMediaQuery('(min-width: 768px)');
     const { darkMode } = useVeChainKitConfig();
 
     const modalContentProps: ModalContentProps = isDesktop

@@ -1,19 +1,3 @@
-import {
-    ModalBody,
-    ModalCloseButton,
-    ModalHeader,
-    VStack,
-    Input,
-    InputGroup,
-    InputLeftElement,
-    Grid,
-    GridItem,
-    ModalFooter,
-    Text,
-    Box,
-    Spinner,
-    Center,
-} from '@chakra-ui/react';
 import { CiSearch } from 'react-icons/ci';
 import { ModalBackButton, StickyHeaderContainer } from '@/components/common';
 import { AccountModalContentTypes } from '../../Types';
@@ -37,7 +21,7 @@ import {
 import { Analytics } from '@/utils/mixpanelClientInstance';
 import { AllowedCategories } from './Components/CategoryLabel';
 
-export type EcosystemWithCategoryProps = {
+export interface EcosystemWithCategoryProps {
     selectedCategory: CategoryFilter;
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
@@ -223,7 +207,7 @@ export const ExploreEcosystemContent = ({
     };
 
     return (
-        <Box>
+        <div>
             <StickyHeaderContainer>
                 <ModalHeader>{t('Ecosystem')}</ModalHeader>
                 <ModalBackButton onClick={() => setCurrentContent('main')} />
@@ -231,35 +215,27 @@ export const ExploreEcosystemContent = ({
             </StickyHeaderContainer>
 
             <ModalBody overflowY="auto" minH="300px">
-                <VStack spacing={6} w="full">
+                <div className="flex flex-col space-y-6">
                     <ShortcutsSection setCurrentContent={setCurrentContent} />
 
                     {shortcuts.length > 0 && (
-                        <Text
-                            fontSize="sm"
-                            fontWeight="500"
-                            w="full"
-                            textAlign="left"
+                        <span
                         >
                             {t('All apps')}
-                        </Text>
+                        </span>
                     )}
-                    <InputGroup size="lg">
-                        <Input
+                    <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"Group>
+                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder={t('Search Apps')}
                             value={searchQuery}
                             onChange={handleSearchChange}
-                            bg={isDark ? '#00000038' : 'gray.50'}
-                            borderRadius="xl"
-                            height="56px"
-                            pl={12}
-                        />
-                        <InputLeftElement h="56px" w="56px" pl={4}>
+                            height="56px" />
+                        <input className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"LeftElement>
                             <CiSearch
                                 color={isDark ? 'whiteAlpha.400' : 'gray.400'}
                             />
-                        </InputLeftElement>
-                    </InputGroup>
+                        </div>
+                    </div>
 
                     {/* Category filter section */}
                     {categories.length > 0 && (
@@ -271,13 +247,13 @@ export const ExploreEcosystemContent = ({
                         />
                     )}
 
-                    <Grid templateColumns="repeat(2, 1fr)" gap={4} w="full">
+                    <div templateColumns="repeat(2, 1fr)" ga>
                         {/* Default Apps */}
                         {shouldShowDefaultApps &&
                             filteredDefaultApps.length > 0 && (
                                 <>
                                     {filteredDefaultApps.map((dapp) => (
-                                        <GridItem key={dapp.name}>
+                                        <divItem key={dapp.name}>
                                             <CustomAppComponent
                                                 name={dapp.name}
                                                 image={dapp.logo}
@@ -294,7 +270,7 @@ export const ExploreEcosystemContent = ({
                                                         dapp.logoComponent,
                                                 })}
                                             />
-                                        </GridItem>
+                                        </div>
                                     ))}
                                 </>
                             )}
@@ -303,7 +279,7 @@ export const ExploreEcosystemContent = ({
                         {shouldShowVbdApps && filteredVbdApps.length > 0 && (
                             <>
                                 {filteredVbdApps.map((dapp) => (
-                                    <GridItem key={dapp.id}>
+                                    <divItem key={dapp.id}>
                                         <AppComponent
                                             xApp={dapp.app}
                                             setCurrentContent={
@@ -311,27 +287,27 @@ export const ExploreEcosystemContent = ({
                                             }
                                             selectedCategory={currentCategory}
                                         />
-                                    </GridItem>
+                                    </div>
                                 ))}
                             </>
                         )}
 
                         {/* App Hub Apps */}
                         {appHubLoading ? (
-                            <GridItem colSpan={2}>
-                                <Center py={4}>
-                                    <Spinner />
-                                </Center>
-                            </GridItem>
+                            <divItem colSpan={2}>
+                                <div>
+                                    <div />
+                                </div>
+                            </div>
                         ) : appHubError ? (
-                            <GridItem colSpan={2}>
-                                <Text color="red.500" textAlign="center">
+                            <divItem colSpan={2}>
+                                <span>
                                     {t('Failed to load App Hub apps')}
-                                </Text>
-                            </GridItem>
+                                </span>
+                            </div>
                         ) : filteredAppHubApps.length > 0 ? (
                             filteredAppHubApps.map((app: AppHubApp) => (
-                                <GridItem key={app.id}>
+                                <divItem key={app.id}>
                                     <CustomAppComponent
                                         name={app.name}
                                         image={app.logo}
@@ -341,27 +317,27 @@ export const ExploreEcosystemContent = ({
                                         category={app.category}
                                         selectedCategory={currentCategory}
                                     />
-                                </GridItem>
+                                </div>
                             ))
                         ) : (
                             currentCategory &&
                             !shouldShowVbdApps && (
-                                <GridItem colSpan={2}>
-                                    <Center py={4}>
-                                        <Text>
+                                <divItem colSpan={2}>
+                                    <div>
+                                        <span>
                                             {t(
                                                 'No apps found in this category',
                                             )}
-                                        </Text>
-                                    </Center>
-                                </GridItem>
+                                        </span>
+                                    </div>
+                                </div>
                             )
                         )}
-                    </Grid>
-                </VStack>
+                    </div>
+                </div>
             </ModalBody>
 
             <ModalFooter pt={0} />
-        </Box>
+        </div>
     );
 };

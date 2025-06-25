@@ -1,17 +1,3 @@
-import {
-    Accordion,
-    AccordionItem,
-    AccordionButton,
-    AccordionPanel,
-    Box,
-    Text,
-    Icon,
-    List,
-    ListItem,
-    Tag,
-    HStack,
-    VStack,
-} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { IoChevronDown, IoChevronUp, IoTrashOutline } from 'react-icons/io5';
 import { useVeChainKitConfig } from '@/providers';
@@ -20,7 +6,7 @@ import { useWalletMetadata } from '@/hooks/api/wallet/useWalletMetadata';
 import { AccountAvatar } from '@/components/common';
 import { getPicassoImage, humanDomain } from '@/utils';
 
-type ExistingDomainsListProps = {
+interface ExistingDomainsListProps {
     domains: { name: string }[];
     onDomainSelect: (domain: string) => void;
     onUnsetDomain: () => void;
@@ -63,7 +49,7 @@ const DomainListItem = ({
             onClick={() => !isCurrentDomain && onSelect(domain.name)}
             transition="all 0.2s"
         >
-            <HStack spacing={3} align="center">
+            <div className="flex items-center">
                 <AccountAvatar
                     props={{
                         width: '40px',
@@ -73,37 +59,26 @@ const DomainListItem = ({
                     }}
                 />
 
-                <VStack align="start" spacing={0} flex={1}>
-                    <Text
-                        color={isDark ? 'whiteAlpha.900' : 'gray.700'}
-                        fontSize="md"
-                        fontWeight="500"
+                <div className="flex flex-col" flex={1}>
+                    <span
                     >
                         {humanDomain(domain.name, 24, 0)}
-                    </Text>
+                    </span>
                     {isCurrentDomain && (
-                        <Text
-                            fontSize="sm"
-                            color={isDark ? 'whiteAlpha.600' : 'blackAlpha.600'}
+                        <span
                         >
                             {t('Current domain')}
-                        </Text>
+                        </span>
                     )}
-                </VStack>
+                </div>
 
                 {isCurrentDomain && (
-                    <Tag
-                        size="sm"
-                        bg={isDark ? '#ffffff0a' : 'whiteAlpha.100'}
-                        color={isDark ? 'whiteAlpha.900' : 'blackAlpha.600'}
-                        px={3}
-                        py={1}
-                        borderRadius="full"
+                    <span
                     >
                         {t('Current')}
-                    </Tag>
+                    </span>
                 )}
-            </HStack>
+            </div>
         </ListItem>
     );
 };
@@ -131,41 +106,32 @@ const UnsetDomainListItem = ({ onUnset }: { onUnset: () => void }) => {
             role="button"
             aria-label={t('Unset current domain')}
         >
-            <HStack spacing={3} align="center">
-                <Box
-                    width="40px"
+            <div className="flex items-center">
+                <div
+                    widt
                     height="40px"
-                    borderRadius="full"
-                    display="flex"
                     alignItems="center"
                     justifyContent="center"
-                    bg={isDark ? 'whiteAlpha.100' : 'gray.100'}
                 >
-                    <Icon
-                        as={IoTrashOutline}
+                    <IoTrashOutline
                         fontSize="18px"
                         color={isDark ? 'red.300' : 'red.500'}
-                    />
-                </Box>
-                <VStack align="start" spacing={0} flex={1}>
-                    <Text
-                        color={isDark ? 'whiteAlpha.900' : 'gray.700'}
-                        fontSize="md"
-                        fontWeight="500"
+                     />
+                </div>
+                <div className="flex flex-col" flex={1}>
+                    <span
                     >
                         {t('Unset current domain')}
-                    </Text>
-                    <Text
-                        fontSize="sm"
-                        color={isDark ? 'whiteAlpha.600' : 'blackAlpha.600'}
+                    </span>
+                    <span
                     >
                         {t('Remove your current domain name')}
-                    </Text>
-                </VStack>
-            </HStack>
+                    </span>
+                </div>
+            </div>
         </ListItem>
     );
-};
+}
 
 export const ExistingDomainsList = ({
     domains,
@@ -183,13 +149,11 @@ export const ExistingDomainsList = ({
     }
 
     return (
-        <Accordion allowToggle>
-            <AccordionItem border="none">
+        <div allowToggle>
+            <divItem>
                 {({ isExpanded }) => (
                     <>
-                        <AccordionButton
-                            bg={isDark ? 'whiteAlpha.50' : 'gray.50'}
-                            borderRadius="xl"
+                        <divButton
                             _hover={{
                                 bg: isDark ? 'whiteAlpha.100' : 'gray.100',
                             }}
@@ -197,22 +161,21 @@ export const ExistingDomainsList = ({
                             transition="all 0.2s"
                             disabled={isLoading}
                         >
-                            <Box flex="1" textAlign="left" py={2}>
-                                <Text fontWeight="500">
+                            <div flex="1">
+                                <span>
                                     {isLoading
                                         ? t('Loading your domains...')
                                         : `${t('Your existing domains')} (${
                                               domains.length
                                           })`}
-                                </Text>
-                            </Box>
-                            <Icon
-                                as={isExpanded ? IoChevronUp : IoChevronDown}
+                                </span>
+                            </div>
+                            <isExpanded ? IoChevronUp : IoChevronDown
                                 fontSize="20px"
                                 opacity={0.5}
-                            />
-                        </AccordionButton>
-                        <AccordionPanel pb={4} pt={2}>
+                             />
+                        </button>
+                        <divPanel>
                             <List spacing={2}>
                                 {domains.map((domain) => (
                                     <DomainListItem
@@ -230,10 +193,10 @@ export const ExistingDomainsList = ({
                                     />
                                 )}
                             </List>
-                        </AccordionPanel>
+                        </div>
                     </>
                 )}
-            </AccordionItem>
-        </Accordion>
+            </div>
+        </div>
     );
 };

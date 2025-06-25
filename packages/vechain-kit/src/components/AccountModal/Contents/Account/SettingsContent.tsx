@@ -1,11 +1,3 @@
-import {
-    ModalBody,
-    VStack,
-    ModalFooter,
-    ModalHeader,
-    Box,
-    ModalCloseButton,
-} from '@chakra-ui/react';
 import { useUpgradeRequired, useWallet } from '@/hooks';
 import { MdOutlineNavigateNext } from 'react-icons/md';
 import { ActionButton } from '@/components';
@@ -22,12 +14,12 @@ import { Analytics } from '@/utils/mixpanelClientInstance';
 import { CgProfile } from 'react-icons/cg';
 import { IoSettingsOutline } from 'react-icons/io5';
 
-export type SettingsContentProps = {
+export interface SettingsContentProps {
     setCurrentContent: React.Dispatch<
         React.SetStateAction<AccountModalContentTypes>
     >;
     onLogoutSuccess: () => void;
-};
+}
 
 export const SettingsContent = ({
     setCurrentContent,
@@ -118,7 +110,7 @@ export const SettingsContent = ({
     };
 
     return (
-        <Box>
+        <div>
             <StickyHeaderContainer>
                 <ModalHeader>{t('Settings')}</ModalHeader>
 
@@ -127,8 +119,8 @@ export const SettingsContent = ({
             </StickyHeaderContainer>
 
             <ModalBody w={'full'}>
-                <VStack w={'full'} spacing={4}>
-                    <VStack w={'full'} spacing={0}>
+                <div className="flex flex-col space-y-4">
+                    <div className="flex flex-col">
                         <ActionButton
                             style={{
                                 marginTop: '10px',
@@ -150,9 +142,9 @@ export const SettingsContent = ({
                             leftIcon={FaRegAddressCard}
                             rightIcon={MdOutlineNavigateNext}
                         />
-                    </VStack>
+                    </div>
 
-                    <VStack w={'full'} spacing={0}>
+                    <div className="flex flex-col">
                         {connection.isConnectedWithPrivy && (
                             <ActionButton
                                 style={{
@@ -164,15 +156,11 @@ export const SettingsContent = ({
                                 rightIcon={MdOutlineNavigateNext}
                                 extraContent={
                                     upgradeRequired && (
-                                        <Box
-                                            minWidth="8px"
+                                        <div
+                                            minWidt
                                             height="8px"
-                                            bg="red.500"
-                                            borderRadius="full"
-                                            display="flex"
                                             alignItems="center"
-                                            justifyContent="center"
-                                        />
+                                            justifyContent="center" />
                                     )
                                 }
                             />
@@ -195,15 +183,11 @@ export const SettingsContent = ({
                             rightIcon={MdOutlineNavigateNext}
                             extraContent={
                                 showGeneralRedDot && (
-                                    <Box
-                                        minWidth="8px"
+                                    <div
+                                        minWidt
                                         height="8px"
-                                        bg="red.500"
-                                        borderRadius="full"
-                                        display="flex"
                                         alignItems="center"
-                                        justifyContent="center"
-                                    />
+                                        justifyContent="center" />
                                 )
                             }
                         />
@@ -225,8 +209,8 @@ export const SettingsContent = ({
                                 borderTopRadius: '0px',
                             }}
                         />
-                    </VStack>
-                    <VStack w={'full'} spacing={0}>
+                    </div>
+                    <div className="flex flex-col">
                         <ActionButton
                             style={{
                                 borderBottomRadius: '0px',
@@ -254,10 +238,10 @@ export const SettingsContent = ({
                             }
                             leftIcon={RiLogoutBoxLine}
                         />
-                    </VStack>
-                </VStack>
+                    </div>
+                </div>
             </ModalBody>
             <ModalFooter pt={0} />
-        </Box>
+        </div>
     );
 };

@@ -1,4 +1,3 @@
-import { Button, Icon } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 import { useEcosystemShortcuts } from '@/hooks';
@@ -9,7 +8,7 @@ type Props = {
     image: string;
     url: string;
     description?: string;
-};
+}
 
 export const ShortcutButton = ({ name, image, url, description }: Props) => {
     const { t } = useTranslation();
@@ -26,16 +25,13 @@ export const ShortcutButton = ({ name, image, url, description }: Props) => {
     };
 
     return (
-        <Button
-            px={4}
-            width="full"
+        <button className="px-4 py-2 rounded-md transition-colors"
+            widt
             height="45px"
-            variant="vechainKitSecondary"
-            borderRadius="xl"
             onClick={handleShortcutClick}
-            leftIcon={<Icon as={hasShortcut ? BsBookmarkFill : BsBookmark} />}
+            leftIcon={<hasShortcut ? BsBookmarkFill : BsBookmark  />}
         >
             {hasShortcut ? t('Remove from shortcuts') : t('Add to shortcuts')}
-        </Button>
+        </button>
     );
 };

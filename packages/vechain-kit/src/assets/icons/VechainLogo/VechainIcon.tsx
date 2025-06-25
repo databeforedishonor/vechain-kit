@@ -1,4 +1,3 @@
-import { IconProps } from '@chakra-ui/react';
 import React from 'react';
 import { VechainIconLight } from './VechainIconLight';
 import { VechainIconDark } from './VechainIconDark';

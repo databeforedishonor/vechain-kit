@@ -1,15 +1,14 @@
-import { IconButton, IconButtonProps } from '@chakra-ui/react';
 import { IoChevronBack } from 'react-icons/io5';
 
-type BackButtonProps = {
+interface BackButtonProps {
     onClick: () => void;
-} & Partial<IconButtonProps>;
+} & Partial<buttonProps>;
 
 export const ModalBackButton = ({ onClick, ...props }: BackButtonProps) => {
     return (
-        <IconButton
+        <button
             aria-label="Back"
-            icon={<IoChevronBack fontSize={'20px'} />}
+            icon={<IoChevronBack />}
             size="sm"
             variant="ghost"
             _hover={{ bg: 'blackAlpha.100' }}

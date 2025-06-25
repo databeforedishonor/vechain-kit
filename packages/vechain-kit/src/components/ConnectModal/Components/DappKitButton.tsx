@@ -1,4 +1,3 @@
-import { GridItem, Icon } from '@chakra-ui/react';
 import { useDAppKitWalletModal, usePrivy } from '@/hooks';
 import { ConnectionButton } from '@/components';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +15,7 @@ import { useVeChainKitConfig } from '@/providers';
 type Props = {
     isDark: boolean;
     gridColumn?: number;
-};
+}
 
 export const DappKitButton = ({ isDark, gridColumn = 2 }: Props) => {
     const { t } = useTranslation();
@@ -90,7 +89,7 @@ export const DappKitButton = ({ isDark, gridColumn = 2 }: Props) => {
     };
 
     return (
-        <GridItem colSpan={gridColumn ? gridColumn : 2} w={'full'}>
+        <divItem colSpan={gridColumn ? gridColumn : 2}>
             <ConnectionButton
                 isDark={isDark}
                 onClick={handleDappKitClick}
@@ -105,11 +104,11 @@ export const DappKitButton = ({ isDark, gridColumn = 2 }: Props) => {
                 text={gridColumn >= 2 ? buttonText : undefined}
                 rightIcon={
                     (dappKit?.allowedWallets?.includes('sync2') && (
-                        <Icon as={IoIosArrowForward} />
+                        <IoIosArrowForward  />
                     )) ||
                     undefined
                 }
             />
-        </GridItem>
+        </div>
     );
 };

@@ -1,4 +1,3 @@
-import { Text, HStack, VStack } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { CrossAppConnectionCache } from '@/types';
 import { useVeChainKitConfig } from '@/providers';
@@ -6,7 +5,7 @@ import { NetworkInfo } from './NetworkInfo';
 
 type Props = {
     connectionCache: CrossAppConnectionCache;
-};
+}
 
 export const CrossAppConnectionCard = ({ connectionCache }: Props) => {
     const { t } = useTranslation();
@@ -15,46 +14,33 @@ export const CrossAppConnectionCard = ({ connectionCache }: Props) => {
     return (
         <>
             {connectionCache.ecosystemApp && (
-                <VStack
-                    p={4}
-                    bg={isDark ? '#00000038' : '#f5f5f5'}
-                    borderRadius={'xl'}
-                    spacing={4}
-                    w="full"
+                <div className="flex flex-col space-y-4"
                 >
-                    <HStack w="full" justifyContent="space-between">
-                        <Text
-                            fontSize="sm"
-                            color={isDark ? '#dfdfdd' : '#4d4d4d'}
+                    <div className="flex items-center" justifyContent="space-between">
+                        <span
                         >
                             {t('Logged in with')}:
-                        </Text>
-                        <Text
-                            fontSize="sm"
-                            color={isDark ? '#dfdfdd' : '#4d4d4d'}
+                        </span>
+                        <span
                         >
                             {connectionCache.ecosystemApp.name}
-                        </Text>
-                    </HStack>
+                        </span>
+                    </div>
 
-                    <HStack w="full" justifyContent="space-between">
-                        <Text
-                            fontSize="sm"
-                            color={isDark ? '#dfdfdd' : '#4d4d4d'}
+                    <div className="flex items-center" justifyContent="space-between">
+                        <span
                         >
                             {t('At')}:
-                        </Text>
-                        <Text
-                            fontSize="sm"
-                            color={isDark ? '#dfdfdd' : '#4d4d4d'}
+                        </span>
+                        <span
                         >
                             {new Date(
                                 connectionCache.timestamp,
                             ).toLocaleString()}
-                        </Text>
-                    </HStack>
+                        </span>
+                    </div>
                     <NetworkInfo />
-                </VStack>
+                </div>
             )}
         </>
     );
